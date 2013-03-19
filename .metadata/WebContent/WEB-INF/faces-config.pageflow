@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13637121504520" configfile="/CSC4996-4997-Winter2013-MJK/WebContent/WEB-INF/faces-config.xml"/>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13637121504520" configfile="/CSC4996-4997-Winter2013-MJK/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="Login" x="129" y="164" id="pf13637160004551" outlinks="pf13637160004552 pf13637160004553" path="/Login.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="success" x="381" y="138" id="pf13637160004554" inlinks="pf13637160004552" path="/success.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="failed" x="434" y="267" id="pf13637160004555" inlinks="pf13637160004553" path="/failed.jsp"/>
+  <links id="pf13637160004552" target="pf13637160004554" source="pf13637160004551" outcome="success"/>
+  <links id="pf13637160004553" target="pf13637160004555" source="pf13637160004551" outcome="failed"/>
+</pageflow:Pageflow>

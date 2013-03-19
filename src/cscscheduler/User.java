@@ -11,11 +11,11 @@ package cscscheduler;
 				private String password;
 
 		
-	public String getEmail() {
+	public String getaccessID() {
 			return accessID;
 		}
 
-		public void setAccessId(String email) {
+		public void setAccessID(String accessID) {
 		this.accessID = accessID;
 		}
 		public String getPassword() {
