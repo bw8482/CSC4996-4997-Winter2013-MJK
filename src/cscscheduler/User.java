@@ -1,0 +1,57 @@
+package cscscheduler;
+
+
+	import java.util.Hashtable;
+	import javax.naming.Context;
+	import javax.naming.directory.InitialDirContext;
+
+	public class User {
+
+				private String accessID;
+				private String password;
+
+		
+	public String getEmail() {
+			return accessID;
+		}
+
+		public void setAccessId(String email) {
+		this.accessID = accessID;
+		}
+		public String getPassword() {
+			return password;
+		}
+		public void setPassword(String password) {
+			this.password = password;
+		}
+
+
+		public String login() throws Exception
+		{
+
+				// Try to authenticate via LDAP)
+
+				Hashtable ldap= new Hashtable();
+				ldap.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+				ldap.put(Context.PROVIDER_URL, "ldap://directory.wayne.edu");
+				ldap.put(Context.SECURITY_AUTHENTICATION, "simple");
+
+
+				String principal = "uid="+ accessID + ", ou=people,dc=wayne,dc=edu";
+				ldap.put(Context.SECURITY_PRINCIPAL, principal);
+				ldap.put(Context.SECURITY_CREDENTIALS, password);	
+
+
+				try
+				{
+					InitialDirContext ctx = new InitialDirContext(ldap);
+					return "success";
+				}
+
+				catch (Exception e)
+				{
+					return "failed";
+				}
+		}
+	}
+
