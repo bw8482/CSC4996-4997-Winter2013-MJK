@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 20, 2013 4:04:02 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="cscscheduler.Appointments" table="APPOINTMENTS" catalog="mjkuser">
+        <composite-id name="id" class="cscscheduler.AppointmentsId">
+            <key-property name="studentEmail" type="string">
+                <column name="STUDENT_EMAIL" length="100" />
+            </key-property>
+            <key-property name="apptDate" type="date">
+                <column name="APPT_DATE" length="10" />
+            </key-property>
+        </composite-id>
+        <property name="reason" type="java.lang.Integer">
+            <column name="REASON" />
+        </property>
+        <property name="comments" type="string">
+            <column name="COMMENTS" length="65535" />
+        </property>
+        <property name="apptTime" type="time">
+            <column name="APPT_TIME" length="8" not-null="true" />
+        </property>
+        <property name="advisorAccessId" type="string">
+            <column name="ADVISOR_ACCESS_ID" length="7" />
+        </property>
+        <property name="tsCreated" type="timestamp">
+            <column name="TS_CREATED" length="19" not-null="true" />
+        </property>
+        <property name="attendance" type="java.lang.Integer">
+            <column name="ATTENDANCE" />
+        </property>
+        <property name="cancelled" type="java.lang.Integer">
+            <column name="CANCELLED" />
+        </property>
+    </class>
+</hibernate-mapping>

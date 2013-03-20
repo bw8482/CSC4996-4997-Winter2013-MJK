@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 20, 2013 4:04:02 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="cscscheduler.AdvisorAvailability" table="ADVISOR_AVAILABILITY" catalog="mjkuser">
+        <composite-id name="id" class="cscscheduler.AdvisorAvailabilityId">
+            <key-property name="advisorAccessId" type="string">
+                <column name="ADVISOR_ACCESS_ID" length="7" />
+            </key-property>
+            <key-property name="weekday" type="string">
+                <column name="WEEKDAY" length="10" />
+            </key-property>
+            <key-property name="startTime" type="int">
+                <column name="START_TIME" />
+            </key-property>
+            <key-property name="endTime" type="int">
+                <column name="END_TIME" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>
