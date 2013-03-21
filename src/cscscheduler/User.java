@@ -28,8 +28,15 @@ package cscscheduler;
 
 		public String login() throws Exception
 		{
-
-				// Try to authenticate via LDAP)
+				//Hardcode advisor
+				
+				if (accessID == "fg8527")
+					{
+						return "advisor";
+					}
+				
+			
+					// Try to authenticate via LDAP)
 
 				Hashtable ldap= new Hashtable();
 				ldap.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
@@ -45,7 +52,7 @@ package cscscheduler;
 				try
 				{
 					InitialDirContext ctx = new InitialDirContext(ldap);
-					return "success";
+					return "student";
 				}
 
 				catch (Exception e)
