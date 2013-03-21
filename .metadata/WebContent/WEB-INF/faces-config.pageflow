@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13637121504520" configfile="/CSC4996-4997-Winter2013-MJK/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="Login" x="122" y="370" id="pf13637160004551" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf13638386560970 pf13638386560971 pf13638386560972" inlinks="pf13638386560970" path="/Login.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="Login" x="122" y="370" id="pf13637160004551" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf13638386560970 pf13638729123810 pf13638729123811" inlinks="pf13638386560970" path="/Login.jsp"/>
   <nodes xsi:type="pageflow:PFPage" name="success" x="122" y="754" id="pf13637160004554" path="/success.jsp"/>
   <nodes xsi:type="pageflow:PFPage" name="failed" x="122" y="1138" id="pf13637160004555" path="/failed.jsp"/>
-  <nodes xsi:type="pageflow:PFPage" name="Student" x="492" y="228" id="pf13638386560973" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf13638386560971" path="/Student.jsp"/>
-  <nodes xsi:type="pageflow:PFPage" name="Advisor" x="492" y="348" id="pf13638386560974" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf13638386560972" path="/Advisor.jsp"/>
-  <links id="pf13638386560971" target="pf13638386560973" source="pf13637160004551" outcome="student"/>
-  <links id="pf13638386560972" target="pf13638386560974" source="pf13637160004551" outcome="advisor"/>
+  <nodes xsi:type="pageflow:PFPage" name="advisorLanding" x="528" y="360" id="pf13638729123812" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf13638729123811" path="/advisorLanding.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="studentLanding" x="504" y="228" id="pf13638729123813" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf13638729123810" path="/studentLanding.jsp"/>
   <links id="pf13638386560970" target="pf13637160004551" source="pf13637160004551" outcome="failed">
     <bendPoints d1Height="-36" d2Height="-36"/>
     <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
     <bendPoints d1Width="-64" d2Width="-64"/>
   </links>
+  <links id="pf13638729123810" target="pf13638729123813" source="pf13637160004551" outcome="student"/>
+  <links id="pf13638729123811" target="pf13638729123812" source="pf13637160004551" outcome="advisor"/>
 </pageflow:Pageflow>

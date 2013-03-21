@@ -1,6 +1,5 @@
 package cscscheduler;
 
-
 	import java.util.Hashtable;
 	import javax.naming.Context;
 	import javax.naming.directory.InitialDirContext;
@@ -30,34 +29,36 @@ package cscscheduler;
 		{
 				//Hardcode advisor
 				
-				if (accessID == "fg8527"  && password == "advisor")
+				if (accessID == "advisor"  && password == "advisor")
 					{
 						return "advisor";
 					}
 				
+				else
+				{
 			
 					// Try to authenticate via LDAP)
-
-				Hashtable ldap= new Hashtable();
-				ldap.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-				ldap.put(Context.PROVIDER_URL, "ldap://directory.wayne.edu");
-				ldap.put(Context.SECURITY_AUTHENTICATION, "simple");
-
-
-				String principal = "uid="+ accessID + ", ou=people,dc=wayne,dc=edu";
-				ldap.put(Context.SECURITY_PRINCIPAL, principal);
-				ldap.put(Context.SECURITY_CREDENTIALS, password);	
+					Hashtable ldap= new Hashtable();
+					ldap.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+					ldap.put(Context.PROVIDER_URL, "ldap://directory.wayne.edu");
+					ldap.put(Context.SECURITY_AUTHENTICATION, "simple");
 
 
-				try
-				{
+					String principal = "uid="+ accessID + ", ou=people,dc=wayne,dc=edu";
+					ldap.put(Context.SECURITY_PRINCIPAL, principal);
+					ldap.put(Context.SECURITY_CREDENTIALS, password);	
+
+
+					try
+					{
 					InitialDirContext ctx = new InitialDirContext(ldap);
 					return "student";
-				}
+					}
 
-				catch (Exception e)
-				{
-					return "failed";
+					catch (Exception e)
+					{
+					return "advisor";
+					}
 				}
 		}
 	}

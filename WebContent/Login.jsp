@@ -20,19 +20,19 @@
 		<table>
 			<tr>
 				<td>Access ID</td>
-				<td><h:inputText value="#{user.accessID}"></h:inputText></td>
+				<td><h:inputText value="#{ldap.accessId}"></h:inputText></td>
 			</tr>
 			<tr>
 				<td>Password</td>
-				<td><h:inputSecret value="#{user.password}"></h:inputSecret></td>
+				<td><h:inputSecret value="#{ldap.password}"></h:inputSecret></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td>Not a WSU student? <a href="Appointment.jsp">Click here</a> to schedule an appointment.</td>
+				<td>Not a WSU student? <a href="nonWSULanding.jsp">Click here</a> to schedule an appointment.</td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><h:commandButton action="#{user.login}" value="Login"></h:commandButton></td>
+				<td><h:commandButton action="#{ldap.authorized}" value="Login"></h:commandButton></td>
 			</tr>
 			<tr>
 				<td></td>
