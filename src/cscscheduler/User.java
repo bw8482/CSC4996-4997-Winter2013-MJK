@@ -30,7 +30,7 @@ package cscscheduler;
 		{
 				//Hardcode advisor
 				
-				if (accessID == "fg8527")
+				if (accessID == "fg8527"  && password == "advisor")
 					{
 						return "advisor";
 					}

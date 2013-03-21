@@ -10,7 +10,7 @@ public class Main {
 		
 		StudentManager manager = new StudentManager();
 		
-		manager.addStudent("","aw4025@wayne.edu", "Jacqueline", "Brown");
+		manager.addStudent("aw4025","aw4025@wayne.edu", "Jacqueline", "Brown");
 		
 		manager.listStudents();
 		
