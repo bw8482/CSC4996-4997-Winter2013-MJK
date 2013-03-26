@@ -10,6 +10,16 @@
 		<managed-bean-class>CSAppointmentSchedulerFaces.User</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>database</managed-bean-name>
+		<managed-bean-class>CSAppointmentSchedulerFaces.Database</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>advisor</managed-bean-name>
+		<managed-bean-class>CSAppointmentSchedulerFaces.Advisor</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
 	<navigation-rule>
 		<display-name>Login</display-name>
 		<from-view-id>/Login.jsp</from-view-id>
