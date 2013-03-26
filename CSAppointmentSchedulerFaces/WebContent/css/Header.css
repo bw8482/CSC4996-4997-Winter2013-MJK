@@ -1,0 +1,35 @@
+@CHARSET "UTF-8";
+
+div#header {
+	border-bottom:		2px solid #71958f;
+	padding:			1px;
+	margin-bottom:		5px;	
+	background-color:	#d2e5e2;
+	padding:			5px;
+	height:				62px;
+}
+
+div#header_title {
+	float: 			left;
+}
+
+div#header_user {
+	float: 			right;	
+	padding-top:	10px;
+	font-size:		11px;
+}
+
+div#header_wsu {
+	font-size:		36px;
+	color:			#8d2045;
+	font-weight:	bold;
+
+}
+
+div#header_wsu2 {
+	font-size:		11px;
+}
+
+div#header_cs {
+	font-size:		10px;
+}

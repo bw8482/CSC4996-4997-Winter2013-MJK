@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+
+div#loginBox {
+	background-color:	#e4e4e4;
+	font-size:			11px;
+	border:				1px solid #71958f;
+	padding:			5px;
+	margin-left:		5px;
+	width:				500px;	
+}
