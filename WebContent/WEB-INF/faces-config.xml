@@ -8,19 +8,6 @@
 	<managed-bean>
 		<managed-bean-name>user</managed-bean-name>
 		<managed-bean-class>CSAppointmentSchedulerFaces.User</managed-bean-class>
-<<<<<<< HEAD
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>database</managed-bean-name>
-		<managed-bean-class>CSAppointmentSchedulerFaces.Database</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>advisor</managed-bean-name>
-		<managed-bean-class>CSAppointmentSchedulerFaces.Advisor</managed-bean-class>
-=======
->>>>>>> origin/Working
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<navigation-rule>
