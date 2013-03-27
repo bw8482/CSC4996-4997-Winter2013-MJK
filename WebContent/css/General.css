@@ -3,14 +3,16 @@
 html, body {
 	font-size:		12px;
 	font-family:	Segoe ui, Arial;
-}
+	margin:			0px;
+	padding:		0px;
+} 
 
 input[type=text], input[type=password], select {
 	border:			1px solid #aaa;
 	width:			150px;
 	height:			15px;
 }
-
+/*
 input[type=submit], input[type=button], button {
 	border:			1px solid #aaa;
 	font-size:		11px;
@@ -21,7 +23,7 @@ input[type=submit], input[type=button], button {
 input[type=submit]:hover, input[type=button]:hover, button:hover, input[type=text]:hover, input[type=password]:hover {
 	border:			1px solid #747474;
 }
-
+*/
 table td {
 	vertical-align:	bottom;
 	font-size:		11px;
@@ -35,8 +37,54 @@ div.info, td.info {
 }
 
 div.error {
-	border:		1px solid red;
+	border:		1px solid #FF4848;
 	padding:	5px;
 	width:		300px;
-	background-color:	#d93a32;
+	background-color:	#FF7575;
+	margin-bottom: 5px;
+}
+
+div.success {
+	border:		1px solid #59955C;
+	padding:	5px;
+	width:		300px;
+	background-color:	#A6CAA9;
+	margin-bottom: 5px;
+}
+
+div#menu {
+	position:	fixed;
+	left:		5px;
+	top:		78px;
+	width:		160px;
+	background-color:	#d8d8d8;
+	font-size:	11px;
+	min-height:		50px;
+	border:		2px solid #979797;
+	padding:	5px;
+	
+}
+
+div#content {
+	position:	fixed;
+	left:		180px;
+	top:		78px;
+	margin-left:	5px;	
+	overflow:		hidden;
+	width:			1000px;
+	/*
+	border-top:		1px solid #4c5956;
+	padding-top:	5px;
+	*/
+}
+
+div#menu a {
+	display:	block;	
+	color:		#000;
+	cursor:		pointer;
+	text-decoration:	none;
+}
+
+div#menu a:hover {
+	text-decoration:	underline;
 }

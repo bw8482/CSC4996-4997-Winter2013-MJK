@@ -1,25 +1,10 @@
 @CHARSET "UTF-8";
 
-div#header {
-	border-bottom:	1px solid #005500;
-	padding:		1px;
-	margin-bottom:	5px;	
-}
-
-div#header_wsu {
-	font-size:		36px;
-	color:			#ffd732;
-	font-weight:	bold;
-}
-
-div#header_wsu2 {
-	font-size:		11px;
-}
-
-div#header_cs {
-	font-size:		10px;
-}
-
-div#newAppointment {
-	display:		none;
+div#loginBox {
+	background-color:	#e4e4e4;
+	font-size:			11px;
+	border:				1px solid #71958f;
+	padding:			5px;
+	margin-left:		5px;
+	width:				500px;	
 }

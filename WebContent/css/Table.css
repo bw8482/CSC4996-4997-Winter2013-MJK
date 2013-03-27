@@ -1,0 +1,40 @@
+@CHARSET "UTF-8";
+
+table.tbl, table.tblNoHighlight {
+	border:	1px solid black;
+	border-collapse: collapse;
+	font-size:	11px;
+}
+
+table.tbl th div, table.tblNoHighlight th div {
+	text-align:	left;
+	font-size:	11px;
+	padding:	3px;
+	background-color:	#98B2AD;
+	border-top:		1px solid #c1d0cd;
+	border-left:	1px solid #c1d0cd;
+	min-width:		100px;
+}
+
+table.tbl th, table.tblNoHighlight th {
+	border:		1px solid black;
+	padding:	0px;
+}
+
+tr.even {
+	background-color:	#efebef;
+}
+
+tr.odd {
+	background-color:	#f7f7f7;
+}
+
+table.tbl  tr:hover {
+	background-color:	#ffffbf;
+}
+
+table.tbl td, table.tblNoHighlight td {
+	padding:		3px;
+	border:			1px solid black;
+	word-break:		break-word;
+}

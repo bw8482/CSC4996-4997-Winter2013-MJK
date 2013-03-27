@@ -67,7 +67,7 @@ public class Ldap {
 			Hashtable ldap = new Hashtable();
 			ldap.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
 			ldap.put(Context.PROVIDER_URL, "ldap://directory.wayne.edu");
-			ldap.put(Context.SECURITY_AUTHENTICATION, "simple");
+			ldap.put(Context.SECURITY_AUTHENTICATION, "ssl");
 			
 			String principal = "uid="+ getAccessId() + ", ou=people,dc=wayne,dc=edu";
 			ldap.put(Context.SECURITY_PRINCIPAL, principal);

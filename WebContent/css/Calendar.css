@@ -1,0 +1,113 @@
+@CHARSET "UTF-8";
+
+table.calendar {
+	padding: 0px;
+	border-collapse: collapse;
+	border: 1px solid #000;
+}
+
+table.calendar tr.weekday {
+	background-color: #d2e5e2;
+}
+
+table.calendar tr.months td {
+	padding: 5px;
+	font-weight: bold;
+	background-color: #697B77;
+	color: #000;
+}
+
+table.calendar tr.weekday td {
+	border:	1px solid #000;
+	padding: 3px;
+	text-align:	center;
+	font-weight:	bold;
+}
+
+table.calendar tr.days td {
+	height:	40px;
+	width:	50px;
+	border:	1px solid black;	
+}
+
+table.calendar td.noday {
+	background-color: #e4e4e4;
+}
+
+table.calendar td.monthDay {
+	text-align: right;
+	vertical-align: top;
+	background-color: #f0f0f0;
+}
+
+table.calendar td.selectedDay {
+	background-color:	#ffffbf;
+	text-align: right;
+	vertical-align: top;
+	cursor: pointer;"WebContent/Advisor/Help.jsp"
+}
+table.calendar td.monthDay:hover {
+	background-color:	#ffffbf;
+}
+
+table.calendar td div.container {
+	position:	relative;
+}
+
+table.calendar td div.availability_btn {
+	border:	1px solid black;
+	width: 8px;
+	height: 8px;
+	background-color: #a9c5Eb;
+	color:	#fff;
+	position:	absolute;
+	left: 0px;
+	top: 1px;
+	cursor: pointer;
+}
+
+table.calendar td div.appointment_btn {
+	border:	1px solid black;
+	width: 8px;
+	height: 8px;
+	background-color: #c9decb;
+	color:	#fff;
+	position:	absolute;
+	left: 0px;
+	top: 12px;
+	cursor: pointer;
+}
+
+table.calendar td div.appointment_btn:hover, table.calendar td div.availability_btn:hover {
+	border: 1px solid #d8d8d8;
+	
+}
+
+div.appointment_btn {
+	background-color: #c9decb;
+	border:	1px solid black;
+	width:	8px;
+	height:	8px;
+	
+}
+
+div.availability_btn {
+	background-color: #a9c5Eb;
+	border:	1px solid black;
+	width:	8px;
+	height: 8px;
+}
+
+table.calendar td div.day_text {
+	position:	absolute;
+	width: px;
+	height: 12px;
+	/*
+	background-color: #d2e5e2;
+	border:	1px solid #000;
+	*/
+	right: 0px;
+	top: 0px;
+	font-size:	10px;
+	text-align:	center;
+}
