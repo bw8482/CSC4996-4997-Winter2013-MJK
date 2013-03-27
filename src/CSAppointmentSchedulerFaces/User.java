@@ -173,7 +173,7 @@ public class User {
 		
 		//System.out.println("Got Here");
 		//System.out.println("Access Id " + getAccessId());
-		//System.out.println("Passowrd " + getPassword());
+		//System.out.println("Password " + getPassword());
 		
 		Hashtable ldap = new Hashtable();
 		ldap.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
@@ -184,6 +184,17 @@ public class User {
 		ldap.put(Context.SECURITY_PRINCIPAL, principal);
 		ldap.put(Context.SECURITY_CREDENTIALS, getPassword());	
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 		try {
 			DirContext ctx = new InitialDirContext(ldap);
@@ -191,6 +202,11 @@ public class User {
 		    if(getAccessId().equals("ef2558")) {
 		    	return "Advisor Authorized";
 		    } else {
+		    	
+		    	// Query LDAP for user information
+		    	
+		    	
+		    	
 		    	return "Student Authorized";
 		    }
 			
@@ -202,6 +218,7 @@ public class User {
 		}
 	}
 	
+
 	public void logout() {
 		setAccessId(null);
 		setPassword(null);
