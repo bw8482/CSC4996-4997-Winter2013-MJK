@@ -1,10 +1,33 @@
 @CHARSET "UTF-8";
 
+html, body {
+	background-color:	#ebf1f0;
+}
 div#loginBox {
-	background-color:	#e4e4e4;
-	font-size:			11px;
-	border:				1px solid #71958f;
-	padding:			5px;
-	margin-left:		5px;
-	width:				500px;	
+	width:				450px;	
+	padding:	5px;
+	background-color:	#ebf1f0;
+}
+
+div#loginBox td {
+	font-size: 14px;
+	vertical-align: bottom;
+	
+}
+
+div#loginBox td img {
+	position: relative;
+	top:	5px;
+}
+
+div#loginBox input[type=text], div#loginBox input[type=password] {
+	border:	1px solid black;
+	height:	20px;
+	width:	200px;
+}
+
+div#loginBox input[type=submit] {
+	height:	20px;
+	width:	80px;
+	cursor:	pointer;
 }

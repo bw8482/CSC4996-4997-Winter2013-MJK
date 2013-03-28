@@ -105,10 +105,12 @@ public class User {
 	
 	public String buildHeaderMenu(String role) {
 		String header = "<div id ='header'>";
-		header += "<div id='header_title'>";
-		header += "<div id='header_wsu'>WSU</div>";
-		header += "<div id='header_wsu2'>Wayne State University</div>";
-		header += "<div id='header_cs'>Department of Computer Science - Appointment Scheduler</div>";
+		//header += "<div id='header_title'>";
+		//header += "<div id='header_wsu'>WSU</div>";
+		//header += "<div id='header_wsu2'>Wayne State University</div>";
+		//header += "<div id='header_cs'>Department of Computer Science - Appointment Scheduler</div>";
+		header += "<div id='header_logo'><img src='http://localhost:8080/CSC4996-4997-Winter2013-MJK/faces/img/logo.png'></div>";
+		header += "<div id='header_title'>Computer Science Department Appointment Scheduler</div>";
 		header += "</div>";
 		
 		if(role.equals("advisor")){
@@ -184,29 +186,13 @@ public class User {
 		ldap.put(Context.SECURITY_PRINCIPAL, principal);
 		ldap.put(Context.SECURITY_CREDENTIALS, getPassword());	
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
 		try {
 			DirContext ctx = new InitialDirContext(ldap);
 		    authorized = true;
 		    if(getAccessId().equals("ef2558")) {
 		    	return "Advisor Authorized";
 		    } else {
-		    	
-		    	// Query LDAP for user information
-		    	
-		    	
-		    	
+
 		    	return "Student Authorized";
 		    }
 			

@@ -1,16 +1,19 @@
 @CHARSET "UTF-8";
 
 div#header {
-	border-bottom:		2px solid #71958f;
-	padding:			1px;
-	margin-bottom:		5px;	
-	background-color:	#d2e5e2;
-	padding:			5px;
+	border-top:		4px solid #ebf1f0;
+	background-color:	#0c5449;
 	height:				62px;
+	color:				#fff;
+	padding-right:		5px;
 }
 
 div#header_title {
-	float: 			left;
+	text-align:left;
+	position: relative;
+	top: -10px;
+	font-size: 11px;
+	left: 70px;
 }
 
 div#header_user {

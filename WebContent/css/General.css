@@ -55,20 +55,26 @@ div.success {
 div#menu {
 	position:	fixed;
 	left:		5px;
-	top:		78px;
+	top:		70px;
 	width:		160px;
-	background-color:	#d8d8d8;
+	background-color:	#f5db8b;
 	font-size:	11px;
 	min-height:		50px;
-	border:		2px solid #979797;
+	border:		2px solid #e3cb81;
 	padding:	5px;
 	
+}
+
+div#menu hr {
+	height: 0px;
+	border-top:	1px solid #000;
+	border-bottom:	1px solid #e3cb81;	
 }
 
 div#content {
 	position:	fixed;
 	left:		180px;
-	top:		78px;
+	top:		70px;
 	margin-left:	5px;	
 	overflow:		hidden;
 	width:			1000px;

@@ -35,8 +35,6 @@
 		}
 	}
 	
-	//Database.connect();
-
 	String output = Advisor.getAppointments(date);
 	out.println(output);
 
