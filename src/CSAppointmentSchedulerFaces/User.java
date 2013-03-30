@@ -115,7 +115,7 @@ public class User {
 		
 		if(role.equals("advisor")){
 			header += "<div id='header_user'>";
-			header += "Welcome " + getName();
+			//header += "Welcome " + getName();
 			header += "</div>";
 		}
 		
@@ -129,7 +129,7 @@ public class User {
 				menu += "<a href='Advisor.jsp'>Home</a>";
 				menu += "<hr/>";
 				menu += "<a title='Quick look at appointments for today.' href='Appointments.jsp?date=today'>View Today's Appointments</a>";
-				menu += "<a title='Quick look at appointments for tomorrow.' href='Appointments.jsp?date=tomorrow'>View Tomorrow's Appointments</a>";
+				menu += "<a title='Quick look at appointments for this week.' href='Appointments.jsp?date=week'>View This Week's Appointments</a>";
 				menu += "<a title='Search apointments by date, student and/or reason.' href='SearchAppointments.jsp'>Search Appointments</a>";
 				menu += "<hr/>";
 				menu += "<a title='Use the calendar to update your availability for a specific date, view appointments on a specific date and send reminders for appointments.' href='Calendar.jsp'>Calendar</a>";

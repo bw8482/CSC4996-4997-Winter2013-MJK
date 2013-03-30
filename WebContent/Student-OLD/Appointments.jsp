@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="f"  uri="http://java.sun.com/jsf/core"%>
 <%@ taglib prefix="h"  uri="http://java.sun.com/jsf/html"%>
-<%@ page import="CSAppointmentSchedulerFaces.User" %>
+<%@ page import ="CSAppointmentSchedulerFaces.User" %>
+<%@ page import ="CSAppointmentSchedulerFaces.Student" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<LINK href="../css/Table.css" rel="stylesheet" type="text/css">
 <LINK href="../css/General.css" rel="stylesheet" type="text/css">
 <LINK href="../css/Header.css" rel="stylesheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -20,9 +22,12 @@
 %>
 
 <div id='content'>
-	<img src="http://localhost:8080/CSC4996-4997-Winter2013-MJK/faces/img/student_help.jpg" alt="Student Help" align="middle" width="800" height="900">
+<h2><center>View Your Appointments</center></h2>
+	<%
+	String output =Student.getAppointments();
+	out.print(output);
+	%>
 </div>
-
 </f:view>
 </body>
 </html>

@@ -19,7 +19,8 @@
 	out.println(headerMenu);
 %>
 <div id='content'>
-	Welcome to the <b style='color:#254117;'>Wayne State University</b> Computer Science Appointment Scheduler.
+	Welcome,  to the <b style='color:#254117;'>Wayne State University</b> Computer Science Appointment Scheduler<br>
+	
 </div>
 </f:view>
 </body>

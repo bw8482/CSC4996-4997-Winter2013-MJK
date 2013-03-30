@@ -18,11 +18,6 @@
 	String headerMenu = user.buildHeaderMenu("student");
 	out.println(headerMenu);
 %>
-
-<div id='content'>
-	<img src="http://localhost:8080/CSC4996-4997-Winter2013-MJK/faces/img/student_help.jpg" alt="Student Help" align="middle" width="800" height="900">
-</div>
-
 </f:view>
 </body>
 </html>

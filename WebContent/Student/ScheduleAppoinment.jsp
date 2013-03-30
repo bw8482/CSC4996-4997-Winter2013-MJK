@@ -10,7 +10,7 @@
 // Popup window code
 function newPopup(url) {
 	popupWindow = window.open(
-		url,'popUpWindow','height=700,width=800,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
+		url,'popUpWindow','height=700,width=900,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
 }
 </script>
 
@@ -35,72 +35,82 @@ function newPopup(url) {
 	} catch (Exception e) {
 		
 	}
-	
-	
-	
 %>
 <div id='content'>
 	Welcome to the <b style='color:#254117;'>Wayne State University</b> Computer Science Appointment Scheduler.
 	
-	<center><h2>Make an Appointment</h2></center>
-	
+	<div style='font-weight: bold; font-size: 12px; border-bottom: 1px solid #000; margin-bottom: 5px;'>Schedule an Appointments</div>
 	<form method ="post" action ="">
-	
-	<p>
-	<label>Select an Advisor<br>
-	<select name="advisordropdown">
-		<option value="s1">Select One</option>
-		<option value="ef2558">Colleen McKenney</option>
-		<option value="ef2558">John Brown</option>
-		<option value="ef2558">Kim French</option>
-	</select>
-	</label>
-	</p>
-	
-		<p>
-	<label>Pick a Day<br>
-	<input type="date"  name='date'placeholder ="yyyy-mm-dd" />
-	</label>
-	</p>
-	
-		<p>
-	<label>Pick a Time<br>
-	<input type ="time" name='time' placeholder ="hh:mm:ss" />
-	</label>
-	</p>
-	
-		<p>
-	<label>Select a reason for appointment<br>
-	<select name="reasondropdown" placeholder ="Reason">
-		<option value="s2">Select One</option>
-		<option value="academicdifficulty">Academic Difficulty</option>
-		<option value="sapappeal">SAP Appeal-(Bring SAP forms filled out ready to be signed)</option>
-		<option value="courseplanning">Course Schedule Planning</option>
-		<option value="graduationaudit">Graduation Audit</option>
-		<option value="generalinformation">General Information</option>
-		<option value="prospectivestudent">Prospective Non WSU student-(Bring transcripts)</option>
-	</select>
-	</label>
-	</p>
-	
-		<p>
-	<label>Current Major<br>
-	<select name="majordropdown">
-	    <option value="s3">Select One</option>
-		<option value="bs-cs">BS - Computer Science</option>
-		<option value="ba-cs">BA - Computer Science</option>
-		<option value="ba-ist">BA - Information Systems Technology</option>
-		<option value="ba-ist-imse">BA - Information Systems Technology (IMSE)</option>
-	</select>
-	</label>
-	</p>
-	
-	<p>
-	<input type="submit" name= "submit" value="Submit"/>
-	<input type="reset" value ="Clear" />
-	</p>
+		<div style='margin-top: 5px;'>
+			<label>Which Advisor would you like to schedule an appointment with?<br>
+			<select name="advisordropdown">
+				<option value="s1">Select One</option>
+				<option value="ef2558">Colleen McKenney</option>
+				<option value="ef2558">John Brown</option>
+				<option value="ef2558">Kim French</option>
+			</select>
+			</label>
+		</div>
+		
+		<div style='margin-top: 5px;'>
+			<label>Pick a Day<br>
+			<input type="date"  name='date'placeholder ="yyyy-mm-dd" />
+			</label>
+		</div>
+		
+		<div style='margin-top: 5px;'>
+			<label>Pick a Time<br>
+			<input type ="time" name='time' placeholder ="hh:mm:ss" />
+			</label>
+		</div>
+		
+		<div style='margin-top: 5px;'>
+			<label>Select a reason for this appointment<br>
+			<select name="reasondropdown" placeholder ="Reason">
+				<option value="s2">Select One</option>
+				<option value="academicdifficulty">Academic Difficulty</option>
+				<option value="sapappeal">SAP Appeal-(Bring SAP forms filled out ready to be signed)</option>
+				<option value="courseplanning">Course Schedule Planning</option>
+				<option value="graduationaudit">Graduation Audit</option>
+				<option value="generalinformation">General Information</option>
+				<option value="prospectivestudent">Prospective Non WSU student-(Bring transcripts)</option>
+			</select>
+			</label>
+		</div>
+		
+		<div style='margin-top: 5px;'>
+			<label>What is your current class standing?<br>
+			<select name="standingdropdown">
+			    <option value="s4">Select One</option>
+				<option value="freshman">Freshman</option>
+				<option value="sophamore-cs">Sophomore</option>
+				<option value="junior">Junior</option>
+				<option value="senior">Senior</option>
+			</select>
+			</label>
+		</div>
+		<div style='margin-top: 5px;'>
+			<label>What is you current major?<br>
+			<select name="majordropdown">
+			    <option value="s3">Select One</option>
+				<option value="bs-cs">BS - Computer Science</option>
+				<option value="ba-cs">BA - Computer Science</option>
+				<option value="ba-ist">BA - Information Systems Technology</option>
+				<option value="ba-ist-imse">BA - Information Systems Technology (IMSE)</option>
+			</select>
+			</label>
+		</div>
+			
+		<div style='margin-top: 5px;'>
+			<input type="checkbox" name="firsttime" value="false">Is your first time making an appointment?
+		</div>
+		<div>
+			<input type="submit" name= "submit" value="Submit"/>
+			<input type="reset" value ="Clear" />
+		</div>
+
 	</form>
-	<a href="JavaScript:newPopup('http://localhost:8080/CSAppointmentSchedulerFaces/Student/overrides.html');">Override Information and Forms</a>    
+	<a href="JavaScript:newPopup('http://localhost:8080/CSC4996-4997-Winter2013-MJK/Student/overrides.html');">Override Information and Forms</a>    
 </div>
 </f:view>
 </body>

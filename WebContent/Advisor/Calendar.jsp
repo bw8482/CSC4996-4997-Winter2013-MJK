@@ -228,9 +228,9 @@ function selectDay(day, method){
 	    			/*
 	    			* To Do: When updating availabilty on another month...bug
 	    			*/
-	    			out.println("<div style='position: relative; border-top: 2px solid #e4e4e4; width: 807px; padding-top: 5px; padding-bottom: 5px; font-weight: bold;'>");
-	    			out.println("Update Availability for " + monthString + " " + iDay + ", " + iYear);
-	    			out.println("</div>");
+	    			//out.println("<div style='position: relative; border-top: 2px solid #e4e4e4; width: 807px; padding-top: 5px; padding-bottom: 5px; font-weight: bold;'>");
+	    			//out.println("Update Availability for " + monthString + " " + iDay + ", " + iYear);
+	    			//out.println("</div>");
 	    					
 	    			try {
 	    				if(request.getParameter("submit").equals("Save")){
@@ -250,6 +250,7 @@ function selectDay(day, method){
 	    				}
 	    			} catch(Exception e) {
 	    				//out.println("Exception: " + e.getMessage());
+	    				//out.println(request.getParameter("submit"));
 	    			}
 	    			String form = Advisor.getAvailability(date);
 	    			out.print(form);		

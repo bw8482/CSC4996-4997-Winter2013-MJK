@@ -22,7 +22,7 @@
 %>
 
 <div id='content'>
-<h2><center>View Your Appointments</center></h2>
+<div style='font-weight: bold; font-size: 12px; border-bottom: 1px solid #000; margin-bottom: 5px;'>View Your Appointments</div>
 	<%
 	String output =Student.getAppointments();
 	out.print(output);

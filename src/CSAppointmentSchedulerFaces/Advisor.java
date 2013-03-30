@@ -17,14 +17,17 @@ public class Advisor {
 		String dateNiceFormat;
 		String tbl = "";
 		if(date.equals("today") || date == null) {
-			date = "DATE_ADD(CURDATE(), INTERVAL 0 DAY)";
+			date = "= DATE_ADD(CURDATE(), INTERVAL 0 DAY)";
 			dateNiceFormat = "today";
 		} else if(date.equals("tomorrow")){
-			date = "DATE_ADD(CURDATE(), INTERVAL 1 DAY)";
+			date = "= DATE_ADD(CURDATE(), INTERVAL 1 DAY)";
 			dateNiceFormat = "tomorrow";
+		} else if(date.equals("week")){
+			date = "IS NOT NULL";
+			dateNiceFormat = "this week";
 		} else {
 			dateNiceFormat = "on " + FormatterFactory.dateFormat(date);
-			date = "'" + date + "'";
+			date = "= '" + date + "'";
 		}
 		
 		tbl += ("<table class='tbl'>");
@@ -36,7 +39,7 @@ public class Advisor {
 		tbl += ("<th><div>Reason</div></th>");
 		tbl += ("<th><div style='width: 150px;'>Additional Comments</div></th>");
 		
-		String sql = "SELECT * FROM APPOINTMENT A JOIN REASON R ON R.REASON_ID = A.REASON LEFT JOIN STUDENT S ON S.EMAIL = A.STUDENT_EMAIL WHERE APPT_DATE = " + date;
+		String sql = "SELECT * FROM APPOINTMENT A JOIN REASON R ON R.REASON_ID = A.REASON LEFT JOIN STUDENT S ON S.EMAIL = A.STUDENT_EMAIL WHERE APPT_DATE  " + date;
 		ResultSet rs = Database.fetch(sql);
 		
 		int x = 0;
@@ -66,16 +69,19 @@ public class Advisor {
 		return tbl;
 	}
 	
-	public static String getAvailability(String date) throws ClassNotFoundException, SQLException {
+	public static String getAvailability(String date) throws ClassNotFoundException, SQLException, ParseException {
 		String form = "";
 		String where = "";
 		String colspan = "4";
+		String title = "";
 		
 		if(date == null) {
 			where = "DATE IS NULL";
+			title = "Update Your Default Availability";
 		} else {
 			where = "DATE = '" + date + "'";
 			colspan = "4";
+			title = "Update Your Availability for " + FormatterFactory.dateFormat(date);;
 		}
 		
 		Hashtable<String, String> times = new Hashtable<String, String>();
@@ -86,11 +92,12 @@ public class Advisor {
 		}
 		
 		//System.out.println("SELECT * FROM ADVISOR_AVAILABILITY WHERE " + where + " AND ADVISOR_ACCESS_ID = 'ef2558'");
-		form += ("<form name='availability'>");
+		form += ("<form name='availability' style='position: relative; width: 500px;'>");
 		//form += ("<div style='width: 470px; height: 15px; position: relative;'>Update Default Availability <input type='submit' value='Save' style='position: absolute; right: 0px; top: 0px;'/></div>");
-		form += ("<table class='tblNoHighlight' style='borer-collapse: collapse; border: 1px solid #000;'>");
+		form += ("<div style='height: 20px; border-bottom: 1px solid #000; font-weight: bold; margin-bottom: 5px;'>" + title + "<input type='submit' name='submit' value='Save' style='position: absolute; right: 0px; top: -1px; width: 100px;'/></div>");
+		form += ("<table class='tblNoHighlight' style='borer-collapse: collapse; border: 1px solid #aaa; width: 100%;'>");
 		//if(date == null) form += ("<th colspan='3'><div style='text-align: left; height: 20px;'>Update Default Availability</div></th>");
-		form += ("<th colspan='" + colspan + "'><div style='text-align: right; height: 20px;'><input style='margin: 0px;' type='submit' name='submit' value='Save'/></div></th>");
+		//form += ("<th colspan='" + colspan + "'><div style='text-align: right; height: 20px;'><input style='margin: 0px;' type='submit' name='submit' value='Save'/></div></th>");
 		int max = 4;
 		String ampm = "";
 		String select = "";
