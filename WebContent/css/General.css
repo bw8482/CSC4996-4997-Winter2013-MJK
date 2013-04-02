@@ -5,6 +5,8 @@ html, body {
 	font-family:	Segoe ui, Arial;
 	margin:			0px;
 	padding:		0px;
+	overflow:		scroll;
+	padding-bottom: 10px;
 } 
 
 input[type=text], input[type=password], select {
@@ -12,18 +14,7 @@ input[type=text], input[type=password], select {
 	width:			150px;
 	height:			15px;
 }
-/*
-input[type=submit], input[type=button], button {
-	border:			1px solid #aaa;
-	font-size:		11px;
-	cursor:			pointer;
-	background-color:	#e8e8e8;
-}
 
-input[type=submit]:hover, input[type=button]:hover, button:hover, input[type=text]:hover, input[type=password]:hover {
-	border:			1px solid #747474;
-}
-*/
 table td {
 	vertical-align:	bottom;
 	font-size:		11px;
@@ -53,15 +44,15 @@ div.success {
 }
 
 div#menu {
-	position:	fixed;
-	left:		5px;
-	top:		70px;
+	float: 		left;
 	width:		160px;
 	background-color:	#f5db8b;
 	font-size:	11px;
 	min-height:		50px;
 	border:		2px solid #e3cb81;
 	padding:	5px;
+	margin-top:	5px;
+	margin-left: 5px;
 	
 }
 
@@ -72,16 +63,10 @@ div#menu hr {
 }
 
 div#content {
-	position:	fixed;
-	left:		180px;
-	top:		70px;
+	float: 		left;
 	margin-left:	5px;	
-	overflow:		hidden;
-	width:			1000px;
-	/*
-	border-top:		1px solid #4c5956;
-	padding-top:	5px;
-	*/
+	overflow:		scroll;
+	margin-top:	5px;
 }
 
 div#menu a {
