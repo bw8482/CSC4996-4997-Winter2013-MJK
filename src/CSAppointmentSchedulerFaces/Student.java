@@ -1,5 +1,7 @@
 package CSAppointmentSchedulerFaces;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -112,13 +114,26 @@ public class Student {
 	public static boolean register(String email, String firstName, String lastName, String password) throws ClassNotFoundException, SQLException {
 		Database.connect();
 		
-		String sql = "";
-		sql  = "INSERT INTO STUDENT (EMAIL, FIRST_NAME, LAST_NAME, PASSWORD)";
-		sql += "VALUES('" + email.replace("'", "''") + "', '" + firstName.replace("'", "''")  + "', '" + lastName.replace("'", "''")  + "', '" + password.replace("'", "''")  + "')";
-		System.out.println(sql);
-		if(Database.execute(sql)){
-			return true;
+		 try {
+			String encryptedPassword = MD5.MD5(password);
+		
+			String sql = "";
+			sql  = "INSERT INTO STUDENT (EMAIL, FIRST_NAME, LAST_NAME, PASSWORD)";
+			sql += "VALUES('" + email.replace("'", "''") + "', '" + firstName.replace("'", "''")  + "', '" + lastName.replace("'", "''")  + "', '" + encryptedPassword  + "')";
+			System.out.println(sql);
+		 
+			if(Database.execute(sql)){
+				return true;
+			}
+			
+		 } catch (NoSuchAlgorithmException e) {
+			System.out.println("Can't find the algorithm");
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
 		
 		return false;
 	}
