@@ -219,9 +219,26 @@ function selectDay(day, method){
 					date = null;
 				} 
 				
-			
+				
 				if(method.equals("appointment")) {
-	    			String output = Advisor.getAppointments(date, accessId);
+	    			
+					try {
+						String[] appointments = request.getParameterValues("appointments");
+					
+						if(appointments.length > 0) {
+							if(request.getParameter("submit").equals("Mark No Show")) {
+								Advisor.markNoShow(appointments);
+							} else if(request.getParameter("submit").equals("Cancel")){
+								Advisor.cancel(appointments);
+							} else if(request.getParameter("submit").equals("Send Reminders")) {
+								Advisor.sendReminders(appointments);
+							}
+						}
+					} catch(Exception ex) {
+
+					}
+					
+					String output = Advisor.getAppointments(date, accessId);
 	    			out.println(output);
 	    		} else if(method.equals("availability")) {
 	    			/*

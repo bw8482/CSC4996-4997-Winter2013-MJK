@@ -14,20 +14,27 @@
 </head>
 <body>
 <f:view>
-<%
-	User user;
-	user = User.getUser();
-	String headerMenu = user.buildHeaderMenu("student");
-	out.println(headerMenu);
-%>
-
-<div id='content'>
-<div style='font-weight: bold; font-size: 12px; border-bottom: 1px solid #000; margin-bottom: 5px;'>View Your Appointments</div>
 	<%
-	String output =Student.getAppointments();
-	out.print(output);
+		String email = "ad7893@wayne.edu";
+		out.println(User.getUser().buildHeaderMenu("student"));
+		
+		try {
+			if(request.getParameter("submit").equals("Cancel")) {
+				Student.cancel(request.getParameter("appointment"));
+			}
+		} catch(Exception ex) {
+			
+		}
+		
 	%>
-</div>
+	<div id='content'>
+	<div style='font-size: 12px; border-bottom: 1px solid #000; margin-bottom: 5px;'>Your Appointments</div>
+	
+	<%
+		String output =Student.getAppointments(email);
+		out.print(output);
+	%>
+	</div>
 </f:view>
 </body>
 </html>

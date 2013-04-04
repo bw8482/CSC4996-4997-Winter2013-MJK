@@ -30,10 +30,11 @@ function getAvailableTimes() {
 		return;
 	}
 	
+	document.getElementById("timeContainer").innerHTML= "<select style='width: 200px;'><option value=''>Getting Available Times</option></select>";
 	url += "?date=" + date;
 	url += "&advisor=" + advisor;
-	var xmlhttp;
 	
+	var xmlhttp;
 	if (window.XMLHttpRequest) {
 	  xmlhttp = new XMLHttpRequest();
 	} else {

@@ -3,114 +3,159 @@
 <%@ taglib prefix="h"  uri="http://java.sun.com/jsf/html"%>
 <%@ page import ="CSAppointmentSchedulerFaces.User" %>
 <%@ page import ="CSAppointmentSchedulerFaces.Student" %>
+<%@ page import ="CSAppointmentSchedulerFaces.Database" %>
+<%@ page import ="java.sql.ResultSet" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script type="text/javascript">
-// Popup window code
-function newPopup(url) {
-	popupWindow = window.open(
-		url,'popUpWindow','height=700,width=900,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
-}
-</script>
-
 <LINK href="../css/Table.css" rel="stylesheet" type="text/css">
 <LINK href="../css/General.css" rel="stylesheet" type="text/css">
 <LINK href="../css/Header.css" rel="stylesheet" type="text/css">
+<script type='text/javascript' src='../../js/general.js'></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>CSC Appointment Scheduler</title>
 </head>
 <body>
 <f:view>
 <%
-	User user;
-	user = User.getUser();
-	String headerMenu = user.buildHeaderMenu("student");
-	out.println(headerMenu);
+	String email = "ad7893@wayne.edu";	
+	out.println(User.getUser().buildHeaderMenu("student"));
 	
-	try {
-		if(request.getParameter("submit").equals("Submit")) {
-			boolean success = Student.scheduleAppointment(request.getParameter("advisor"), request.getParameter("date"), request.getParameter("time"), request.getParameter("reason"), request.getParameter("major"));
-		}
-	} catch (Exception e) {
-		
+	Database.connect();
+	String sql = "SELECT * FROM ADVISOR";
+	ResultSet rs = Database.fetch(sql);
+	
+	String advisors = "<select name='advisor' id='advisor' onchange='getAvailableTimes()' style='width:200px;'>";
+	advisors += "<option>--</option>";
+	while(rs.next()) {
+		advisors += "<option value='" + rs.getString("ACCESS_ID") + "'>" + rs.getString("FIRST_NAME") + " " + rs.getString("LAST_NAME") + "</option>";
+	}
+	
+	sql = "SELECT * FROM MAJOR";
+	rs = Database.fetch(sql);
+	
+	String majors = "<select name='major' style='width:200px;'>";
+	majors += "<option>--</option>";
+	while(rs.next()) {
+		majors += "<option value='" + rs.getString("MAJOR_ID") + "'>" + rs.getString("MAJOR_TEXT") + "</option>";
+	}
+	
+	sql = "SELECT * FROM REASON";
+	rs = Database.fetch(sql);
+	
+	String reasons = "<select name='reason' style='width:200px;'>";
+	reasons += "<option>--</option>";
+	while(rs.next()) {
+		reasons += "<option value='" + rs.getString("REASON_ID") + "'>" + rs.getString("REASON_TEXT") + "</option>";
 	}
 %>
-<div id='content'>
-	Welcome to the <b style='color:#254117;'>Wayne State University</b> Computer Science Appointment Scheduler.
-	
-	<div style='font-weight: bold; font-size: 12px; border-bottom: 1px solid #000; margin-bottom: 5px;'>Schedule an Appointments</div>
-	<form method ="post" action ="">
-		<div style='margin-top: 5px;'>
-			<label>Which Advisor would you like to schedule an appointment with?<br>
-			<select name="advisordropdown">
-				<option value="s1">Select One</option>
-				<option value="ef2558">Colleen McKenney</option>
-				<option value="ef2558">John Brown</option>
-				<option value="ef2558">Kim French</option>
-			</select>
-			</label>
-		</div>
-		
-		<div style='margin-top: 5px;'>
-			<label>Pick a Day<br>
-			<input type="date"  name='date'placeholder ="yyyy-mm-dd" />
-			</label>
-		</div>
-		
-		<div style='margin-top: 5px;'>
-			<label>Pick a Time<br>
-			<input type ="time" name='time' placeholder ="hh:mm:ss" />
-			</label>
-		</div>
-		
-		<div style='margin-top: 5px;'>
-			<label>Select a reason for this appointment<br>
-			<select name="reasondropdown" placeholder ="Reason">
-				<option value="s2">Select One</option>
-				<option value="academicdifficulty">Academic Difficulty</option>
-				<option value="sapappeal">SAP Appeal-(Bring SAP forms filled out ready to be signed)</option>
-				<option value="courseplanning">Course Schedule Planning</option>
-				<option value="graduationaudit">Graduation Audit</option>
-				<option value="generalinformation">General Information</option>
-				<option value="prospectivestudent">Prospective Non WSU student-(Bring transcripts)</option>
-			</select>
-			</label>
-		</div>
-		
-		<div style='margin-top: 5px;'>
-			<label>What is your current class standing?<br>
-			<select name="standingdropdown">
-			    <option value="s4">Select One</option>
-				<option value="freshman">Freshman</option>
-				<option value="sophamore-cs">Sophomore</option>
-				<option value="junior">Junior</option>
-				<option value="senior">Senior</option>
-			</select>
-			</label>
-		</div>
-		<div style='margin-top: 5px;'>
-			<label>What is you current major?<br>
-			<select name="majordropdown">
-			    <option value="s3">Select One</option>
-				<option value="bs-cs">BS - Computer Science</option>
-				<option value="ba-cs">BA - Computer Science</option>
-				<option value="ba-ist">BA - Information Systems Technology</option>
-				<option value="ba-ist-imse">BA - Information Systems Technology (IMSE)</option>
-			</select>
-			</label>
-		</div>
+<div id='content' style='padding-right: 50px;'>	
+	<%
+	try {
+		if(request.getParameter("submit").equals("Submit")) {
+			boolean success = Student.scheduleAppointment(email, request.getParameter("advisor"), request.getParameter("date"), request.getParameter("time"), request.getParameter("reason"), request.getParameter("standing"), request.getParameter("standing"), "1");
+			if(success) {
+				out.println("<div class='success'>You have succesfully scheduled an appointment.</div>");
+			} else {
+				out.println("<div class='error'>There was an error while scheduling your appointment.</div>");	
+			}
+		}
+	} catch (Exception ex) {
+		try {
+			if(ex.getMessage().startsWith("Duplicate")) {
+				out.println("<div class='error'>Error - you already have an appointment scheduled on " + request.getParameter("date") + ".</div>");
+			}
+		} catch(Exception e) {
 			
-		<div style='margin-top: 5px;'>
-			<input type="checkbox" name="firsttime" value="false">Is your first time making an appointment?
-		</div>
-		<div>
-			<input type="submit" name= "submit" value="Submit"/>
-			<input type="reset" value ="Clear" />
-		</div>
-
+		}
+	}
+	%>
+	<div style='font-size: 12px; border-bottom: 1px solid #000; margin-bottom: 5px;'>Schedule an Appointment</div>
+	<form method ="post" action ="">
+		<table>
+			<tr style='background-color: transparent;'>
+				<td>
+					Which advisor would you like to schedule an appointment with?	
+				</td>
+			</tr>
+			<tr style='background-color: transparent;'>
+				<td>
+					<% out.println(advisors); %>
+				</td>
+			</tr>
+			<tr style='background-color: transparent;'>
+				<td>
+					Pick a Date	
+				</td>
+			</tr>
+			<tr style='background-color: transparent;'>
+				<td>
+					<input type='text' name='date' id='date' value='' placeholder='yyyy-mm-dd' onchange='getAvailableTimes()'/>
+				</td>
+			</tr>
+			<tr style='background-color: transparent;'>
+				<td>
+					Pick a Time	
+				</td>
+			</tr>
+			<tr style='background-color: transparent;'>
+				<td>
+					<div id='timeContainer'>
+						<select name='time' style='width: 200px;'>
+							<option value=''>--</option>
+						</select>
+					</div>
+				</td>
+			</tr>
+			<tr style='background-color: transparent;'>
+				<td>
+					What do you want to schedule an appointment for?
+				</td>
+			</tr>
+			<tr style='background-color: transparent;'>
+				<td>
+					<% out.println(reasons); %>
+				</td>
+			</tr>
+			<tr style='background-color: transparent;'>
+				<td>
+					What is your current class standing?
+				</td>
+			</tr>
+			<tr style='background-color: transparent;'>
+				<td>
+					<select name='standing' style='width: 200px;'>
+						<option value="0">--</option>
+						<option value="1">Freshmen</option>
+						<option value="2">Sophomore</option>
+						<option value="3">Junior</option>
+						<option value="4">Senior</option>
+					</select>
+				</td>
+			</tr>
+			<tr style='background-color: transparent;'>
+				<td>
+					What is your current major?
+				</td>
+			</tr>
+			<tr style='background-color: transparent;'>
+				<td>
+					<% out.println(majors); %>
+				</td>
+			</tr>
+			<tr style='background-color: transparent;'>
+				<td style='vertical-align: bottom;'>
+					<input type='checkbox' name='firstAppt' /> Check if this your first appointment with the WSU CS Department.
+				</td>
+			</tr>
+			<tr style='background-color: transparent;'>
+				<td>
+					<input type='submit' name='submit' value='Submit' />
+					<input type='reset' name='reset' value='Reset' />
+				</td>
+			</tr>
+		</table>
 	</form>
-	<a href="JavaScript:newPopup('http://localhost:8080/CSC4996-4997-Winter2013-MJK/Student/overrides.html');">Override Information and Forms</a>    
 </div>
 </f:view>
 </body>

@@ -39,6 +39,7 @@ div.error {
 	*/
 	color: red;
 	font-weight: bold;
+	fobt-size: 11px;
 }
 
 div.success {
@@ -51,6 +52,7 @@ div.success {
 	*/
 	color: green;
 	font-weight: bold;
+	font-size: 11px;
 }
 
 div#menu {

@@ -63,6 +63,9 @@
 				<td><h:inputSecret value="#{user.password}"></h:inputSecret></td>
 			</tr>
 			<tr>
+				<td colspan='2' style='font-size: 10px;'>Not a WSU Student? <a href='Register.jsp'>Click here</a> to register an account to use <br/>the CSC Appointment Scheduler.</td>
+			</tr>
+			<tr>
 				<td></td>
 				<td style='text-align: right;'><h:commandButton action="#{user.authorized}" value="Login"></h:commandButton></td>
 			</tr>
