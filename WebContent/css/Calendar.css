@@ -4,6 +4,8 @@ table.calendar {
 	padding: 0px;
 	border-collapse: collapse;
 	border: 1px solid #000;
+	margin-bottom: 5px;
+
 }
 
 table.calendar tr.weekday {
@@ -25,8 +27,8 @@ table.calendar tr.weekday td {
 }
 
 table.calendar tr.days td {
-	height:	40px;
-	width:	50px;
+	height:	50px;
+	width:	65px;
 	border:	1px solid black;	
 }
 
@@ -55,48 +57,60 @@ table.calendar td div.container {
 }
 
 table.calendar td div.availability_btn {
-	border:	1px solid black;
+	width: 66px;
+	height: 8px;
+	width: 12px;
+	color:	#000;
+	position:	absolute;
+	border: 1px solid black;
+	background-color: #8CD1E6;
+	left: 0px;
+	top: 25px;
+
+	cursor: pointer;
+	font-size: 10px;
+	text-align: left;
+	padding: 1px;
+}
+
+div.availability_btn {
+	border: 1px solid black;
+	background-color: #8CD1E6;
 	width: 8px;
 	height: 8px;
-	background-color: #a9c5Eb;
-	color:	#fff;
-	position:	absolute;
-	left: 0px;
-	top: 1px;
-	cursor: pointer;
+	
 }
+
 
 table.calendar td div.appointment_btn {
-	border:	1px solid black;
-	width: 8px;
+	width: 66px;
 	height: 8px;
-	background-color: #c9decb;
-	color:	#fff;
+	width: 12px;
+	color:	#000;
 	position:	absolute;
+	
+	border: 1px solid black;
+	background-color: #A9C5EB;
+	
 	left: 0px;
-	top: 12px;
+	top: 38px;
 	cursor: pointer;
+	font-size: 10px;
+	text-align: left;
+	padding: 1px;
 }
 
+div.appointment_btn {
+	border: 1px solid black;
+	background-color: #A9C5EB;
+	width: 8px;
+	height: 8px;
+}
 table.calendar td div.appointment_btn:hover, table.calendar td div.availability_btn:hover {
 	border: 1px solid #d8d8d8;
 	
 }
 
-div.appointment_btn {
-	background-color: #c9decb;
-	border:	1px solid black;
-	width:	8px;
-	height:	8px;
-	
-}
-
-div.availability_btn {
-	background-color: #a9c5Eb;
-	border:	1px solid black;
-	width:	8px;
-	height: 8px;
-}
 
 table.calendar td div.day_text {
 	position:	absolute;

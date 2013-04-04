@@ -24,7 +24,7 @@ try {
 	method = "availability";
 } finally {
 	if(method == null) {
-		method = "availability";
+		method = "appointment";
 	}
 }
 
@@ -81,10 +81,14 @@ if(iMonth == 11) {
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+ 
+
 <LINK href="../css/General.css" rel="stylesheet" type="text/css">
 <LINK href="../css/Header.css" rel="stylesheet" type="text/css">
 <LINK href="../css/Table.css" rel="stylesheet" type="text/css">
 <LINK href="../css/Calendar.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../js/general.js"></script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script>
 var year = <%=iYear%>;
@@ -128,12 +132,10 @@ function selectDay(day, method){
 </head>
 <body>
 <%
-	User user;
-	user = User.getUser();
-	String headerMenu = user.buildHeaderMenu("advisor");
-	out.println(headerMenu);
+	String accessId = "ef2558";	
+	out.println(User.getUser().buildHeaderMenu("advisor"));
 %>
-<div id='content'>
+<div id='content' style='background-color: #fff; border: none; padding: 0px;'>
 	<div id='calendar'>
 		<form name='calendar'>
 		<input type='hidden' name='iYear' id='iYear' value='<%=iYear%>'>
@@ -174,8 +176,8 @@ function selectDay(day, method){
 	                		className = "monthDay";
 	                	}
 	                	
-	                	String availabilityBtn = "<div onclick='selectDay(" +  (cnt - weekStartDay + 1) + ", \"availability\");' class='availability_btn' title='Update availability for day'></div>";
-	                	String appointmentBtn = "<div onclick='selectDay(" +  (cnt - weekStartDay + 1) + ", \"appointment\");' class='appointment_btn' title='View appointments / send reminders for day'></div>";
+	                	String availabilityBtn = "<div onclick='selectDay(" +  (cnt - weekStartDay + 1) + ", \"availability\");' class='availability_btn' title='Update availability for day'>&nbsp;</div>";
+	                	String appointmentBtn = "<div onclick='selectDay(" +  (cnt - weekStartDay + 1) + ", \"appointment\");' class='appointment_btn' title='View appointments / send reminders for day'>&nbsp;</div>";
 	                	String dayText = "<div class='day_text'>" +  (cnt - weekStartDay + 1) + "</div>";
 	                	String td = "<td class='" + className + "' id='day_" + (cnt - weekStartDay + 1) + "'>";
 	                	td += "<div class='container'>";
@@ -193,6 +195,7 @@ function selectDay(day, method){
 %>
 	    </table>
 	    </form>
+	   
 	    <div>
 	    	<table>
 	    		<tr>
@@ -205,7 +208,8 @@ function selectDay(day, method){
 	    		</tr>
 	    	</table>
 	    </div>
-	    
+	     
+	    <div style='background-color: #fdf8e8; border: 1px solid #f8e3a5; padding: 5px;'>
     	<%
 	    	if(method != null) {
 	    		String date = null;
@@ -217,12 +221,7 @@ function selectDay(day, method){
 				
 			
 				if(method.equals("appointment")) {
-	    			out.println("<div style='position: relative; border-top: 2px solid #e4e4e4; width: 807px; padding-top: 5px; padding-bottom: 5px; font-weight: bold;'>");
-	    			out.println("Appointments on " + monthString + " " + iDay + ", " + iYear);
-	    			out.println("<button onclick='alert();' style='position: absolute; top: 0px; right: 0px;'>Send Reminders</button>");
-	    			out.println("</div>");
-
-	    			String output = Advisor.getAppointments(date);
+	    			String output = Advisor.getAppointments(date, accessId);
 	    			out.println(output);
 	    		} else if(method.equals("availability")) {
 	    			/*
@@ -242,7 +241,7 @@ function selectDay(day, method){
 	    					    }
 	    					}
 
-	    					if((Advisor.updateAvailability(date, availability))) {
+	    					if((Advisor.updateAvailability(date, availability, accessId))) {
 	    						out.println("<div class='success'>Successfully updated your availabilty.</div>");
 	    					} else {
 	    						out.println("<div class='error'>An error occured while updating your availabilty.</div>");
@@ -252,11 +251,12 @@ function selectDay(day, method){
 	    				//out.println("Exception: " + e.getMessage());
 	    				//out.println(request.getParameter("submit"));
 	    			}
-	    			String form = Advisor.getAvailability(date);
+	    			String form = Advisor.getAvailability(date, accessId);
 	    			out.print(form);		
 	    		}
 	    	}   	
     	%>
+    	</div>
 	</div>
 </div>
 </body>

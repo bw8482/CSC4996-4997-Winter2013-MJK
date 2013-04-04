@@ -5,12 +5,14 @@ html, body {
 	font-family:	Segoe ui, Arial;
 	margin:			0px;
 	padding:		0px;
-	overflow:		scroll;
-	padding-bottom: 10px;
+	overflow-x:		hidden;
+	padding-bottom: 5px;
+	width: 100%;
+	height: 100%;
 } 
 
 input[type=text], input[type=password], select {
-	border:			1px solid #aaa;
+	border:			1px solid #000;
 	width:			150px;
 	height:			15px;
 }
@@ -28,45 +30,57 @@ div.info, td.info {
 }
 
 div.error {
+	/*
 	border:		1px solid #FF4848;
 	padding:	5px;
 	width:		300px;
 	background-color:	#FF7575;
-	margin-bottom: 5px;
+	margin-top: 5px;
+	*/
+	color: red;
+	font-weight: bold;
 }
 
 div.success {
+	/*
 	border:		1px solid #59955C;
 	padding:	5px;
 	width:		300px;
 	background-color:	#A6CAA9;
-	margin-bottom: 5px;
+	margin-top: 5px;
+	*/
+	color: green;
+	font-weight: bold;
 }
 
 div#menu {
 	float: 		left;
 	width:		160px;
-	background-color:	#f5db8b;
 	font-size:	11px;
 	min-height:		50px;
-	border:		2px solid #e3cb81;
 	padding:	5px;
 	margin-top:	5px;
 	margin-left: 5px;
+	
+	background-color: #fdf8e8;
+	border: 1px solid #f8e3a5;
 	
 }
 
 div#menu hr {
 	height: 0px;
-	border-top:	1px solid #000;
-	border-bottom:	1px solid #e3cb81;	
+	border-top: 1px solid #000;
 }
 
 div#content {
-	float: 		left;
-	margin-left:	5px;	
+	float: 		left;	
 	overflow:		scroll;
 	margin-top:	5px;
+	background-color: #fdf8e8;
+	border: 1px solid #f8e3a5;
+	padding: 5px;
+	margin-left: 5px;
+	
 }
 
 div#menu a {

@@ -13,10 +13,8 @@
 <body>
 <f:view>
 <%
-	User user;
-	user = User.getUser();
-	String headerMenu = user.buildHeaderMenu("advisor");
-	out.println(headerMenu);
+	String accessId = "ef2558";	
+	out.println(User.getUser().buildHeaderMenu("advisor"));
 %>
 </f:view>
 </body>

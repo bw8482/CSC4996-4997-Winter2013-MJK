@@ -13,7 +13,6 @@ table.tbl th div, table.tblNoHighlight th div {
 	background-color:	#98B2AD;
 	border-top:		1px solid #c1d0cd;
 	border-left:	1px solid #c1d0cd;
-	min-width:		100px;
 }
 
 table.tbl th, table.tblNoHighlight th {
@@ -21,6 +20,10 @@ table.tbl th, table.tblNoHighlight th {
 	padding:	0px;
 }
 
+
+tr {
+	background-color: #fff;
+}
 tr.even {
 	background-color:	#efebef;
 }

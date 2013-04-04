@@ -59,7 +59,7 @@
 				<td><img src='img/password.png'/> Password</td>
 			</tr>
 			<tr>
-				<td><h:inputText value="#{user.accessId}"></h:inputText></td>
+				<td><h:inputText value="#{user.accessId}" style=''></h:inputText></td>
 				<td><h:inputSecret value="#{user.password}"></h:inputSecret></td>
 			</tr>
 			<tr>

@@ -17,13 +17,13 @@
 <body>
 <f:view>
 <%
-	User user;
-	user = User.getUser();
-	String headerMenu = user.buildHeaderMenu("advisor");
-	out.println(headerMenu);
+	String accessId = "ef2558";	
+	out.println(User.getUser().buildHeaderMenu("advisor"));
+	
 %>
 <div id='content'>
 <%
+	
 	try {
 		if(request.getParameter("submit").equals("Save")){
 			Hashtable<String, String> availability = new Hashtable<String, String>();
@@ -34,7 +34,7 @@
 			    }
 			}
 
-			if((Advisor.updateAvailability(null, availability))) {
+			if((Advisor.updateAvailability(null, availability, accessId))) {
 				out.println("<div class='success'>Successfully updated your availabilty.</div>");
 			} else {
 				out.println("<div class='error'>An error occured while updating your availabilty.</div>");
@@ -43,7 +43,7 @@
 	} catch(Exception e) {
 		//out.println("Exception: " + e.getMessage());
 	}
-	String form = Advisor.getAvailability(null);
+	String form = Advisor.getAvailability(null, accessId);
 	out.print(form);
 %>
 </div>

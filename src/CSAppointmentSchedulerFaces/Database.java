@@ -14,7 +14,6 @@ public class Database {
 	
 	public static Connection connect() 
 		throws ClassNotFoundException, SQLException {
-		System.out.println("Attempting to Connect to Database MJK...");
 		
 		try {
 			Class.forName(driver).newInstance();

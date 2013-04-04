@@ -109,7 +109,7 @@ public class User {
 		//header += "<div id='header_wsu'>WSU</div>";
 		//header += "<div id='header_wsu2'>Wayne State University</div>";
 		//header += "<div id='header_cs'>Department of Computer Science - Appointment Scheduler</div>";
-		header += "<div id='header_logo'><img src='http://localhost:8080/CSC4996-4997-Winter2013-MJK/faces/img/logo.png'></div>";
+		header += "<div id='header_logo'><img src='http://localhost:8080/CSC4996-4997-Winter2013-MJK/faces/img/wsulogo.png'></div>";
 		header += "<div id='header_title'>Computer Science Department Appointment Scheduler</div>";
 		header += "</div>";
 		
@@ -122,7 +122,6 @@ public class User {
 		header += "</div>";
 		
 		String menu = "";
-		System.out.println(authorized);
 		if(!role.isEmpty()) {
 			menu += "<div id='menu'>";
 			if(role.equals("advisor")) {
@@ -130,14 +129,14 @@ public class User {
 				menu += "<hr/>";
 				menu += "<a title='Quick look at appointments for today.' href='Appointments.jsp?date=today'>View Today's Appointments</a>";
 				menu += "<a title='Quick look at appointments for this week.' href='Appointments.jsp?date=week'>View This Week's Appointments</a>";
-				menu += "<a title='Search apointments by date, student and/or reason.' href='SearchAppointments.jsp'>Search Appointments</a>";
+				//menu += "<a title='Search apointments by date, student and/or reason.' href='SearchAppointments.jsp'>Search Appointments</a>";
 				menu += "<hr/>";
 				menu += "<a title='Use the calendar to update your availability for a specific date, view appointments on a specific date and send reminders for appointments.' href='Calendar.jsp'>Calendar</a>";
-				menu += "<a title='Update your default availability.' href='Availability.jsp'>Update Availability</a>";
-				menu += "<a title ='Update your personal information (ie. phone, location).' href='PersonalInfo.jsp'>Update Personal Information</a>";
+				menu += "<a title='Update your default availability.' href='Availability.jsp'>Update Default Availability</a>";
+				menu += "<a title ='Update your personal information (ie. phone, location, number of cancels allowed, number of no show allowed).' href='PersonalInfo.jsp'>Update Personal Information</a>";
 				menu += "<hr/>";
-				menu += "<a href='Help.jsp'>Help</a>";
-				menu += "<a href='../Login.jsp'>Logout</a>";
+				menu += "<a href='#' onclick='window.open(\"../img/advisorHelp.png\", \"\", \"location=0,menubar=0\");'>Help</a>";
+				menu += "<a href='../Login.jsp?logout=true'>Logout</a>";
 			} else if(role.equals("student")){
 				menu += "<a href='Student.jsp'>Home</a>";
 				menu += "<hr/>";
@@ -146,8 +145,8 @@ public class User {
 				menu += "<hr/>";
 				//menu += "<a href=\"JavaScript:newPopup('http://localhost:8080/CSAppointmentSchedulerFaces/Student/overrides.html');\">Override Information and Forms</a>";   
 
-				menu += "<a href='Help.jsp'>Help</a>";
-				menu += "<a href='../Login.jsp'>Logout</a>";
+				menu += "<a href='#' onclick='window.open(\"../img/studentHelp.png\", \"\", \"location=0,menubar=0\");'>Help</a>";
+				menu += "<a href='../Login.jsp?logout=true'>Logout</a>";
 			}
 		
 			menu += "</div>";

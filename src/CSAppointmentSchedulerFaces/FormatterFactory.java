@@ -21,7 +21,7 @@ public class FormatterFactory {
 		
 		DateFormat fromFormat = new SimpleDateFormat("yyyy-MM-dd");
 		fromFormat.setLenient(false);
-		DateFormat toFormat = new SimpleDateFormat("MMMM dd, yyyy");
+		DateFormat toFormat = new SimpleDateFormat("E MMMM dd, yyyy");
 		toFormat.setLenient(false);
 
 		return (toFormat.format(fromFormat.parse(date)));
