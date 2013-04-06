@@ -149,6 +149,11 @@ public class User {
 			header += "Welcome " + getName();
 			header += "</div>";
 		}
+		if(role.equals("student")){
+			header += "<div id='header_user'>";
+			header += "Welcome " + getName();
+			header += "</div>";
+		}
 
 		header += "</div>";
 
@@ -156,7 +161,7 @@ public class User {
 		System.out.println(authorized);
 		if(!role.isEmpty()) {
 			menu += "<div id='menu'>";
-			if(role.equals("student")) {
+			if(role.equals("advisor")) {
 				menu += "<a href='Advisor.jsp'>Home</a>";
 				menu += "<hr/>";
 				menu += "<a title='Quick look at appointments for today.' href='Appointments.jsp?date=today'>View Today's Appointments</a>";
@@ -175,7 +180,7 @@ public class User {
 				menu += "<a title='View all your appointments.' href='Appointments.jsp'>View Your Appointments</a>";
 				menu += "<a title='Scheudle an appointment.' href='ScheduleAppoinment.jsp'>Schedule an Appointment</a>";
 				menu += "<hr/>";
-				//menu += "<a href=\"JavaScript:newPopup('http://localhost:8080/CSAppointmentSchedulerFaces/Student/overrides.html');\">Override Information and Forms</a>";   
+				menu += "<a href=title = 'Override Information.jsp'('overrides.html');\">Override Information and Forms</a>";   
 
 				menu += "<a href='Help.jsp'>Help</a>";
 				menu += "<a href='../Login.jsp'>Logout</a>";
