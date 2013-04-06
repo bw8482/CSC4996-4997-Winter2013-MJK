@@ -40,12 +40,12 @@
 </head>
 <body>
 <f:view>
-<%
-	User user;
-	user = User.getUser();
+ <%
+	User user = new User();
 	String headerMenu = user.buildHeaderMenu("");
 	out.println(headerMenu);
 %>
+
 <div id='loginBox'>
 	<h:form>
 		<table>

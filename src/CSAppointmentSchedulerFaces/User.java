@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+import javax.faces.context.FacesContext;
 import javax.naming.Context;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
@@ -17,8 +18,8 @@ import javax.naming.directory.SearchResult;
 
 public class User {
 
-	private String accessId;
-	private String password;
+	private static String accessId;
+	private static String password;
 	private static String firstName;
 	private static String lastName;
 	public static String email;
@@ -38,7 +39,7 @@ public class User {
 
 	}
 	
-	public void User(String accessID, String password, String firstName, String lastName, String email)
+	public User(String accessID, String password, String firstName, String lastName, String email)
 	{
 		this.accessId = accessID;
 		this.password= password;
@@ -49,13 +50,25 @@ public class User {
 
 	public static void setUser() {
 		
+		FacesContext fc = FacesContext.getCurrentInstance();
+		User user = new User(accessId, password, firstName, lastName, email);
+		fc.getExternalContext().getSessionMap().put("user", user);	
 		
 	}
 
 	public static User getUser() {
 		
-		user = new User();
+		System.out.println("Getting user information....");
+		
+		try {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		User user =(User) fc.getExternalContext().getSessionMap().get("user");
 		return user;
+		}
+		catch (NullPointerException e)
+		{
+		return null;
+		}
 	}
 
 	public void setAccessId(String _accessId) {
@@ -133,7 +146,7 @@ public class User {
 
 		if(role.equals("advisor")){
 			header += "<div id='header_user'>";
-			//header += "Welcome " + getName();
+			header += "Welcome " + getName();
 			header += "</div>";
 		}
 
@@ -143,7 +156,7 @@ public class User {
 		System.out.println(authorized);
 		if(!role.isEmpty()) {
 			menu += "<div id='menu'>";
-			if(role.equals("advisor")) {
+			if(role.equals("student")) {
 				menu += "<a href='Advisor.jsp'>Home</a>";
 				menu += "<hr/>";
 				menu += "<a title='Quick look at appointments for today.' href='Appointments.jsp?date=today'>View Today's Appointments</a>";
@@ -238,7 +251,7 @@ public class User {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
-													
+									setUser();			
 									return "Student Authorized";
 								}
 								} // End while
@@ -312,10 +325,10 @@ public class User {
 					 					    
 					 								if (attrs != null) {
 					 				
-					 										 firstName = attrs.get("givenName").toString();
-					 										 lastName = attrs.get("sn").toString();
-					 										 email = attrs.get("mail").toString();
-					 										/*  role = attrs.get("title").toString(); */
+					 										 firstName = convert(attrs.get("givenName").toString());
+					 										 lastName = convert(attrs.get("sn").toString());;
+					 										 email = convert(attrs.get("mail").toString());
+					 										 /* role = convert(attrs.get("title").toString());  */
 					 										 System.out.println("User attributes retrieved.");
 					 										 System.out.println(toString());
 					 								}
@@ -334,7 +347,9 @@ public class User {
 					 								
 					 								try
 					 								{
+					 									setUser();
 					 									addAccount();
+					 	
 					 								}
 					 								catch(Exception e)
 					 								{
@@ -344,7 +359,7 @@ public class User {
 					 								
 					 	
 					
-					 								if(accessId.equals("ef2558") || role.equals("Advisor"))
+					 								if(accessId.equals("ef2558") || accessId.equals("aw4025") || role.equals("Advisor"))
 					 								{
 					 											return "Advisor Authorized";
 					 								} else {
@@ -355,14 +370,7 @@ public class User {
 		return "Error";
 		
 				}
-		
-	
-	
-	
 							
-						
-
-
 	public void logout() {
 		setAccessId(null);
 		setPassword(null);
@@ -433,6 +441,14 @@ public class User {
 			
 				System.out.println(sql);
 			}
+	}
+	public String convert(String s)
+	{
+		int index = s.indexOf(':');
+		
+		return s.substring(index+2);
+			
+			
 	}
 }
 	
