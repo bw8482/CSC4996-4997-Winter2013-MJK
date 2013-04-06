@@ -63,6 +63,7 @@ public class User {
 		try {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		User user =(User) fc.getExternalContext().getSessionMap().get("user");
+		System.out.println(user.toString());
 		return user;
 		}
 		catch (NullPointerException e)
@@ -156,7 +157,7 @@ public class User {
 		System.out.println(authorized);
 		if(!role.isEmpty()) {
 			menu += "<div id='menu'>";
-			if(role.equals("student")) {
+			if(role.equals("advisor")) {
 				menu += "<a href='Advisor.jsp'>Home</a>";
 				menu += "<hr/>";
 				menu += "<a title='Quick look at appointments for today.' href='Appointments.jsp?date=today'>View Today's Appointments</a>";
@@ -206,7 +207,7 @@ public class User {
 			}
 		
 		// Check if user has entered an email address instead of accessID
-		if (accessId.contains("@"))
+		else if (accessId.contains("@"))
 				{
 					System.out.println("This is a email address!");
 						int index = accessId.indexOf("@");
@@ -251,7 +252,10 @@ public class User {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
-									setUser();			
+									
+									
+									setUser();
+									System.out.println("Student Authorized!");
 									return "Student Authorized";
 								}
 								} // End while
@@ -259,8 +263,8 @@ public class User {
 							}
 								
 				}
-							else // WSU-affiliated login using LDAP
-							{
+		else // WSU-affiliated login using LDAP
+				{
 								
 										
 							System.out.println("you are a WSU student...");
@@ -347,7 +351,7 @@ public class User {
 					 								
 					 								try
 					 								{
-					 									setUser();
+					 									 setUser(); 
 					 									addAccount();
 					 	
 					 								}
@@ -359,12 +363,15 @@ public class User {
 					 								
 					 	
 					
-					 								if(accessId.equals("ef2558") || accessId.equals("aw4025") || role.equals("Advisor"))
+					 								if(accessId.equals("ef2558"))
 					 								{
-					 											return "Advisor Authorized";
-					 								} else {
-
-					 										return "Student Authorized";
+					 									System.out.println("Advisor Authorized!!");	
+					 									return "Advisor Authorized";
+					 								} 
+					 								else {
+					 									
+					 									System.out.println("Student Authroized!!");	
+					 									return "Student Authorized";
 					 								}
 										} // End WSU login
 		return "Error";
