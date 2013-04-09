@@ -22,7 +22,7 @@ function unCheckAll() {
 }
 
 function getAvailableTimes() {
-	var url = "http://localhost:5485/CSC4996-4997-Winter2013-MJK/faces/Advisor/GetAvailableTimes.jsp";
+	var url = "http://localhost:8080/CSC4996-4997-Winter2013-MJK/faces/Advisor/GetAvailableTimes.jsp";
 	var date = document.getElementById("date").value;
 	var advisor = document.getElementById("advisor").value;
 	

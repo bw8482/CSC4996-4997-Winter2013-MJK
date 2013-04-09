@@ -57,7 +57,9 @@
 <body>
 <f:view>
 <%
-	out.println(User.getUser().buildHeaderMenu(""));
+User user = new User();
+String headerMenu = user.buildHeaderMenu("");
+out.println(headerMenu);
 %>
 
 <div id='validate' style='padding: 5px; font-size: 11px;'>

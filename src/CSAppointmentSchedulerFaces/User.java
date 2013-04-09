@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.*;
 
 import javax.faces.context.FacesContext;
-import javax.naming.AuthenticationException;
 import javax.naming.Context;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
@@ -51,11 +50,11 @@ public class User {
 	 */
 	public User(String accessID, String password, String firstName, String lastName, String email)
 	{
-		this.accessId = accessID;
-		this.password= password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
+		User.accessId = accessID;
+		User.password= password;
+		User.firstName = firstName;
+		User.lastName = lastName;
+		User.email = email;
 	}
 
 	/** Save user session
@@ -88,7 +87,7 @@ public class User {
 
 	/** Set accessId of user */
 	public void setAccessId(String _accessId) {
-		this.accessId = _accessId;
+		User.accessId = _accessId;
 	}
 
 	/** Get user accessId */
@@ -108,7 +107,7 @@ public class User {
 	
 	/** Set user email address */
 	public void setEmail(String _email) {
-		this.email = _email;
+		User.email = _email;
 	}
 
 	/** Get user email address */
@@ -118,7 +117,7 @@ public class User {
 
 	/** Set user password  */
 	public void setPassword (String password)  {
-		this.password= password;
+		User.password= password;
 	}
 
 	/** Get user password */
@@ -138,7 +137,7 @@ public class User {
 
 	/** Set user role */
 	public void setRole(String _role) {
-		this.role = _role;
+		User.role = _role;
 	}
 
 	public void setError (String _error) {
@@ -247,15 +246,21 @@ public class User {
 								 return "Student Authorized";
 							 }
 						}
+						else
+						{
+							accessId= accessId.substring(0, 6);
+							System.out.println ("Your access ID...." + accessId);
+							
+							if (WSULogin())
+							{
+								return "Student Authorized";
+							}
+							
+						}
 				}
 							
 			else
 				{
-					index = accessId.indexOf("@");
-					if (index!=0 && index!=-1)
-					{
-					accessId = accessId.substring(0,index-1);
-					}
 				
 					if (WSULogin())
 					{
@@ -264,10 +269,7 @@ public class User {
 				}
 			return "Error";
 	}
-					
-		
-	
-	
+							
 	/** Log user out of system 
 	 * @throws UnsupportedEncodingException 
 	 * @throws NoSuchAlgorithmException */
@@ -310,14 +312,14 @@ public class User {
 	/** Set user first name */
 	public void setFirstName(String firstName) {
 		
-		this.firstName= firstName;
+		User.firstName= firstName;
 		
 	}
 	
 	/** Set user last name */
 	public void setLastName (String lastName) {
 	
-		this.lastName = lastName;
+		User.lastName = lastName;
 	}
 	
 	/** Add user account to database 
@@ -372,7 +374,7 @@ public class User {
 			
 	}
 	
-	/** Returns true if login for WSU student is succesfull, false otherwise
+	/** Returns true if login for WSU student is successfull, false otherwise
 	 * 
 	 * @return true is login is sucessfull adds WSU account into the database
 	 * @throws NamingException 
@@ -384,7 +386,7 @@ public class User {
 		System.out.println("you are a WSU student...");
 		System.out.println("Your access ID is..."+ accessId);
 		// authenticate user through LDAP
-		Hashtable ldap = new Hashtable();
+		Hashtable<String, String> ldap = new Hashtable<String, String>();
 		ldap.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
 		ldap.put(Context.PROVIDER_URL, "ldap://directory.wayne.edu");
 		ldap.put(Context.SECURITY_AUTHENTICATION, "simple");
@@ -419,7 +421,7 @@ public class User {
  											   
  		// Search for objects using the filter
  				
- 		NamingEnumeration answer = null;
+ 		NamingEnumeration<?> answer = null;
 		answer = ctx.search(searchBase, searchFilter, searchCtls);
 	
  							
