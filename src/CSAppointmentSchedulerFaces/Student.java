@@ -137,5 +137,47 @@ public class Student {
 		
 		return false;
 	}
+
+	
+/* Retrieves how many times user has not attended an appointment
+ * @author Jacqueline D. Brown, aw4025
+ * @param email = USer's email address
+ * @return An integer representing the number of times a student has not attended an appoinment.
+ * 
+ * 
+ */
+	public int getAttendance(String email) throws ClassNotFoundException, SQLException
+	
+	{
+		
+		String sql = "SELECT COUNT(*) AS count  FROM APPOINTMENT WHERE STUDENT_EMAIL= '" +email + "' AND ATTENDANCE = 0";
+		Database.connect();
+		ResultSet rs= Database.fetch(sql);
+		
+		
+		rs.next();
+		int  attendance = rs.getInt("count");
+		rs.close();
+		
+		return attendance;
+		
+	}
+	
+	/* Retrieves how many times user has cancelled an appointment */
+	public int getCancellation(String email) throws ClassNotFoundException, SQLException 
+	{
+		String sql = "SELECT COUNT(*) AS count FROM APPOINTMENT WHERE STUDENT_EMAIL= '" +email + "' AND CANCELLED = 1 ";
+		Database.connect();
+		ResultSet rs= Database.fetch(sql);
+		
+		rs.next();
+		int  cancelled = rs.getInt("count");
+		rs.close();
+		
+		return cancelled;
+	}
+	
 }
+
+
 

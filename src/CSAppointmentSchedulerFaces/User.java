@@ -532,7 +532,24 @@ public class User {
 				return false;
 				
 			}
-				
+			
+
+	/* Sends an email reminder to student with new password */
+	private String generatePassword()
+	{
+		String alphabet="abcdefghijklmnopqrstuvwxyz1234567890!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		 char[] text = new char[8]; // PAssword must be at least 8 characters.
+		 
+		 for (int i = 0; i < text.length; i++)
+		    {
+			 Random rand = new Random();
+			 text[i]=alphabet.charAt(rand.nextInt(alphabet.length()));
+		    }
+		    return new String(text);
+		    
+		    
+		    
+	}
 	
 }
 	
