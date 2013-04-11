@@ -199,7 +199,7 @@ public class User {
 				menu += "<a title='View all your appointments.' href='Appointments.jsp'>View Your Appointments</a>";
 				menu += "<a title='Scheudle an appointment.' href='ScheduleAppoinment.jsp'>Schedule an Appointment</a>";
 				menu += "<hr/>";
-				menu += "<a href=title = 'Override Information.jsp'('overrides.html');\">Override Information and Forms</a>";   
+				menu += "<a title='Override Information'  href='overrides.jsp'>Override Information and Forms</a>";   
 
 				menu += "<a href='Help.jsp'>Help</a>";
 				menu += "<a href='../Login.jsp'>Logout</a>";
@@ -253,7 +253,15 @@ public class User {
 							
 							if (WSULogin())
 							{
-								return "Student Authorized";
+								if (role=="Advisor")
+								{
+									return "Advisor Authorized";
+								}
+								
+								else
+									{
+									return "Student Authorized";
+									}
 							}
 							
 						}
@@ -264,7 +272,15 @@ public class User {
 				
 					if (WSULogin())
 					{
-						return "Student Authorized";
+						if (role=="Advisor")
+						{
+							return "Advisor Authorized";
+						}
+						
+						else
+							{
+							return "Student Authorized";
+							}
 					}	
 				}
 			return "Error";
@@ -534,7 +550,8 @@ public class User {
 			}
 			
 
-	/* Sends an email reminder to student with new password */
+	/* Sends an email reminder to user with new password  (Only for NonWSU) 
+	 * WSU should use WSU's link to password*/
 	private String generatePassword()
 	{
 		String alphabet="abcdefghijklmnopqrstuvwxyz1234567890!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -550,6 +567,39 @@ public class User {
 		    
 		    
 	}
+	
+	
+	public int getAttendance(String email) throws ClassNotFoundException, SQLException
+	
+	{
+		
+		String sql = "SELECT COUNT(*) AS count  FROM APPOINTMENT WHERE STUDENT_EMAIL= '" +email + "' AND ATTENDANCE = 0";
+		Database.connect();
+		ResultSet rs= Database.fetch(sql);
+		
+		
+		rs.next();
+		int  attendance = rs.getInt("count");
+		rs.close();
+		
+		return attendance;
+		
+	}
+	
+	/* Retrieves how many times user has cancelled an appointment */
+	public int getCancellation(String email) throws ClassNotFoundException, SQLException 
+	{
+		String sql = "SELECT COUNT(*) AS count FROM APPOINTMENT WHERE STUDENT_EMAIL= '" +email + "' AND CANCELLED = 1 ";
+		Database.connect();
+		ResultSet rs= Database.fetch(sql);
+		
+		rs.next();
+		int  cancelled = rs.getInt("count");
+		rs.close();
+		
+		return cancelled;
+	}
+	
 	
 }
 	

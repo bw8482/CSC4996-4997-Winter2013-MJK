@@ -15,9 +15,14 @@
 <body>
 <f:view>
 	<%
-		String email = "ad7893@wayne.edu";
-		out.println(User.getUser().buildHeaderMenu("student"));
 		
+	User user=  new User();
+	user.getUser();
+	String headerMenu = user.buildHeaderMenu("student");
+	out.println(headerMenu);
+		
+	String email = user.getEmail();
+	
 		try {
 			if(request.getParameter("submit").equals("Cancel")) {
 				Student.cancel(request.getParameter("appointment"));

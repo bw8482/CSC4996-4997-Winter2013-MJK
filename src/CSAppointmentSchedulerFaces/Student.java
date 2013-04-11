@@ -6,9 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 
-public class Student {
-	
-	
+public class Student extends User {
+		
 	public static String getAppointments(String email) throws ClassNotFoundException, SQLException, ParseException {
 		Database.connect();
 		
@@ -138,7 +137,6 @@ public class Student {
 		return false;
 	}
 
-	
 /* Retrieves how many times user has not attended an appointment
  * @author Jacqueline D. Brown, aw4025
  * @param email = USer's email address
@@ -163,7 +161,7 @@ public class Student {
 		
 	}
 	
-	/* Retrieves how many times user has cancelled an appointment */
+	/*Retrieves how many times user has cancelled an appointment */
 	public int getCancellation(String email) throws ClassNotFoundException, SQLException 
 	{
 		String sql = "SELECT COUNT(*) AS count FROM APPOINTMENT WHERE STUDENT_EMAIL= '" +email + "' AND CANCELLED = 1 ";

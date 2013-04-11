@@ -3,52 +3,64 @@
 <%@ taglib prefix="h"  uri="http://java.sun.com/jsf/html"%>
 <%@ page import="CSAppointmentSchedulerFaces.User" %>
 <%@ page import="CSAppointmentSchedulerFaces.Student" %>
+<%@ page import ="CSAppointmentSchedulerFaces.Database" %>
+<%@ page import ="java.sql.ResultSet" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<LINK href="css/Header.css" rel="stylesheet" type="text/css">
-<LINK href="css/General.css" rel="stylesheet" type="text/css">
-<LINK href="css/Login.css" rel="stylesheet" type="text/css">
+<LINK href="../css/Table.css" rel="stylesheet" type="text/css">
+<LINK href="../css/General.css" rel="stylesheet" type="text/css">
+<LINK href="../css/Header.css" rel="stylesheet" type="text/css">
+<script type='text/javascript' src='../../js/general.js'></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<head>
+<title>CSC Appointment Scheduler</title>
 
 </head>
 <body>
+<%
+Database.connect();
+String sql = "SELECT * FROM OVERRIDES";
+ResultSet rs = Database.fetch(sql);
+
+User user = new User();
+user.getUser();
+
+String email = user.getEmail();
+
+String overrides = "<select name='overrides' placeholder='Select an error' id='override' style='width:200px;'>";
+overrides += "<option>--</option>";
+while(rs.next()) {
+	overrides += "<option value='" + rs.getString("ERROR_ID") + "'>" + rs.getString("ERROR_DESC") + "</option>";
+}
+%>
 <center><h2>WSU Computer Science Departments Override Descriptions and Forms</h2></center>
- <p>
-<h3><strong> Forms with Instructor Approval</strong></h3>
-		<ul>
-			<li><a href="https://engineering.wayne.edu/pdf/cofeappeal.pdf">College of Engineering Appeal Form</a></li>
-			<li><a href="http://reg.wayne.edu/pdf-forms/add.pdf">WSU Student Add Form</a></li>
-	   </ul>
-<h3><strong>Please see below for specific list of errors:</strong></h3>
+<div style='font-size: 12px; border-bottom: 1px solid #000; margin-bottom: 5px;'></div>
+	<form method ="post" action ="">
+		<table>
+			<tr style='background-color: transparent;'>
+				<td>
+					Select the error that you received...	
+				</td>
+			</tr>
+			<tr style='background-color: transparent;'>
+				<td>
+					<% out.println(overrides); %>
+				</td>
+			</tr>
+			
+	</table>
+	</form>
+<div id=content >
+<div style='font-size: 12px; border-bottom: 1px solid #000; margin-bottom: 5px;'>Please do the following to solve error:</div>
+	
+	<% 
+		
+		String output = Student.getOverrides(request.getParameter("override").value);
+		out.print(output);
+	%>
+	
+</div>
 
-<ul>
-<li>Co-requisite and Test error:   You are not signed up for all components of the course (i.e. lab and lecture). NO OVERRIDES GRANTED. Register for both components.</li><br>
-
-<li>Pre-requisite and Test Score error: You have not met the pre-requisites. REQUEST AN OVERRIDE</li>
-	Override/Petition Form, Signed by instructor		
-		<a href="https://engineering.wayne.edu/pdf/cofeappeal.pdf">College of Engineering Appeal Form</a>
-		</ul>
-<em><strong>Note: </strong>If you are certain that you meet the prerequisite(s) for a course but receive an error message when registering in Pipeline, please click <a href="mailto:colleen.mckenney@wayne.edu?subject=Overide Request 
-&body=Ms.Mckenney,%0A%0A%0ANOTE: All fields are mandatory to complete the override process%0A%0A%0AStudent Name:%0A%0ABanner Id:%0A%0AAccess Id:%0A%0AOverride Reason:%0A%0A%0AThank you,%0A%0A
-         ">Here</a></em> to submit the override request.   
-
-<ul>
-<li><u>Level Restriction</u>:  You currently do not meet the required class standing/number of credits for this course.  Undergrad in Grad class. Obtain instructor approval.</li>
-		<a href="http://reg.wayne.edu/pdf-forms/add.pdf">WSU Student Add Form</a> 
-		<br><br>
-<li><u>Written Consent needed</u>:  Requires Department/ Instructor Approval.</li>
-		<a href="http://reg.wayne.edu/pdf-forms/add.pdf">WSU Student Add Form</a> <br><br>
-<li><u>TIME CONFLICT WITH _____ </u>:Students may not register for courses with overlapping times. NO OVERRIDES GRANTED. Pick a new section.</li><br>
-
-<li><u>Repeat count exceeds 0 </u>: You have already attempted this course once. If it is your 2nd attempt: REQUEST AN OVERRIDE  3rd attempt:  See advisor.</li><br>
-
-<li><u>CLOSED SECION-X </u>: No seats are available in the course. NO OVERRIDES GRANTED.  Contact instructor.</li>
-	<a href="http://reg.wayne.edu/pdf-forms/add.pdf">WSU Student Add Form</a> <br>
-</ul>
-
- </p>
 
 </body>
 </html>

@@ -13,11 +13,17 @@
 <body>
 <f:view>
 <%
-	User user;
+	User user= new User();
 	user = User.getUser();
 	String headerMenu = user.buildHeaderMenu("student");
 	out.println(headerMenu);
+	
+	int attnd = user.getAttendance(user.getEmail());
+	if(user.getAttendance(user.getEmail()) > 0){
+		 /*  alert(user.getName() + "  ,you have canceled " + attnd + " times. " ); */
+	}
 %>
+
 <div id='content'>
 	Welcome,  to the <b style='color:#254117;'>Wayne State University</b> Computer Science Appointment Scheduler<br>
 	

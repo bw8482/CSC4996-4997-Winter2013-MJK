@@ -18,8 +18,16 @@
 <body>
 <f:view>
 <%
-	String email = "ad7893@wayne.edu";	
-	out.println(User.getUser().buildHeaderMenu("student"));
+
+User user = new User();
+user.getUser();
+String headerMenu = user.buildHeaderMenu("");
+out.println(headerMenu);
+
+String email = user.getEmail();
+
+
+
 	
 	Database.connect();
 	String sql = "SELECT * FROM ADVISOR";
@@ -130,6 +138,7 @@
 						<option value="2">Sophomore</option>
 						<option value="3">Junior</option>
 						<option value="4">Senior</option>
+						<option value="5">Undecided</option>
 					</select>
 				</td>
 			</tr>
