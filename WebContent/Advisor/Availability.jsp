@@ -12,6 +12,8 @@
 <LINK href="../css/Header.css" rel="stylesheet" type="text/css">
 <LINK href="../css/Table.css" rel="stylesheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<LINK href="//wayne.edu/global/css/global-v2.css" rel="stylesheet" type="text/css" media="all" />
+
 <title>CSC Appointment Scheduler</title>
 </head>
 <body>
@@ -22,6 +24,9 @@
 	
 %>
 <div id='content'>
+	<div class='title'>
+		Update Your Default Availability
+	</div>
 <%
 	
 	try {

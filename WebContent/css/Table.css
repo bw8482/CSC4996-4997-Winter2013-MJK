@@ -3,12 +3,12 @@
 table.tbl, table.tblNoHighlight {
 	border:	1px solid black;
 	border-collapse: collapse;
-	font-size:	11px;
+	font-size:	12px;
 }
 
 table.tbl th div, table.tblNoHighlight th div {
 	text-align:	left;
-	font-size:	11px;
+	font-size:	12px;
 	padding:	3px;
 	background-color:	#98B2AD;
 	border-top:		1px solid #c1d0cd;

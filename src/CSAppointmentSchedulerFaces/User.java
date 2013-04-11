@@ -153,65 +153,66 @@ public class User {
 		return error;
 	}
 
-	public String buildHeaderMenu(String role) {
-		String header = "<div id ='header'>";
-		//header += "<div id='header_title'>";
-		//header += "<div id='header_wsu'>WSU</div>";
-		//header += "<div id='header_wsu2'>Wayne State University</div>";
-		//header += "<div id='header_cs'>Department of Computer Science - Appointment Scheduler</div>";
-		header += "<div id='header_logo'><img src='http://localhost:8080/CSC4996-4997-Winter2013-MJK/faces/img/logo.png'></div>";
-		header += "<div id='header_title'>Computer Science Department Appointment Scheduler</div>";
-		header += "</div>";
-
-		if(role.equals("advisor")){
-			header += "<div id='header_user'>";
-			header += "Welcome " + getName();
-			header += "</div>";
-		}
-		if(role.equals("student")){
-			header += "<div id='header_user'>";
-			header += "Welcome " + getName();
-			header += "</div>";
-		}
-
-		header += "</div>";
-
+		public String buildHeaderMenu(String role) {
+		String header = "" +
+		"<div id='wsu-header'>" +
+		 " <div class='c'>" +
+		    "<ul class='skip'>" +
+		      "<li><a href='#content'>Skip to Content</a></li>" +
+		      "<li><a href='#menu'>Skip to Navigation</a></li>" +
+		    "</ul>" +
+		    "<h1><a href='http://wayne.edu/'><img src='//wayne.edu/global/images/wsu-wayne-state-university.gif' alt='Wayne State University' width='344' height='33' /></a></h1>" +
+		    "<h2><a href='http://wayne.edu/aimhigher/'><img src='//wayne.edu/global/images/wsu-aim-higher.gif' alt='Aim Higher' width='85' height='13' /></a></h2>" +
+		    "<div id='tab'>" +
+		      "<ul>" +
+		        "<li class='first'><a href='http://pipeline.wayne.edu/' title='WSU Pipeline' class='first'>Pipeline</a></li>" +
+		        "<li><a href='http://blackboard.wayne.edu/' title='Blackboard'>Blackboard</a></li>" +
+		        "<li><a href='http://stars.wayne.edu/' title='Stars'>Stars</a></li>" +
+		        "<li><a href='http://ucomm.wayne.edu/~fsd/' title='WSU Directories'><span>Directories</span></a></li>" +
+		        "<li><a href='http://wayne.edu/contact/' title='Contact WSU'><span>Contact WSU</span></a></li>" +
+		        "<li class='last'><a href='http://wayne.edu/siteindex.php' title='WSU A-Z Site Index' class='last'><span>A-Z Index</span></a></li>" +
+		      "</ul>" +
+		    "</div>" +
+		  "</div>" +
+		"</div>";
+		/*
+		header += "" +
+		"<div id='wsu-footer' style='position: absolute; bottom: 0px; width: 100%;'>" +
+		  "<div class='c'>" +
+		    "<address class='vcard' id='wsu-copyright'> <a class='url fn org' href='http://wayne.edu/'>Wayne State University</a> <span class='adr'> <span class='locality'>Detroit</span>, <span class='region'>MI</span> <span class='postal-code'>48202</span> <span class='country-name'>United States</span></span> &copy; 2013 </address>" +
+		    "<p id='wsu-policy'><a href='http://wayne.edu/policies/' title='View the Privacy and University Policies' rel='license'>Privacy and University Policies</a></p>" +
+		  "</div>" +
+		"</div>";
+		*/		
 		String menu = "";
-		System.out.println(authorized);
 		if(!role.isEmpty()) {
 			menu += "<div id='menu'>";
 			if(role.equals("advisor")) {
 				menu += "<a href='Advisor.jsp'>Home</a>";
-				menu += "<hr/>";
+				//menu += "<hr/>";
 				menu += "<a title='Quick look at appointments for today.' href='Appointments.jsp?date=today'>View Today's Appointments</a>";
 				menu += "<a title='Quick look at appointments for this week.' href='Appointments.jsp?date=week'>View This Week's Appointments</a>";
-				menu += "<a title='Search apointments by date, student and/or reason.' href='SearchAppointments.jsp'>Search Appointments</a>";
-				menu += "<hr/>";
+				//menu += "<hr/>";
 				menu += "<a title='Use the calendar to update your availability for a specific date, view appointments on a specific date and send reminders for appointments.' href='Calendar.jsp'>Calendar</a>";
-				menu += "<a title='Update your default availability.' href='Availability.jsp'>Update Availability</a>";
-				menu += "<a title ='Update your personal information (ie. phone, location).' href='PersonalInfo.jsp'>Update Personal Information</a>";
-				menu += "<hr/>";
-				menu += "<a href='Help.jsp'>Help</a>";
-				menu += "<a href='../Login.jsp'>Logout</a>";
+				menu += "<a title='Update your default availability.' href='Availability.jsp'>Update Default Availability</a>";
+				menu += "<a title ='Update your personal information (ie. phone, location, number of cancels allowed, number of no show allowed).' href='PersonalInfo.jsp'>Update Personal Information</a>";
+				//menu += "<hr/>";
+				menu += "<a href='#' onclick='window.open(\"../img/advisorHelp.png\", \"\", \"location=0,menubar=0\");'>Help</a>";
+				menu += "<a href='../Login.jsp?logout=true'>Logout</a>";
 			} else if(role.equals("student")){
 				menu += "<a href='Student.jsp'>Home</a>";
-				menu += "<hr/>";
 				menu += "<a title='View all your appointments.' href='Appointments.jsp'>View Your Appointments</a>";
-				menu += "<a title='Scheudle an appointment.' href='ScheduleAppoinment.jsp'>Schedule an Appointment</a>";
-				menu += "<hr/>";
-				menu += "<a title='Override Information'  href='overrides.jsp'>Override Information and Forms</a>";   
-
-				menu += "<a href='Help.jsp'>Help</a>";
-				menu += "<a href='../Login.jsp'>Logout</a>";
+				menu += "<a title='Scheudle an appointment.' href='ScheduleAppoinment.jsp'>Schedule an Appointment</a>";	
+				menu += "<a href='#' onclick='window.open(\"../img/studentHelp.png\", \"\", \"location=0,menubar=0\");'>Help</a>";
+				menu += "<a href='../Login.jsp?logout=true'>Logout</a>";
 			}
-
+		
 			menu += "</div>";
 		}
-
+		
 		return header + menu;
-
+		
 	}
-
 	
 	public String authorized() throws NoSuchAlgorithmException, UnsupportedEncodingException, NamingException, ClassNotFoundException, SQLException {
 		

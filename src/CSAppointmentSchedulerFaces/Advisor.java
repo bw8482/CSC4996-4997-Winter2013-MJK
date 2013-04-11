@@ -7,7 +7,9 @@ import java.util.Hashtable;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
-import javax.activation.*;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 public class Advisor {
 	
@@ -19,6 +21,8 @@ public class Advisor {
 		String hiddenDate = date;
 		String dateNiceFormat;
 		String tbl = "";
+		
+		boolean showTitle = false;
 		if(date.equals("today") || date == null) {
 			date = "= DATE_ADD(CURDATE(), INTERVAL 0 DAY)";
 			dateNiceFormat = "Today";
@@ -32,6 +36,7 @@ public class Advisor {
 		} else {
 			dateNiceFormat = "on " + FormatterFactory.dateFormat(date);
 			date = "= '" + date + "'";
+			showTitle = true;
 		}
 		
 		String title = "Appointments " + dateNiceFormat;
@@ -43,7 +48,9 @@ public class Advisor {
 		tbl += ("<form name='appointments' style='position: relative'>");
 
 		tbl += ("<div style='margin-top: 10px; border-bottom: 1px solid #000; font-weight: normal; margin-bottom: 5px; position: relative;'>");
-		tbl += title;
+		
+		if(showTitle) { tbl += title; } else { tbl += "&nbsp;";}
+		
 		tbl += ("<input type='submit' name='submit' value='Send Reminders' style='position: absolute; right: 0px; top: -7px; width: 100px;'/>");
 		tbl += ("<input type='submit' name='submit' value='Cancel' style='position: absolute; right: 101px; top: -7px; width: 80px;'/>");
 		tbl += ("<input type='submit' name='submit' value='Mark No Show' style='position: absolute; right: 182px; top: -7px; width: 110px;'/>");
@@ -55,7 +62,7 @@ public class Advisor {
 		
 		tbl += ("<table class='tbl'>");
 		tbl += ("<th style='width: 30px;'><div>&nbsp;</div></th>");
-		tbl += ("<th style='width: 150px;'><div>Email</div></th>");
+		tbl += ("<th style='width: 130px;'><div>Email</div></th>");
 		tbl += ("<th style='width: 130px;'><div>Name</div></th>");
 		tbl += ("<th style='width: 120px;'><div>Major</div></th>");
 		tbl += ("<th style='width: 60px;'><div>Standing</div></th>");
@@ -70,7 +77,7 @@ public class Advisor {
 		sql += " APPT_ID,";
 		sql += " STUDENT_EMAIL,";
 		sql += " REASON_TEXT,";
-		sql += " COMMENTS,";
+		//sql += " COMMENTS,";
 		sql += " APPT_DATE,";
 		sql += " APPT_TIME,";
 		sql += " MAJOR_TEXT,";
@@ -121,9 +128,10 @@ public class Advisor {
 			
 			String comments = "<span style='font-size: 10px;'>";
 			
-			if(rs.getInt("FIRST_APPT") == 1) {
+			/*if(rs.getInt("FIRST_APPT") == 1) {
 				comments += "<span>First Appointment<br/></span>";
 			}
+			*/
 			if(rs.getInt("CANCELLED") == 1) {
 				comments += "<span style='color: red;'>Cancelled<br/></span>";
 			}
@@ -137,7 +145,7 @@ public class Advisor {
 		}
 		
 		if(x == 0) {
-			tbl += ("<tr><td colspan='8'>There are no appointments to display.</td></tr>");
+			tbl += ("<tr><td colspan='9'>There are no appointments to display.</td></tr>");
 		}
 		tbl += ("</table>");
 		tbl += ("<input type='hidden' name='date' value='" + hiddenDate + "'/>");
@@ -150,12 +158,14 @@ public class Advisor {
 		String where = "";
 		String title = "";
 		
+		boolean showTitle = false;
 		if(date == null) {
 			where = "DATE IS NULL";
-			title = "Update Your Default Availability";
+			showTitle = false;
 		} else {
 			where = "DATE = '" + date + "'";
-			title = "Update Your Availability for " + FormatterFactory.dateFormat(date);;
+			title = "Update Your Availability for " + FormatterFactory.dateFormat(date);
+			showTitle = true;
 		}
 		
 		Hashtable<String, String> times = new Hashtable<String, String>();
@@ -166,12 +176,14 @@ public class Advisor {
 		}
 		
 		//form += ("<div style='margin-top: 10px; border-bottom: 1px solid #000; font-weight: normal; margin-bottom: 5px; position: relative;'>" + title + "<input type='submit' name='submit' value='Save' style='position: absolute; right: 0px; top: -7px; width: 100px;'/></div>");
-		form += ("<table class='' style='border-collapse: collapse; width: 100%;'>");
+		form += ("<table class='' style='border-collapse: collapse;'>");
 		form += ("<form name='availability' style='position: relative; width: 478px;'>");
-
-		form += ("<tr style='background-color: transparent;'>");
-		form += ("<td colspan='4' style='border-bottom: 1px solid #000;'>" + title + "</td>");
-		form += ("<tr>");
+		
+		if(showTitle) {
+			form += ("<tr style='background-color: transparent;'>");
+			form += ("<td colspan='4' style='border-bottom: 1px solid #000;'>" + title + "</td>");
+			form += ("<tr>");
+		}
 		//if(date == null) form += ("<th colspan='3'><div style='text-align: left; height: 20px;'>Update Default Availability</div></th>");
 		//form += ("<th colspan='" + colspan + "'><div style='text-align: right; height: 20px;'><input style='margin: 0px;' type='submit' name='submit' value='Save'/></div></th>");
 		int max = 4;
@@ -363,8 +375,8 @@ public class Advisor {
 		}
 	}
 	
-	public static boolean cancel(String[] appointments) throws ClassNotFoundException, SQLException {
-		String appointmentIn = "";
+	public static boolean cancel(String[] appointments) throws ClassNotFoundException, SQLException, ParseException {
+		/*String appointmentIn = "";
 		for(int i = 0; i < appointments.length; i++) {
 			if(!appointmentIn.isEmpty()) {
 				appointmentIn += ", ";
@@ -379,67 +391,112 @@ public class Advisor {
 		} else {
 			return false;
 		}
+		*/
+		
+		String sql = "";
+		String sql2 = "";
+
+		for(int i = 0; i < appointments.length; i++) {
+			sql = "SELECT 1 FROM EMAIL_SENT WHERE APPT_ID = " + appointments[i] + " AND TYPE = 'CANCEL'";
+			ResultSet rs = Database.fetch(sql);
+			if(rs.next()) {
+				continue;
+			} else {
+				sql = "INSERT INTO EMAIL_SENT (APPT_ID, TYPE, DATE_SENT) VALUES(" + appointments[i] + ", 'CANCEL', CURDATE())"; 
+				sql2 = "UPDATE APPOINTMENT SET CANCELLED = 1 WHERE APPT_ID = " + appointments[i];
+				if(Database.execute(sql) && Database.execute(sql2)) {
+					sql = "SELECT";
+					sql += " APPT_DATE,";
+					sql += " APPT_TIME,";
+					sql += " REASON_TEXT,";
+					sql += " ADVISOR_EMAIL,";
+					sql += " AD.FIRST_NAME,";
+					sql += " AD.LAST_NAME,";
+					sql += " S.EMAIL,";
+					sql += " LOCATION,";
+					sql += " PHONE,";
+					sql += " APPT_ID,";
+					sql += " CANCELLED,";
+					sql += " CANCEL_WINDOW";
+					sql += " FROM APPOINTMENT A ";
+					sql += " LEFT JOIN REASON R ON R.REASON_ID = A.REASON";
+					sql += " LEFT JOIN ADVISOR AD ON AD.ACCESS_ID = A.ADVISOR_ACCESS_ID";
+					sql += " LEFT JOIN STUDENT S ON S.EMAIL = A.STUDENT_EMAIL";
+					sql += " WHERE APPT_ID = '" + appointments[i] + "'";
+			
+					rs = Database.fetch(sql);
+					if(rs.next()) {
+						String message = "This is a notice that your appointment " +
+								"with " + FormatterFactory.format(rs.getString("FIRST_NAME")) + " " + FormatterFactory.format(rs.getString("LAST_NAME")) + 
+								" for " + FormatterFactory.format(rs.getString("REASON_TEXT")) + " on " +
+								FormatterFactory.dateFormat(rs.getString("APPT_DATE")) + " at " + 
+								FormatterFactory.timeFormat(rs.getString("APPT_TIME")) + " has been cancelled.";
+						String to = rs.getString("EMAIL");
+						to = "ef2558@wayne.edu";
+			
+						if(sendEmailGmail(to, message)) {
+							
+						}
+					} else {
+
+					}
+					
+				} 
+			}
+		}
+		return true;
 	}
 	
-	public static boolean sendEmailReminder(int apptId) {
-		String sql = "";
-		 // Recipient's email ID needs to be mentioned.
-		  String to = "mmohamed1092@gmail.com";
-		
-		  // Sender's email ID needs to be mentioned
-		  String from = "mmohamed1092@gmail.com";
-		
-		  // Assuming you are sending email from localhost
-		  String host = "http://localhost/";
-		  System.out.println(host);
-		  // Get system properties
-		  Properties properties = System.getProperties();
-		
-		  // Setup mail server
-		  properties.setProperty("mail.smtp.host", "smtp.gmail.com");
-		
-		  // Get the default Session object.
-		  Session session = Session.getDefaultInstance(properties);
-		
-		  try{
-		     // Create a default MimeMessage object.
-			 MimeMessage message = new MimeMessage(session);
-			
-			 // Set From: header field of the header.
-			 message.setFrom(new InternetAddress(from));
-			
-			 // Set To: header field of the header.
-			 message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-			
-			 // Set Subject: header field
-			 message.setSubject("This is the Subject Line!");
-			
-			 // Create the message part 
-			 BodyPart messageBodyPart = new MimeBodyPart();
-			
-			 // Fill the message
-			 messageBodyPart.setText("This is message body");
-			 
-			 // Create a multipar message
-			 Multipart multipart = new MimeMultipart();
-			
-			 // Set text message part
-			 multipart.addBodyPart(messageBodyPart);
 	
-			 // Send the complete message parts
-			 message.setContent(multipart );
-			
-			 // Send message
-			 Transport.send(message);
-			 System.out.println("Sent message successfully....");
-		  }catch (MessagingException mex) {
-		     mex.printStackTrace();
-		  }
+	public static boolean sendEmailGmail(String to, String messageStr) {
+		System.out.println("Got here");
+		 Properties props = new Properties();  
+	        props.put("mail.smtp.host", "smtp.gmail.com");  
+	        props.put("mail.smtp.socketFactory.port", "465");  
+	        props.put("mail.smtp.socketFactory.class",  
+	                "javax.net.ssl.SSLSocketFactory");  
+	        props.put("mail.smtp.auth", "true");  
+	        props.put("mail.smtp.port", "465");  
+	        System.out.println("Got here 2");
+	        Session session = null;
+	        try {
+	        	session = Session.getDefaultInstance(props,  
+	    	            new javax.mail.Authenticator() {  
+	                protected PasswordAuthentication getPasswordAuthentication() {  
+	                    return new PasswordAuthentication("cscappointmentscheduler","cscappointmentsadmin");  
+	                }  
+	            });  
+	        
+	        } catch(Exception ex){
+	        	System.out.println("Error " + ex.getMessage());
+	        }
+	        System.out.println("Got here 3");
+	        try {  
+	
+	            Message message = new MimeMessage(session);  
+	            message.setFrom(new InternetAddress("cscappointmentscheduler@gmail.com"));  
+	            System.out.println("Got here 4");
+	            message.setRecipients(Message.RecipientType.TO,  
+	                    InternetAddress.parse(to));  
+	            message.setSubject("CSC Appointment Scheduler");  
+	            message.setText(messageStr);  
+	            System.out.println("Got here 5");
+	            System.out.println(messageStr);
+				System.out.println(to);
+				
+	            Transport.send(message);  
+	   
+	            System.out.println("Email Sent!");  
+	   
+	        } catch (MessagingException e) {  
+	        	System.out.println("Error");
+	            throw new RuntimeException(e);  
+	        } 
 	      
 		return true;
 	}
 	
-	public static int sendReminders(String[] appointments) throws ClassNotFoundException, SQLException {
+	public static int sendReminders(String[] appointments) throws ClassNotFoundException, SQLException, ParseException {
 		String sql = "";
 
 		int totalSent = 0;
@@ -451,9 +508,43 @@ public class Advisor {
 			} else {
 				sql = "INSERT INTO EMAIL_SENT (APPT_ID, TYPE, DATE_SENT) VALUES(" + appointments[i] + ", 'REMINDER', CURDATE())"; 
 				if(Database.execute(sql)) {
-					if(sendEmailReminder(Integer.parseInt(appointments[i]))) {
-						totalSent++;
+					sql = "SELECT";
+					sql += " APPT_DATE,";
+					sql += " APPT_TIME,";
+					sql += " REASON_TEXT,";
+					sql += " ADVISOR_EMAIL,";
+					sql += " AD.FIRST_NAME,";
+					sql += " AD.LAST_NAME,";
+					sql += " S.EMAIL,";
+					sql += " LOCATION,";
+					sql += " PHONE,";
+					sql += " APPT_ID,";
+					sql += " CANCELLED,";
+					sql += " CANCEL_WINDOW";
+					sql += " FROM APPOINTMENT A ";
+					sql += " LEFT JOIN REASON R ON R.REASON_ID = A.REASON";
+					sql += " LEFT JOIN ADVISOR AD ON AD.ACCESS_ID = A.ADVISOR_ACCESS_ID";
+					sql += " LEFT JOIN STUDENT S ON S.EMAIL = A.STUDENT_EMAIL";
+					sql += " WHERE APPT_ID = '" + appointments[i] + "'";
+			
+					rs = Database.fetch(sql);
+					if(rs.next()) {
+
+						String message = "This is a reminder that you have an appointment " +
+								"with " + FormatterFactory.format(rs.getString("FIRST_NAME")) + " " + FormatterFactory.format(rs.getString("LAST_NAME")) + 
+								" for " + FormatterFactory.format(rs.getString("REASON_TEXT")) + " on " +
+								FormatterFactory.dateFormat(rs.getString("APPT_DATE")) + " at " + 
+								FormatterFactory.timeFormat(rs.getString("APPT_TIME")) + ".";
+						String to = rs.getString("EMAIL");
+						to = "ef2558@wayne.edu";
+	
+						if(sendEmailGmail(to, message)) {
+							totalSent++;
+						}
+					} else {
+
 					}
+					
 				} 
 			}
 		}

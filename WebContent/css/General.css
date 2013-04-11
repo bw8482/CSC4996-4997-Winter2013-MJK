@@ -2,13 +2,15 @@
 
 html, body {
 	font-size:		12px;
-	font-family:	Segoe ui, Arial;
+	font-family:	Arial;
 	margin:			0px;
 	padding:		0px;
 	overflow-x:		hidden;
 	padding-bottom: 5px;
 	width: 100%;
 	height: 100%;
+
+
 } 
 
 input[type=text], input[type=password], select {
@@ -57,41 +59,51 @@ div.success {
 
 div#menu {
 	float: 		left;
-	width:		160px;
-	font-size:	11px;
+	width:		200px;
+	font-size:	12px;
 	min-height:		50px;
-	padding:	5px;
 	margin-top:	5px;
 	margin-left: 5px;
-	
-	background-color: #fdf8e8;
-	border: 1px solid #f8e3a5;
-	
+	background-color: #eceade;
+	border: 0px solid #383838;
 }
 
-div#menu hr {
-	height: 0px;
-	border-top: 1px solid #000;
+div#menu a:hover {
+	background-color: #383838;
+	color: #fff;
 }
+
 
 div#content {
-	float: 		left;	
-	overflow:		scroll;
-	margin-top:	5px;
-	background-color: #fdf8e8;
-	border: 1px solid #f8e3a5;
-	padding: 5px;
+	float: left;
+	margin-top: 5px;
 	margin-left: 5px;
+	margin-bottom: 5px;
+	/*min-width: 900px;*/
 	
+}
+
+div.title {
+	/*background-color: #383838; */
+	color: #000; 
+	font-size: 14px; 
+	padding-bottom: 5px;
+	padding-left: 5px;
+	text-decoration: underline;
+	font-weight: bold;
 }
 
 div#menu a {
 	display:	block;	
-	color:		#000;
 	cursor:		pointer;
 	text-decoration:	none;
+	padding: 5px;
+	padding-righg: 5px;
+	color: #000;
 }
 
-div#menu a:hover {
-	text-decoration:	underline;
+select {
+	
+	padding: 5px;
+	border: 1px solid gray;
 }

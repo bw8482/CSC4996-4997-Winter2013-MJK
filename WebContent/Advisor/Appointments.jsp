@@ -12,6 +12,7 @@
 <LINK href="../css/Header.css" rel="stylesheet" type="text/css">
 <LINK href="../css/Table.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="../js/general.js"></script>
+<LINK href="//wayne.edu/global/css/global-v2.css" rel="stylesheet" type="text/css" media="all" />
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -22,10 +23,7 @@
 <%
 	String accessId = "ef2558";	
 	out.println(User.getUser().buildHeaderMenu("advisor"));
-%>
-<div id='content'>
-<%
-
+	
 	String date = null;
 	try {
 		date = request.getParameter("date");
@@ -36,6 +34,21 @@
 			date = "today";
 		}
 	}
+	
+	String titleAppend = "";
+	if(date.equals("today")) {
+		titleAppend = " Today";
+	} else if(date.equals("week")){
+		titleAppend = " This Week";
+	}
+%>
+<div id='content'>
+	<div class='title'>
+		Appointments <% out.println(titleAppend); %>
+	</div>
+<%
+
+	
 	
 	try {
 		String[] appointments = request.getParameterValues("appointments");

@@ -7,6 +7,8 @@
 <head>
 <LINK href="css/Header.css" rel="stylesheet" type="text/css">
 <LINK href="css/General.css" rel="stylesheet" type="text/css">
+
+<LINK href="//wayne.edu/global/css/global-v2.css" rel="stylesheet" type="text/css" media="all" />
 <LINK href="css/Login.css" rel="stylesheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script type='text/javascript'>
@@ -40,12 +42,11 @@
 </head>
 <body>
 <f:view>
- <%
+<%
 	User user = new User();
 	String headerMenu = user.buildHeaderMenu("");
 	out.println(headerMenu);
 %>
-
 <div id='loginBox'>
 	<h:form>
 		<table>

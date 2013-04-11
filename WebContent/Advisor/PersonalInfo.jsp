@@ -10,6 +10,8 @@
 <head>
 <LINK href="../css/General.css" rel="stylesheet" type="text/css">
 <LINK href="../css/Header.css" rel="stylesheet" type="text/css">
+<LINK href="//wayne.edu/global/css/global-v2.css" rel="stylesheet" type="text/css" media="all" />
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>CSC Appointment Scheduler</title>
 </head>
@@ -37,13 +39,11 @@
 	
 		Hashtable<String, String> info = Advisor.getPersonalInfo(accessId);
 	%>
+	<div class='title'>
+		Update Your Personal Information & Settings	
+	</div>
 	<form>
 	<table style=''>
-		<tr>
-			<td style='border-bottom: 1px solid black;'>
-				Update Your Personal Information & Settings
-			</td>
-		</tr>
 		<tr>
 			<td style='font-size: 10px;'>
 				The following information will be provided to students after they schedule an appointment.

@@ -9,6 +9,8 @@
 <LINK href="css/Header.css" rel="stylesheet" type="text/css">
 <LINK href="css/General.css" rel="stylesheet" type="text/css">
 <LINK href="css/Login.css" rel="stylesheet" type="text/css">
+<LINK href="//wayne.edu/global/css/global-v2.css" rel="stylesheet" type="text/css" media="all" />
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script type='text/javascript'>
 	function validateRegistration() {
@@ -57,9 +59,7 @@
 <body>
 <f:view>
 <%
-User user = new User();
-String headerMenu = user.buildHeaderMenu("");
-out.println(headerMenu);
+	out.println(User.getUser().buildHeaderMenu(""));
 %>
 
 <div id='validate' style='padding: 5px; font-size: 11px;'>

@@ -88,6 +88,7 @@ if(iMonth == 11) {
 <LINK href="../css/Table.css" rel="stylesheet" type="text/css">
 <LINK href="../css/Calendar.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="../js/general.js"></script>
+<LINK href="//wayne.edu/global/css/global-v2.css" rel="stylesheet" type="text/css" media="all" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script>
@@ -135,8 +136,12 @@ function selectDay(day, method){
 	String accessId = "ef2558";	
 	out.println(User.getUser().buildHeaderMenu("advisor"));
 %>
+
 <div id='content' style='background-color: #fff; border: none; padding: 0px;'>
-	<div id='calendar'>
+	<div class='title'>
+		Calendar
+	</div>
+	<div id='calendar' style='margin-top: 5px;'>
 		<form name='calendar'>
 		<input type='hidden' name='iYear' id='iYear' value='<%=iYear%>'>
 		<input type='hidden' name='iMonth' id='iMonth' value='<%=iMonth%>'>
@@ -209,7 +214,7 @@ function selectDay(day, method){
 	    	</table>
 	    </div>
 	     
-	    <div style='background-color: #fdf8e8; border: 1px solid #f8e3a5; padding: 5px;'>
+	    <div style='padding: 5px;'>
     	<%
 	    	if(method != null) {
 	    		String date = null;

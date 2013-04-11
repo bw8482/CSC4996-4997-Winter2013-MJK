@@ -5,8 +5,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<LINK href="//wayne.edu/global/css/global-v2.css" rel="stylesheet" type="text/css" media="all" />
+
 <LINK href="../css/General.css" rel="stylesheet" type="text/css">
-<LINK href="../css/Header.css" rel="stylesheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>CSC Appointment Scheduler</title>
 </head>
@@ -17,7 +18,9 @@
 		out.println(User.getUser().buildHeaderMenu("advisor"));
 	%>
 	<div id='content'>
-		Welcome to the Wayne State University Computer Science Appointment Scheduler.
+		<div class='title' style='width: 100%;'>
+			Department <i>of</i> <span style='color: #FFCC33;'>Computer Science</span> Appointment Scheduler
+		</div>
 	</div>
 </f:view>
 </body>
