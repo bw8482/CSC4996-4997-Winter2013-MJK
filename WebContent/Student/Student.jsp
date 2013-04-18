@@ -19,10 +19,6 @@
 	String headerMenu = user.buildHeaderMenu("student");
 	out.println(headerMenu);
 	
-	int attnd = user.getAttendance(user.getEmail());
-	if(user.getAttendance(user.getEmail()) > 0){
-		 /*  alert(user.getName() + "  ,you have canceled " + attnd + " times. " ); */
-	}
 %>
 
 <div id='content'>

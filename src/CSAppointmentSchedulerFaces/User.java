@@ -202,7 +202,8 @@ public class User {
 			} else if(role.equals("student")){
 				menu += "<a href='Student.jsp'>Home</a>";
 				menu += "<a title='View all your appointments.' href='Appointments.jsp'>View Your Appointments</a>";
-				menu += "<a title='Scheudle an appointment.' href='ScheduleAppoinment.jsp'>Schedule an Appointment</a>";	
+				menu += "<a title='Scheudle an appointment.' href='ScheduleAppoinment.jsp'>Schedule an Appointment</a>";
+				menu += "<a title='Forms and Overrides.' href='overrides.jsp'>Forms and Overrides</a>";
 				menu += "<a href='#' onclick='window.open(\"../img/studentHelp.png\", \"\", \"location=0,menubar=0\");'>Help</a>";
 				menu += "<a href='../Login.jsp?logout=true'>Logout</a>";
 			}
