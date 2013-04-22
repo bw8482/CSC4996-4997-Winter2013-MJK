@@ -14,8 +14,8 @@
 <body>
 <f:view>
 <%
-	User user= new User();
-	user = user.getUser();
+	User user = new User();
+	user = User.getUser();
 	String headerMenu = user.buildHeaderMenu("student");
 	out.println(headerMenu);
 	

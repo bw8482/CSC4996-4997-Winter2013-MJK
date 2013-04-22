@@ -65,6 +65,9 @@
 			</tr>
 			<tr>
 				<td colspan='2' style='font-size: 10px;'>Not a WSU Student? <a href='Register.jsp'>Click here</a> to register an account to use <br/>the CSC Appointment Scheduler.</td>
+				
+			</tr>
+				<td colspan='1' style='font-size: 10px;'>Forgot your password? <a href='ForgotPassword.jsp'>Click here</a></td>
 			</tr>
 			<tr>
 				<td></td>

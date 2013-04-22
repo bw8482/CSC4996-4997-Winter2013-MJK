@@ -7,6 +7,24 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 public class Student extends User {
+	
+	/** Create default student account */
+	public Student()
+	{
+		super.setAccessId(null);
+		super.setFirstName(null);
+		super.setLastName(null);
+		super.setEmail(null);
+	}
+	
+	/** Create student account */
+	public Student(String accessId, String password, String firstName, String lastName, String email)
+	{
+		super.setAccessId(accessId);
+		super.setFirstName(firstName);
+		super.setLastName(lastName);
+		super.setEmail(email);
+	}
 		
 	public static String getAppointments(String email) throws ClassNotFoundException, SQLException, ParseException {
 		Database.connect();
@@ -114,11 +132,12 @@ public class Student extends User {
 		Database.connect();
 		
 		 try {
-			String encryptedPassword = MD5.MD5(password);
+			String encryptedPassword = Password.MD5(password);
 		
 			String sql = "";
-			sql  = "INSERT INTO STUDENT (EMAIL, FIRST_NAME, LAST_NAME, PASSWORD)";
-			sql += "VALUES('" + email.replace("'", "''") + "', '" + firstName.replace("'", "''")  + "', '" + lastName.replace("'", "''")  + "', '" + encryptedPassword  + "')";
+			sql  = "INSERT INTO STUDENT (EMAIL, FIRST_NAME, LAST_NAME, PASSWORD, CHANGEPASSWORD)";
+			sql += "VALUES('" + email.replace("'", "''") + "', '" + firstName.replace("'", "''")  + "', '" + lastName.replace("'", "''")  + "', '" + encryptedPassword  + "',"+ false + ")";
+					
 			System.out.println(sql);
 		 
 			if(Database.execute(sql)){
@@ -148,7 +167,7 @@ public class Student extends User {
 	
 	{
 		
-		String sql = "SELECT COUNT(*) AS count  FROM APPOINTMENT WHERE STUDENT_EMAIL= '" +email + "' AND ATTENDANCE = 0";
+		String sql = "SELECT COUNT(*) AS count  FROM APPOINTMENT WHERE STUDENT_EMAIL= '" +super.getEmail() + "' AND ATTENDANCE = 0";
 		Database.connect();
 		ResultSet rs= Database.fetch(sql);
 		
@@ -164,7 +183,7 @@ public class Student extends User {
 	/*Retrieves how many times user has cancelled an appointment */
 	public int getCancellation(String email) throws ClassNotFoundException, SQLException 
 	{
-		String sql = "SELECT COUNT(*) AS count FROM APPOINTMENT WHERE STUDENT_EMAIL= '" +email + "' AND CANCELLED = 1 ";
+		String sql = "SELECT COUNT(*) AS count FROM APPOINTMENT WHERE STUDENT_EMAIL= '" + super.getEmail() + "' AND CANCELLED = 1 ";
 		Database.connect();
 		ResultSet rs= Database.fetch(sql);
 		
@@ -174,8 +193,35 @@ public class Student extends User {
 		
 		return cancelled;
 	}
+
+	/** Add student account 
+	 * @return 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException **/
+	public static boolean add(String accessId, String email, String firstName,
+			String lastName) throws ClassNotFoundException, SQLException {
+			
+			Database.connect();
+		
+		 String sql = "";
+		sql  = "INSERT INTO STUDENT (ACCESS_ID, EMAIL, FIRST_NAME, LAST_NAME)";
+		sql += "VALUES('" + accessId.replace("'", "''") + "', '" + email.replace("'","'") + "','"+ firstName.replace("'", "''")  + "', '" + lastName.replace("'", "''")  + "')";
+				
+		System.out.println(sql);
+ 
+		
+		if(Database.execute(sql)){
+			
+			return true;
+		}
+		
+		
+		return false;
+	}
+		
+	}
 	
-}
+
 
 
 

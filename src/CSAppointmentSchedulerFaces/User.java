@@ -21,7 +21,6 @@ import javax.naming.directory.SearchResult;
  * @author Jacqueline D. Brown, aw4025@wayne.edu
  *
  */
-
 public class User {
 
 	private static String accessId;
@@ -29,7 +28,7 @@ public class User {
 	private static String firstName;
 	private static String lastName;
 	private static String email;
-	private static String role = "Student";
+	private static String changed;
 	
 	public boolean authorized = false;
 	private String error = "";
@@ -37,10 +36,16 @@ public class User {
 
 	/** Default constructor */
 	public User() {
+		
+		User.accessId = null;
+		User.password = null;
+		User.firstName = null;
+		User.lastName = null;
+		User.email = null;
 
 	}
 	
-	/** Create a new user with the following parameters
+	/** Create a new user with the following parameters and add account to the database
 	 * 
 	 * @param accessID = the accessID of the user
 	 * @param password = the password of the user
@@ -55,34 +60,41 @@ public class User {
 		User.firstName = firstName;
 		User.lastName = lastName;
 		User.email = email;
+		
 	}
 
-	/** Save user session
-	 * 
-	 */
+	/** Save user session **/
 	public static void setUser() {
+		
+		System.out.print("Setting user information....");
 		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		User user = new User(accessId, password, firstName, lastName, email);
 		fc.getExternalContext().getSessionMap().put("user", user);	
 		
+		System.out.println("done.");
 	}
 
 	/** Get current user using session */
 	public static User getUser() {
 		
-		System.out.println("Getting user information....");
+		System.out.print("Getting user information....");
 		
 		try {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		User user =(User) fc.getExternalContext().getSessionMap().get("user");
-		System.out.println(user.toString());
+		
+		System.out.print("done.");
 		return user;
+		
+		
 		}
 		catch (NullPointerException e)
 		{
 		return null;
 		}
+		
+	
 	}
 
 	/** Set accessId of user */
@@ -93,16 +105,6 @@ public class User {
 	/** Get user accessId */
 	public String getAccessId() { 
 		return accessId;
-	}
-
-	/** Returns user first & Last name */
-	public String getName() {
-		if(firstName != null && lastName != null) {
-			return firstName + " " + lastName;
-		} else {
-			return null;
-		}
-
 	}
 	
 	/** Set user email address */
@@ -115,9 +117,17 @@ public class User {
 		return email;
 	}
 
-	/** Set user password  */
+	/** Set user password  
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 * @throws UnsupportedEncodingException 
+	 * @throws NoSuchAlgorithmException */
 	public void setPassword (String password)  {
+		
+		
 		User.password= password;
+		
+		
 	}
 
 	/** Get user password */
@@ -126,18 +136,28 @@ public class User {
 		return password;
 	}
 	
+	
+	/** Update user account information  and save to database
+	 * @throws SQLException  = user account cannot be found
+	 * @throws ClassNotFoundException = ????  **/ 
+	public void update() throws ClassNotFoundException, SQLException
+	{
+		Database.connect();
+		
+		if (isAdvisor())
+		{
+			// Update advisor information
+		}
+		
+		if (isStudent())
+		{
+			//Update student table with information
+		}
+		
+	}
+	
 	public boolean getDisplayError() {
 		return displayError;
-	}
-
-	/** Get user role */
-	public String getRole() { 
-		return role;
-	}
-
-	/** Set user role */
-	public void setRole(String _role) {
-		User.role = _role;
 	}
 
 	public void setError (String _error) {
@@ -153,7 +173,7 @@ public class User {
 		return error;
 	}
 
-		public String buildHeaderMenu(String role) {
+	public String buildHeaderMenu(String role) {
 		String header = "" +
 		"<div id='wsu-header'>" +
 		 " <div class='c'>" +
@@ -216,7 +236,8 @@ public class User {
 	
 	public String authorized() throws NoSuchAlgorithmException, UnsupportedEncodingException, NamingException, ClassNotFoundException, SQLException {
 		
-				// Check for valid access ID
+		System.out.print("Processing login information...");
+		// Check for valid access ID
 		if(accessId.isEmpty() || password.isEmpty()) {
 			displayError = true;
 			if(accessId.isEmpty() && password.isEmpty()) {
@@ -226,73 +247,140 @@ public class User {
 			} else if(password.isEmpty()) {
 				setError("Please input a Password.");
 			} 
-
+			System.out.println("Error.");
 			return "Error";
 			}
-		
-		int index = 0;
-		
+
+
+
 		// Check if user has entered an email address instead of accessID
-			if (accessId.contains("@"))
-				{
-					System.out.println("This is a email address!");
-						
-					index = accessId.indexOf("@");
-						// Check for not @wayne.edu
-						
-						if (accessId.substring(index+1).compareToIgnoreCase("wayne.edu")!=0)
-						{
-							 if (NonWSULogin())
-							 {
-								 return "Student Authorized";
-							 }
-						}
-						else
-						{
-							accessId= accessId.substring(0, 6);
-							System.out.println ("Your access ID...." + accessId);
-							
-							if (WSULogin())
-							{
-								if (role=="Advisor")
-								{
-									return "Advisor Authorized";
-								}
-								
-								else
-									{
-									return "Student Authorized";
-									}
-							}
-							
-						}
-				}
-							
-			else
-				{
+	
+		int index = accessId.indexOf("@");
+
+		if (index>0 && accessId.substring(index+1).compareToIgnoreCase("wayne.edu")!=0)
+			{
 				
+					 System.out.println("NonWSU");
+					if (NonWSULogin())
+					 {
+						 
+						 System.out.println("Student");
+						 
+					
+						 	if (changed.charAt(0)=='1')
+						 	{
+							 return "Change Password";
+							
+						 	}
+						 
+						 	else 
+							 {
+							 	return "Student Authorized";
+							 }
+					 }
+			}
+		else 
+			{
+					
+				accessId= accessId.substring(0, 6);
+					
 					if (WSULogin())
 					{
-						if (role=="Advisor")
+						if (isAdvisor())
 						{
+							System.out.println("Advisor");
 							return "Advisor Authorized";
 						}
 						
-						else
-							{
+						else // Must be student
+						{
+							System.out.println("Student");
 							return "Student Authorized";
-							}
-					}	
+						}
+					}
+			}
+		
+		System.out.println("Error.");
+		return "Error";
+					
 				}
-			return "Error";
+
+	
+	/** Return true if user in is Advisor Table */
+	private boolean isAdvisor() {
+		
+		/*  Query databaase to check if user has an  advisor account */
+		try {
+			Database.connect();
+		} catch (ClassNotFoundException e1) {
+			return false;
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			System.out.println ("Database Error");
+			return false;
+		}
+		
+		
+		String sql = "SELECT * FROM ADVISOR WHERE ACCESS_ID ='"+ accessId + "'";
+		System.out.println(sql);
+		try {
+			ResultSet rs =Database.fetch(sql);
+			
+			if (!rs.next())
+			{
+				System.out.println("No user exists...");
+				return false;
+			}
+			
+		} catch (ClassNotFoundException e) {
+			return false;
+		} catch (SQLException e) {
+			
+			return false; 
+		}
+		System.out.println("you are an advisor!");
+		return true;
 	}
-							
-	/** Log user out of system 
-	 * @throws UnsupportedEncodingException 
-	 * @throws NoSuchAlgorithmException */
-	public void logout() throws NoSuchAlgorithmException, UnsupportedEncodingException {
+
+	/** Return true is user is in student table */
+	public boolean isStudent() {
+		
+	/*  Query databaase to check if user has an student account */
+		
+		try {
+			Database.connect();
+		} catch (ClassNotFoundException e1) {
+			return false;
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			System.out.println ("Database Error");
+			return false;
+		}
+		String sql = "SELECT * FROM STUDENT WHERE EMAIL ='"+ email + "'";
+		try {
+			
+			System.out.println(sql);
+			ResultSet rs= Database.fetch(sql);
+			if (!rs.next())
+			{
+				System.out.println("No user exists...");
+				return false;
+			}
+		} catch (ClassNotFoundException e) {
+			System.out.println("Aw...snap! Something has gone wrong!");
+			return false;
+		} catch (SQLException e) {
+			
+			System.out.println("Aw...snap! Something has gone wrong!");
+			return false; 
+		}
+		
+		return true;
+	}
+	/** Log user out of system */
+	public void logout() {
+		
 		setAccessId(null);
-		setPassword(null);
 		setError(null);
 	}
 
@@ -306,80 +394,21 @@ public class User {
 		return lastName;
 	}
 	
-	/** Print user information as string */
-	public String toString()
-	{
-		try {
-			return "Name: " + firstName + " " + lastName + "\n" +
-					"Email : " + email + "\n" +
-							"Access ID : " + accessId  +"\n" +
-					"Password: " + MD5.MD5(password) + "\n" +
-							"Role: " +role;
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-					
-	}
 
 	/** Set user first name */
 	public void setFirstName(String firstName) {
 		
 		User.firstName= firstName;
-		
 	}
 	
 	/** Set user last name */
 	public void setLastName (String lastName) {
+
 	
 		User.lastName = lastName;
 	}
 	
-	/** Add user account to database 
-	 * @param type */
-	private void addAccount(String type) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException, UnsupportedEncodingException
-	{
-			String encryptpassword;
-		
-			if (type.equals("WSU"))
-			{
-				encryptpassword = "";
-			}
-			else
-			{
-				encryptpassword = MD5.MD5(password);
-			}
-			
-			if (!role.equals("Advisor"))
-			{
-				
-			
-				String sql = "INSERT INTO STUDENT" +
-					" (ACCESS_ID, EMAIL, FIRST_NAME, LAST_NAME, PASSWORD)" +
-					"VALUES ('"+ accessId + "','" + email + "','" +
-					firstName + "','" + lastName + "','" + encryptpassword + "')";
-		
-				System.out.println(sql);
-				if (sql!=null)
-				{
-					Database.connect();
-					Database.execute(sql);
-				}
-			} // End student 
-		else
-					{
-				String sql = "INSERT INTO ADVISOR" +
-						" (ACCESS_ID, EMAIL, FIRST_NAME, LAST_NAME, PHONE LOCATION)" +
-						"VALUES ('"+ accessId + "','" + email + "','" +
-						firstName + "','" + lastName + "','" + password + "')";
-			
-				System.out.println(sql);
-			}
-	}
+
 	
 	/** Convert attributes properly */
 	private  String convert(String s)
@@ -395,13 +424,14 @@ public class User {
 	 * 
 	 * @return true is login is sucessfull adds WSU account into the database
 	 * @throws NamingException 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * 
 	 */
-	private boolean WSULogin() throws NamingException
+	private boolean WSULogin() throws NamingException, ClassNotFoundException, SQLException
 	{
 		
-		System.out.println("you are a WSU student...");
-		System.out.println("Your access ID is..."+ accessId);
+		System.out.print("WSU...");
 		// authenticate user through LDAP
 		Hashtable<String, String> ldap = new Hashtable<String, String>();
 		ldap.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
@@ -424,7 +454,7 @@ public class User {
 		SearchControls searchCtls = new SearchControls();
  		String returnedAtts[]={"givenName","sn","mail"};
  		searchCtls.setReturningAttributes(returnedAtts);
- 		System.out.println("Successfully set up search Controls");
+
  							
  		//Specify the search scope
 
@@ -442,13 +472,13 @@ public class User {
 		answer = ctx.search(searchBase, searchFilter, searchCtls);
 	
  							
- 		System.out.println("Retrieving user information...");
+ 		System.out.print("retrieving info...");
  							
  			while (answer.hasMoreElements()) {
  								
  				SearchResult sr = (SearchResult)answer.next();
 
- 					System.out.println(">>>" + sr.getName());
+
  			
  					// Get the attributes, throws exception if the attributes have no values
  								Attributes attrs = sr.getAttributes();
@@ -459,9 +489,11 @@ public class User {
  										 lastName = convert(attrs.get("sn").toString());;
  										 email = convert(attrs.get("mail").toString());
  										 /* role = convert(attrs.get("title").toString());  */
- 										 System.out.println("User attributes retrieved.");
- 										 System.out.println(toString());
+ 										 
  								}
+ 								
+ 								setUser();
+ 								System.out.println("done!");
  						} // end retrieving information
 	
  						
@@ -473,50 +505,57 @@ public class User {
 								} 
  								
  								// Check if user has an account in database, if not create
- 								
- 								
- 								try
- 								{
- 									 setUser(); 
- 									addAccount("WSU");
+ 								 
+ 									 // If user is not an advisor or not already in student table add to student Table //
+ 									 if (!isStudent() && !isAdvisor())
+ 									 {
+ 										Student.add(accessId, email, firstName, lastName);
+ 										System.out.println("User account added as student..");
+ 									 }
  	
- 								}
- 								catch(Exception e)
- 								{
- 									System.out.println("Account exists..");
- 								}
- 							
  								
- 	
-
- 								if(accessId.equals("ef2558"))
- 								{
- 									role = "Advisor";
+ 								
  									return true;
- 								} 
- 								else {
- 									
- 									role = "Student";	
- 									return true;
- 								}
 					} // End WSU login
 	
+	/** Returns true if login for NON-WSU student is successful, false otherwise **/
 	private boolean NonWSULogin() throws NoSuchAlgorithmException, UnsupportedEncodingException, SQLException, ClassNotFoundException
 	{
 
 		System.out.println("Your access ID... " + accessId);
 		String sql = "SELECT * FROM STUDENT WHERE EMAIL= '" + accessId + "'";
+				
+				System.out.println("Connecting to Database");
+		
 				Database.connect();
+				
+				System.out.println("Connected");
+				
+				System.out.println(sql);
+				
 				ResultSet rs = Database.fetch(sql);
+				
+		System.out.println("Successful...connection");		
+				
 				
 				while (rs.next())
 				{
 				
-				String  encryptpassword = rs.getString("PASSWORD");
-				String comparepassword = MD5.MD5(password);
-				
-				System.out.println("Password: " + encryptpassword);
-				if (comparepassword.equals(encryptpassword))
+					String encryptpassword = rs.getString("PASSWORD");
+					
+					
+					String comparepassword = Password.MD5(password);
+					
+					
+					System.out.println("Password: " + encryptpassword);
+					
+					
+					changed = rs.getString("CHANGEPASSWORD");
+					System.out.println("Changed... "+changed) ;
+					
+					
+					if (comparepassword.equals(encryptpassword))
+						
 				
 				{
 									
@@ -526,22 +565,24 @@ public class User {
 						email = rs.getString("EMAIL");
 					} catch (SQLException e1) {
 						
+						System.out.println("Canot retrieve email");
 						return false;
 					}
 					try {
 						firstName =rs.getString("FIRST_NAME");
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						System.out.print("Cannot retrieve user first name");
+						return false;
 					}
 					try {
 						lastName =rs.getString("LAST_NAME");
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						System.out.print("Cannot retrieve user last name");
+						return false;
 					}
-					
-					setUser();
+					setUser();	
 					return true;
 				}
 				} // End while
@@ -550,26 +591,7 @@ public class User {
 				
 			}
 			
-
-	/* Sends an email reminder to user with new password  (Only for NonWSU) 
-	 * WSU should use WSU's link to password*/
-	private String generatePassword()
-	{
-		String alphabet="abcdefghijklmnopqrstuvwxyz1234567890!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		 char[] text = new char[8]; // PAssword must be at least 8 characters.
-		 
-		 for (int i = 0; i < text.length; i++)
-		    {
-			 Random rand = new Random();
-			 text[i]=alphabet.charAt(rand.nextInt(alphabet.length()));
-		    }
-		    return new String(text);
-		    
-		    
-		    
-	}
-	
-	
+	/** Returns user attendance **/
 	public int getAttendance(String email) throws ClassNotFoundException, SQLException
 	
 	{
@@ -587,7 +609,7 @@ public class User {
 		
 	}
 	
-	/* Retrieves how many times user has cancelled an appointment */
+	/** Retrieves how many times student has cancelled an appointment */
 	public int getCancellation(String email) throws ClassNotFoundException, SQLException 
 	{
 		String sql = "SELECT COUNT(*) AS count FROM APPOINTMENT WHERE STUDENT_EMAIL= '" +email + "' AND CANCELLED = 1 ";
@@ -600,7 +622,39 @@ public class User {
 		
 		return cancelled;
 	}
+
+	
+	/** Reset user password **/
+	public boolean forgotPassword()
+	{
+		if (Password.reset(email))
+		{
+			System.out.println("Successfully changed!");
+			return true;
+		}
+		
+		System.out.println("Error resseting password!");
+		return false;
+	}
 	
 	
+	
+	
+	public boolean changePassword()
+	{
+		
+		if (Password.change(email, password))
+		{
+			setPassword(password);
+			System.out.println("Successfully changed.");
+			return true;
+		}
+		System.out.println("Error changing password!");
+		return false;
+	}
 }
+	
+		
+
+
 	
