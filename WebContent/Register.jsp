@@ -14,7 +14,48 @@
 <script type="text/javascript" src="../js/general.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script type='text/javascript'>
+function validateRegistration() {
+var div = document.getElementById("validate");
+var error = "";
+var email = document.getElementById("email").value;
 
+if(email == "") {
+error += "Enter an Email address.<br/>"
+}
+
+var firstName = document.getElementById("firstName").value;
+var lastName = document.getElementById("lastName").value;
+
+if(firstName == "") {
+error += "Enter your First Name.<br/>"
+}
+if(lastName == "") {
+error += "Enter your Last Name.<br/>"
+}
+
+var password = document.getElementById("password").value;
+var confirmPassword = document.getElementById("confirmPassword").value;
+
+
+if(password == "") {
+error += "Enter a password.<br/>"
+}
+
+
+if(password != confirmPassword) {
+error += "Your passwords do not match.<br/>"
+}
+
+if(error != "") {
+error = "<div class='error' style=''>" + error + "</div>";
+div.innerHTML = error;
+return false;
+}
+
+return true;
+}
+</script>
 <title>CSC Appointment Scheduler</title>
 </head>
 <body>
@@ -25,6 +66,7 @@
 
 <div id='validate' style='padding: 5px; font-size: 11px;'>
 <%
+
 	try {
 		if(request.getParameter("submit").equals("Register")) {
 			boolean success = Student.register(request.getParameter("email"), request.getParameter("firstName"), request.getParameter("lastName"), request.getParameter("password"));

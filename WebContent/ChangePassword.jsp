@@ -27,7 +27,7 @@
 <div id='validate' style='padding: 5px; font-size: 11px;'>
 <%
 	try {
-		if(request.getParameter("submit").equals("Register")) {
+		if(request.getParameter("submit").equals("Change")) {
 			boolean success = user.changePassword(request.getParameter("password"));		
 			if(success) {
 				
@@ -54,7 +54,7 @@
 	<form method='POST' onsubmit='return validateRegistration();'>
 	<table>
 		<tr>
-			<td colspan='2' style='font-weight: bold; border-bottom: 1px solid #000; font-size: 11px;'>Register an Account</td>
+			<td colspan='2' style='font-weight: bold; border-bottom: 1px solid #000; font-size: 11px;'>You are required to change your password. Please enter a new password.</td>
 		</tr>
 		
 		<tr>
@@ -80,7 +80,7 @@
 		</tr>
 		<tr>
 			<td colspan='2' >
-				<input type='submit' name='submit' value='Register'/> 			
+				<input type='submit' name='submit' value='Change'/> 			
 				<input type='submit' name='submit' value='Cancel' onclick='window.location="Login.jsp"; return false;'/>
 			</td>
 		</tr>
