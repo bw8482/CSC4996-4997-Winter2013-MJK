@@ -32,9 +32,8 @@ user.getUser();
 String headerMenu = user.buildHeaderMenu("");
 out.println(headerMenu);
 
-String email = user.getEmail();
 
->>>>>>> bf363e0625c8552745913f9bc43e9704b19f3625:WebContent/Student/ScheduleAppoinment.jsp
+
 	
 	Database.connect();
 	

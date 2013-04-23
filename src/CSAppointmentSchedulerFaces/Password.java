@@ -142,29 +142,43 @@ private static String convertToHex(byte[] data) {
 				return false;
 				}
 				
-				try {
-					String encryptedPassword = Password.MD5(password);
+					String encryptedPassword;
+					try {
+						encryptedPassword = Password.MD5(password);
+					} catch (NoSuchAlgorithmException e) {
+						// TODO Auto-generated catch block
+						return false;
+					} catch (UnsupportedEncodingException e) {
+						// TODO Auto-generated catch block
+						return false;
+					}
 					
 					// Update password
 	    			String sql = "UPDATE STUDENT SET CHANGEPASSWORD = false WHERE EMAIL ='" + email + "'";
 	    			String sql2 = "UPDATE STUDENT SET PASSWORD='"+ encryptedPassword+ "' WHERE EMAIL = '" + email + "'";
 					
-	    			Database.execute(sql);
-					Database.execute(sql2);
+	    			try {
+						Database.execute(sql);
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						return false;
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						return false;
+					}
+					try {
+						Database.execute(sql2);
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						return false;
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						return false;
+					}
 					return true;
-				} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
-					return false;
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					return false;
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					return false;
-				}	
-				}
-		    	
-	    	}
+				
+	    		}
+}
 
 		        
 	
