@@ -49,7 +49,7 @@
 	try {
 		 if(request.getParameter("logout").equals("true")) {
 			user.logout();
-			out.println("<meta http-equiv='refresh' content='0;url=Login.jsp'>");
+			out.println("<meta http-equiv='refresh' content='1;url=Login.jsp;'>");
 		}
 	} catch(Exception ex) {
 		
@@ -58,8 +58,9 @@
 	
 	String headerMenu = user.buildHeaderMenu("");
 	out.println(headerMenu);
+	
 %>
-<div id='loginBox'>
+<div id='loginBox'>	
 	<h:form>
 		<table>
 			<tr>
@@ -88,6 +89,8 @@
 		</table>
 	</h:form>
 </div>
+
+
 </f:view>
 </body>
 </html>

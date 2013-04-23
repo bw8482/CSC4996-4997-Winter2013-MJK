@@ -283,7 +283,9 @@ public class User {
 					
 						 	if (changed.charAt(0)=='1')
 						 	{
-							 return "Change Password";
+						 		setEmail(accessId);
+						 		setUser();
+						 		return "Change Password";
 							
 						 	}
 						 
@@ -312,6 +314,9 @@ public class User {
 							return "Student Authorized";
 						}
 					}
+					
+					setError("Invalid AccessId and/or Password");
+					return "Error";
 			}
 		
 		System.out.println("Error.");
@@ -410,7 +415,7 @@ public class User {
 	 * @throws ClassNotFoundException 
 	 * 
 	 */
-	private boolean WSULogin() throws NamingException, ClassNotFoundException, SQLException
+	private boolean WSULogin()
 	{
 		
 		System.out.print("WSU...");
@@ -426,7 +431,12 @@ public class User {
 		
 		DirContext ctx = null;
 	
-		ctx = new InitialDirContext(ldap);
+		try {
+			ctx = new InitialDirContext(ldap);
+		} catch (NamingException e3) {
+			// TODO Auto-generated catch block
+			return false;
+		}
 		
 		authorized = true;
     
@@ -451,14 +461,24 @@ public class User {
  		// Search for objects using the filter
  				
  		NamingEnumeration<?> answer = null;
-		answer = ctx.search(searchBase, searchFilter, searchCtls);
+		try {
+			answer = ctx.search(searchBase, searchFilter, searchCtls);
+		} catch (NamingException e2) {
+			// TODO Auto-generated catch block
+			return false;
+		}
 	
  							
  		System.out.print("retrieving info...");
  							
  			while (answer.hasMoreElements()) {
  								
- 				SearchResult sr = (SearchResult)answer.next();
+ 				SearchResult sr;
+				try {
+					sr = (SearchResult)answer.next();
+				} catch (NamingException e) {
+						return false;
+				}
 
 
  			
@@ -491,7 +511,14 @@ public class User {
  									 // If user is not an advisor or not already in student table add to student Table //
  									 if (!isStudent() && !isAdvisor())
  									 {
- 										Student.add(accessId, email, firstName, lastName);
+ 										try {
+											Student.add(accessId, email, firstName, lastName);
+										} catch (ClassNotFoundException e) {
+											return false;
+										} catch (SQLException e) {
+											// TODO Auto-generated catch block
+											return false;
+										}
  										System.out.println("User account added as student..");
  									 }
  	
@@ -533,7 +560,7 @@ public class User {
 					
 					
 					changed = rs.getString("CHANGEPASSWORD");
-					System.out.println("Changed... "+changed) ;
+					System.out.println("Changed... "+ changed) ;
 					
 					
 					if (comparepassword.equals(encryptpassword))
@@ -620,9 +647,9 @@ public class User {
 	}
 	
 	
-	public boolean changePassword()
+	public boolean changePassword(String password)
 	{
-		
+		System.out.println("Changing password...");
 		if (Password.change(email, password))
 		{
 			setPassword(password);

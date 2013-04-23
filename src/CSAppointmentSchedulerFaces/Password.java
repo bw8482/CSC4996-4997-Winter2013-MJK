@@ -59,8 +59,9 @@ private static String convertToHex(byte[] data) {
 		    public static boolean reset(String email)
 		    
 		    {
-		    		User user = new User();
-		    		user.setEmail(email);
+		    	
+					User user = null;
+					user = user.getUser();
 		    		int index=email.indexOf("@");
 		    		if (email.substring(index+1, email.length())=="wayne.edu")
 		    		{
@@ -72,17 +73,19 @@ private static String convertToHex(byte[] data) {
 		    		if (user.isStudent())
 		    			{
 		    				String password = generate();
+
 		    		
-		    				String message = "Dear" + email + "\n" +
-		    				" You indicated your forgot your password to the CSC Scheduler, and requested thant it be changed.\n" +
+		    				String message = "Dear, " + user.getFirstName() +  " " + user.getLastName() + "\n\n\n" +
+		    				" You indicated your forgot your password to the CSC Scheduler, and requested that it be changed.\n\n" +
+		    				
 		    				"Your user id is: "+ email + "\n" +
 		    				"your new password is: " + password + "\n" +
-		    				"\n" +
+		    				"\n\n\n" +
 		    				"You can use your new password to log into the CSC Appointment Scheduler.\n" +
 		    				"Please note that your password is case-sensitive, so make sure you type it exaclty as it appears above.\n" +
 		    				"After you log back into the CSC Appointment Scheduler, you will be required to change your password to something you can remember.\n" +
 		    				"\n" +
-		    				"Please follow this link to return to the login screen: \n" +
+		    				"Please follow this link to return to the login screen: \n\n" +
 		    				"http://localhost:8080/CSC4996-4997-Winter2013-MJK/faces/Login.jsp\n" ;
 		    		
 		    				String subject = "Requested Account Change";

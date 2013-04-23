@@ -46,5 +46,13 @@
 			<to-view-id>/Login.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<display-name>Login</display-name>
+		<from-view-id>/Login.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>Change Password</from-outcome>
+			<to-view-id>/ChangePassword.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 
 </faces-config>
