@@ -26,8 +26,8 @@
 		} catch(Exception ex) {
 			
 		}
-		
 	%>
+	
 	<div id='content'>
 		<div class='title' style='margin-bottom: 5px;'>
 			Your Appointments

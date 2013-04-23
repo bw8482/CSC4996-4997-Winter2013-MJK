@@ -23,7 +23,6 @@
 <%
 	String accessId = User.getUser().getAccessId();
 	out.println(User.getUser().buildHeaderMenu("advisor"));
-	
 %>
 <div id='content'>
 	<div class='title'>
