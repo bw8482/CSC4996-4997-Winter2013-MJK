@@ -6,6 +6,7 @@
 <html>
 <head>
 <LINK href="//wayne.edu/global/css/global-v2.css" rel="stylesheet" type="text/css" media="all" />
+
 <LINK href="../css/General.css" rel="stylesheet" type="text/css">
 <LINK href="../css/Header.css" rel="stylesheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -14,20 +15,12 @@
 <body>
 <f:view>
 <%
-	User user = new User();
+	User user;
 	user = User.getUser();
 	String headerMenu = user.buildHeaderMenu("student");
 	out.println(headerMenu);
-	
-	int attnd = user.getAttendance(user.getEmail());
-	if(user.getAttendance(user.getEmail()) > 0){
-		 /*  alert(user.getName() + "  ,you have canceled " + attnd + " times. " ); */
-	}
 %>
-
-<div id='content'>
-	Welcome,  to the <b style='color:#254117;'>Wayne State University</b> Computer Science Appointment Scheduler<br>
-	
+<div id='content'>	
 </div>
 </f:view>
 </body>

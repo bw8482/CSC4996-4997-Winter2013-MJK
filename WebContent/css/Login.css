@@ -3,7 +3,7 @@
 html, body {
 	background-color:	 #ebf1f0;
 }
-div#loginBox {
+div#loginBox, div#registerBox {
 	width:				450px;	
 	padding:	5px;
 	background-color:	#ebf1f0;

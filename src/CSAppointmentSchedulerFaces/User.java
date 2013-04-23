@@ -53,13 +53,14 @@ public class User {
 	 * @param lastName = the user's last name
 	 * @param email = the user's email address
 	 */
-	public User(String accessID, String password, String firstName, String lastName, String email)
+	public User(String _accessID, String _password, String _firstName, String _lastName, String _email, String _changed)
 	{
-		User.accessId = accessID;
-		User.password= password;
-		User.firstName = firstName;
-		User.lastName = lastName;
-		User.email = email;
+		accessId= _accessID;
+		password= _password;
+		firstName = _firstName;
+		lastName = _lastName;
+		email = _email;
+		changed = _changed;
 		
 	}
 
@@ -67,12 +68,13 @@ public class User {
 	public static void setUser() {
 		
 		System.out.print("Setting user information....");
-		
+
+		User user = new User(accessId, password, firstName, lastName, email, changed);
 		FacesContext fc = FacesContext.getCurrentInstance();
-		User user = new User(accessId, password, firstName, lastName, email);
+		
 		fc.getExternalContext().getSessionMap().put("user", user);	
 		
-		System.out.println("done.");
+		System.out.println("done." + user.toString());
 	}
 
 	/** Get current user using session */
@@ -84,14 +86,16 @@ public class User {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		User user =(User) fc.getExternalContext().getSessionMap().get("user");
 		
-		System.out.print("done.");
+		
+		System.out.print("done..... user" + user.toString());
 		return user;
 		
 		
 		}
 		catch (NullPointerException e)
 		{
-		return null;
+			System.out.println("I can't find a user!");
+			return null;
 		}
 		
 	
@@ -175,7 +179,7 @@ public class User {
 
 	public String buildHeaderMenu(String role) {
 		String header = "" +
-		"<div id='wsu-header'>" +
+		"<div id='wsu-header' style=''>" +
 		 " <div class='c'>" +
 		    "<ul class='skip'>" +
 		      "<li><a href='#content'>Skip to Content</a></li>" +
@@ -206,33 +210,43 @@ public class User {
 		*/		
 		String menu = "";
 		if(!role.isEmpty()) {
+			menu += "<div class='dividor' style='border-bottom: 1px solid #000; height: 0px;'></div>";
 			menu += "<div id='menu'>";
+			menu += "<div id='menu_inner'>";
 			if(role.equals("advisor")) {
+				menu += "<span>Welcome," + getFirstName() + " " + getLastName() +"</span>";
 				menu += "<a href='Advisor.jsp'>Home</a>";
-				//menu += "<hr/>";
+				menu += "<hr/>";
 				menu += "<a title='Quick look at appointments for today.' href='Appointments.jsp?date=today'>View Today's Appointments</a>";
 				menu += "<a title='Quick look at appointments for this week.' href='Appointments.jsp?date=week'>View This Week's Appointments</a>";
-				//menu += "<hr/>";
 				menu += "<a title='Use the calendar to update your availability for a specific date, view appointments on a specific date and send reminders for appointments.' href='Calendar.jsp'>Calendar</a>";
+				menu += "<hr/>";
 				menu += "<a title='Update your default availability.' href='Availability.jsp'>Update Default Availability</a>";
 				menu += "<a title ='Update your personal information (ie. phone, location, number of cancels allowed, number of no show allowed).' href='PersonalInfo.jsp'>Update Personal Information</a>";
-				//menu += "<hr/>";
+				menu += "<a title ='Update reasons available for students to select and descriptions/feedback for each reason.' href='UpdateReasons.jsp'>Update Reasons</a>";
+				menu += "<hr/>";
 				menu += "<a href='#' onclick='window.open(\"../img/advisorHelp.png\", \"\", \"location=0,menubar=0\");'>Help</a>";
 				menu += "<a href='../Login.jsp?logout=true'>Logout</a>";
 			} else if(role.equals("student")){
+				menu += "<span>Welcome, " + getFirstName() + " " + getLastName() +"</span>";
 				menu += "<a href='Student.jsp'>Home</a>";
+				menu += "<hr/>";
 				menu += "<a title='View all your appointments.' href='Appointments.jsp'>View Your Appointments</a>";
-				menu += "<a title='Scheudle an appointment.' href='ScheduleAppoinment.jsp'>Schedule an Appointment</a>";	
+				menu += "<a title='Schedule an appointment.' href='ScheduleAppoinment.jsp'>Schedule an Appointment</a>";	
+				menu += "<hr/>";
 				menu += "<a href='#' onclick='window.open(\"../img/studentHelp.png\", \"\", \"location=0,menubar=0\");'>Help</a>";
 				menu += "<a href='../Login.jsp?logout=true'>Logout</a>";
 			}
-		
+			
 			menu += "</div>";
+			menu += "</div>";
+			//menu += "<div class='dividor' style='border-bottom: 1px solid #000; height: 0px;'></div>";
 		}
 		
 		return header + menu;
 		
 	}
+
 	
 	public String authorized() throws NoSuchAlgorithmException, UnsupportedEncodingException, NamingException, ClassNotFoundException, SQLException {
 		
@@ -342,46 +356,14 @@ public class User {
 		return true;
 	}
 
-	/** Return true is user is in student table */
-	public boolean isStudent() {
-		
-	/*  Query databaase to check if user has an student account */
-		
-		try {
-			Database.connect();
-		} catch (ClassNotFoundException e1) {
-			return false;
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			System.out.println ("Database Error");
-			return false;
-		}
-		String sql = "SELECT * FROM STUDENT WHERE EMAIL ='"+ email + "'";
-		try {
-			
-			System.out.println(sql);
-			ResultSet rs= Database.fetch(sql);
-			if (!rs.next())
-			{
-				System.out.println("No user exists...");
-				return false;
-			}
-		} catch (ClassNotFoundException e) {
-			System.out.println("Aw...snap! Something has gone wrong!");
-			return false;
-		} catch (SQLException e) {
-			
-			System.out.println("Aw...snap! Something has gone wrong!");
-			return false; 
-		}
-		
-		return true;
-	}
+	
 	/** Log user out of system */
 	public void logout() {
 		
 		setAccessId(null);
 		setError(null);
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("user");
+		
 	}
 
 	/** Get user first name */
@@ -638,8 +620,6 @@ public class User {
 	}
 	
 	
-	
-	
 	public boolean changePassword()
 	{
 		
@@ -652,6 +632,50 @@ public class User {
 		System.out.println("Error changing password!");
 		return false;
 	}
+	
+	public String toString()
+	{
+		return firstName + " " + lastName + " " + email;
+	}
+	
+
+	
+	/** Return true is user is in student table */
+	public boolean isStudent() {
+		
+	/*  Query database to check if user has an student account */
+		
+		try {
+			Database.connect();
+		} catch (ClassNotFoundException e1) {
+			return false;
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			System.out.println ("Database Error");
+			return false;
+		}
+		String sql = "SELECT * FROM STUDENT WHERE EMAIL ='"+ email + "'";
+		try {
+			
+			System.out.println(sql);
+			ResultSet rs= Database.fetch(sql);
+			if (!rs.next())
+			{
+				System.out.println("No user exists...");
+				return false;
+			}
+		} catch (ClassNotFoundException e) {
+			System.out.println("Aw...snap! Something has gone wrong!");
+			return false;
+		} catch (SQLException e) {
+			
+			System.out.println("Aw...snap! Something has gone wrong!");
+			return false; 
+		}
+		
+		return true;
+	}
+	
 }
 	
 		

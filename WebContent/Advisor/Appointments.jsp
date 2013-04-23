@@ -21,7 +21,7 @@
 <body>
 <f:view>
 <%
-	String accessId = "ef2558";	
+String accessId = User.getUser().getAccessId();
 	out.println(User.getUser().buildHeaderMenu("advisor"));
 	
 	String date = null;

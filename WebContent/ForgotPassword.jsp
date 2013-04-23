@@ -3,6 +3,8 @@
 <%@ taglib prefix="h"  uri="http://java.sun.com/jsf/html"%>
 <%@ page import="CSAppointmentSchedulerFaces.Password" %>
 <%@ page import="CSAppointmentSchedulerFaces.User" %>
+<%@ page language="java" import="java.util.*" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -79,7 +81,7 @@ out.println(headerMenu);
 			user.setEmail(request.getParameter("email"));
 			boolean success=user.forgotPassword();
 			if(success) {
-				out.println("<div class=''>You have succesfully registered an account for the WSU CSC Appointment Scheduler using email address " + request.getParameter("email") + "<br/><a href='Login.jsp'>Click here</a> to login and start using your account.</div>");
+				out.println("<div class=''>You have succesfully changed your password." + request.getParameter("email") + "<br/><a href='Login.jsp'>Click here</a> to login and start using your account.</div>");
 			} else {
 				out.println("<div class='error'>Unable to register an account.</div>");	
 			}

@@ -12,6 +12,7 @@ public int nullIntconv(String inv) {
     
     return conv;
 }
+
 %>
 <% 
 int iYear = nullIntconv(request.getParameter("iYear"));
@@ -133,15 +134,15 @@ function selectDay(day, method){
 </head>
 <body>
 <%
-	String accessId = "ef2558";	
+	String accessId = User.getUser().getAccessId();
 	out.println(User.getUser().buildHeaderMenu("advisor"));
 %>
 
-<div id='content' style='background-color: #fff; border: none; padding: 0px;'>
+<div id='content' style=''>
 	<div class='title'>
 		Calendar
 	</div>
-	<div id='calendar' style='margin-top: 5px;'>
+	<div id='calendar' style=''>
 		<form name='calendar'>
 		<input type='hidden' name='iYear' id='iYear' value='<%=iYear%>'>
 		<input type='hidden' name='iMonth' id='iMonth' value='<%=iMonth%>'>
@@ -181,8 +182,8 @@ function selectDay(day, method){
 	                		className = "monthDay";
 	                	}
 	                	
-	                	String availabilityBtn = "<div onclick='selectDay(" +  (cnt - weekStartDay + 1) + ", \"availability\");' class='availability_btn' title='Update availability for day'>&nbsp;</div>";
-	                	String appointmentBtn = "<div onclick='selectDay(" +  (cnt - weekStartDay + 1) + ", \"appointment\");' class='appointment_btn' title='View appointments / send reminders for day'>&nbsp;</div>";
+	                	String availabilityBtn = "<div onclick='selectDay(" +  (cnt - weekStartDay + 1) + ", \"availability\");' class='availability_btn' title='Update availability for day'><div class='inner'>&nbsp;</div></div>";
+	                	String appointmentBtn = "<div onclick='selectDay(" +  (cnt - weekStartDay + 1) + ", \"appointment\");' class='appointment_btn' title='View appointments / send reminders for day'><div class='inner'>&nbsp;</div></div>";
 	                	String dayText = "<div class='day_text'>" +  (cnt - weekStartDay + 1) + "</div>";
 	                	String td = "<td class='" + className + "' id='day_" + (cnt - weekStartDay + 1) + "'>";
 	                	td += "<div class='container'>";

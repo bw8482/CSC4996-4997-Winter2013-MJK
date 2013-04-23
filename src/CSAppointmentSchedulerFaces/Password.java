@@ -62,6 +62,12 @@ private static String convertToHex(byte[] data) {
 		    		User user = new User();
 		    		user.setEmail(email);
 		    		int index=email.indexOf("@");
+		    		if (email.substring(index+1, email.length())=="wayne.edu")
+		    		{
+		    			System.out.println("WSU Students cannot change password.");
+		    			return false;
+		    		}
+		    		
 		    		System.out.print("Index:"+ index);
 		    		if (user.isStudent())
 		    			{
@@ -85,7 +91,7 @@ private static String convertToHex(byte[] data) {
 		    			
 		    			
 		    				// Send email with new password 
-		    				System.out.println(message);
+		    				EmailTemplate.sendEmail(email, subject, message);
 		    			
 		    			try {
 		    				encryptedPassword =  Password.MD5(password);

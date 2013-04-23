@@ -3,6 +3,7 @@
 <%@ taglib prefix="h"  uri="http://java.sun.com/jsf/html"%>
 <%@ page import="CSAppointmentSchedulerFaces.User" %>
 <%@ page import="CSAppointmentSchedulerFaces.Password" %>
+<%@ page language="java" import="java.util.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -44,7 +45,9 @@
 <f:view>
 <%
 User user = new User();
-user= User.getUser();
+
+user.setEmail(request.getParameter("email"));
+
 String headerMenu = user.buildHeaderMenu("");
 out.println(headerMenu);
 %>
@@ -52,7 +55,6 @@ out.println(headerMenu);
 <div id='validate' style='padding: 5px; font-size: 11px;'>
 <%
 {
-			
 			out.println("Hey you are" + user.getEmail());
 			user.setPassword(request.getParameter("password"));
 			/** if(success) {

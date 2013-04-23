@@ -8,8 +8,8 @@ table.tbl, table.tblNoHighlight {
 
 table.tbl th div, table.tblNoHighlight th div {
 	text-align:	left;
-	font-size:	12px;
-	padding:	3px;
+	font-size:	11px;
+	padding:	2px;
 	background-color:	#98B2AD;
 	border-top:		1px solid #c1d0cd;
 	border-left:	1px solid #c1d0cd;
@@ -37,7 +37,8 @@ table.tbl  tr:hover {
 }
 
 table.tbl td, table.tblNoHighlight td {
-	padding:		3px;
+	padding-top: 2px;
+	padding-left: 1px;
 	border:			1px solid black;
 	word-break:		break-word;
 }

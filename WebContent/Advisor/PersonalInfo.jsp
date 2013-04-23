@@ -12,13 +12,15 @@
 <LINK href="../css/Header.css" rel="stylesheet" type="text/css">
 <LINK href="//wayne.edu/global/css/global-v2.css" rel="stylesheet" type="text/css" media="all" />
 
+<script type="text/javascript" src="../js/general.js"></script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>CSC Appointment Scheduler</title>
 </head>
 <body>
 <f:view>
 <%
-	String accessId = "ef2558";	
+	String accessId = User.getUser().getAccessId();
 	out.println(User.getUser().buildHeaderMenu("advisor"));
 
 %>

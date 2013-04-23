@@ -2,10 +2,10 @@
 
 html, body {
 	font-size:		12px;
-	font-family:	Arial;
+	font-family:	Segoe ui, Tahoma;
 	margin:			0px;
 	padding:		0px;
-	overflow-x:		hidden;
+	overflow-x:		auto;
 	padding-bottom: 5px;
 	width: 100%;
 	height: 100%;
@@ -41,69 +41,112 @@ div.error {
 	*/
 	color: red;
 	font-weight: bold;
-	fobt-size: 11px;
+	font-size: 12px;
 }
 
 div.success {
-	/*
 	border:		1px solid #59955C;
 	padding:	5px;
 	width:		300px;
 	background-color:	#A6CAA9;
-	margin-top: 5px;
-	*/
-	color: green;
-	font-weight: bold;
-	font-size: 11px;
+	margin: 3px;
 }
 
 div#menu {
-	float: 		left;
-	width:		200px;
 	font-size:	12px;
-	min-height:		50px;
-	margin-top:	5px;
-	margin-left: 5px;
-	background-color: #eceade;
-	border: 0px solid #383838;
+	margin: 0px;
+	background-color: #ccdcda;
+	border: 1px solid black;
+	margin-top: 1px;
+	width: 250px;
+	float: left;
+	margin-left: 2px;
+}
+
+div#menu_inner {
+	border-top: 1px solid #EAFAF8;
+	border-left: 1px solid #EAFAF8;
+	padding: 2px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+}
+
+div#menu a {
+	cursor:		pointer;
+	text-decoration:	none;
+	margin: 5px;
+	color: #000000;
+	font-size: 11px;
+	display: block;
+}
+
+div#menu span {
+	margin: 5px;
+	color: #000000;
+	font-size: 11px;
+	display: block;
 }
 
 div#menu a:hover {
-	background-color: #383838;
-	color: #fff;
+	text-decoration: underline;
+}
+
+div#menu hr {
+	border-top: 1px solid darkgray;
+	border-bottom: 1px solid #eafaf8;
+	heigth: 0px;
 }
 
 
 div#content {
+	margin-top: 1px;
+	
 	float: left;
-	margin-top: 5px;
-	margin-left: 5px;
-	margin-bottom: 5px;
-	/*min-width: 900px;*/
+
+	overflow: auto;
+	margin-left: 2px;
+	border: 1px solid #000;
+	background-color: #e6eeed;
+	
+	padding: 1px;
+	padding-right: 5px;
 	
 }
 
 div.title {
 	/*background-color: #383838; */
 	color: #000; 
-	font-size: 14px; 
-	padding-bottom: 5px;
-	padding-left: 5px;
-	text-decoration: underline;
+	font-size: 12px; 
 	font-weight: bold;
-}
-
-div#menu a {
-	display:	block;	
-	cursor:		pointer;
-	text-decoration:	none;
-	padding: 5px;
-	padding-righg: 5px;
-	color: #000;
-}
-
-select {
 	
+	/*
+	background-color: #ccdcda;
+	border-top: 1px solid #EAFAF8;
+	*/
+	border-left: 1px solid #eafaf8;
+	border-bottom: 1px solid #000;
 	padding: 5px;
-	border: 1px solid gray;
+	display: none;
 }
+
+
+.styled-select select {
+   background: transparent;
+   width: 268px;
+   padding: 5px;
+   font-size: 12px;
+   line-height: 1;
+   border: 0;
+   border-radius: 0;
+   height: 24px;
+   -webkit-appearance: none;
+}
+
+.styled-select {
+   width: 240px;
+   height: 20px;
+   overflow: hidden;
+   /*background: url(img/down_arrow_select.jpg) no-repeat right #ddd;*/
+   background: #fff;
+   border: 1px solid #000;
+ }

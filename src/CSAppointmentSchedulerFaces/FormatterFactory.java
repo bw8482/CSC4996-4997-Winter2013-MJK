@@ -27,6 +27,18 @@ public class FormatterFactory {
 		return (toFormat.format(fromFormat.parse(date)));
 	}
 	
+	public static String dateFormat2(String date) throws ParseException {
+		if(date == null) {
+			return "";
+		}
+		
+		String mm = date.substring(0, 2);
+		String dd = date.substring(3, 5);
+		String yyyy = date.substring(6, 10);
+
+		return yyyy + "-" + mm + "-" + dd;
+	}
+	
 	public static String timeFormat(String time) throws ParseException {
 		if(time == null) {
 			return "";

@@ -34,7 +34,7 @@
 		Database.connect();
 		ResultSet rs = Database.fetch(sql);
 		
-		String select = "<select name='time' style='width:200px;'>";
+		String select = "<select name='time' id='time' style='width:200px;'>";
 		int x = 0;
 		while(rs.next()) {
 			select += "<option value='" + rs.getString("TIME") + "'>" + rs.getString("TIME") + "</option>";

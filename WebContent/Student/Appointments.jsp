@@ -7,23 +7,18 @@
 <html>
 <head>
 <LINK href="//wayne.edu/global/css/global-v2.css" rel="stylesheet" type="text/css" media="all" />
+
 <LINK href="../css/Table.css" rel="stylesheet" type="text/css">
 <LINK href="../css/General.css" rel="stylesheet" type="text/css">
-<LINK href="../css/Header.css" rel="stylesheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>CSC Appointment Scheduler</title>
 </head>
 <body>
 <f:view>
 	<%
+		String email = User.getUser().getEmail();
+		out.println(User.getUser().buildHeaderMenu("student"));
 		
-	User user=  new User();
-	user.getUser();
-	String headerMenu = user.buildHeaderMenu("student");
-	out.println(headerMenu);
-		
-	String email = user.getEmail();
-	
 		try {
 			if(request.getParameter("submit").equals("Cancel")) {
 				Student.cancel(request.getParameter("appointment"));
@@ -34,8 +29,9 @@
 		
 	%>
 	<div id='content'>
-	<div style='font-size: 12px; border-bottom: 1px solid #000; margin-bottom: 5px;'>Your Appointments</div>
-	
+		<div class='title' style='margin-bottom: 5px;'>
+			Your Appointments
+		</div>
 	<%
 		String output =Student.getAppointments(email);
 		out.print(output);

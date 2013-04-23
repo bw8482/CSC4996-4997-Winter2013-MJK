@@ -2,8 +2,6 @@
 <%@ taglib prefix="f"  uri="http://java.sun.com/jsf/core"%>
 <%@ taglib prefix="h"  uri="http://java.sun.com/jsf/html"%>
 <%@ page import="CSAppointmentSchedulerFaces.User" %>
-<%@ page language="java" import="java.util.*" %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -45,17 +43,8 @@
 <body>
 <f:view>
 <%
-	User user = new User();
-	try {
-		if(request.getParameter("logout").equals("true")) {
-			user.logout();
-			out.println("<meta http-equiv='refresh' content='2;url=Login.jsp'>");
-		}
-	} catch(Exception ex) {
-		
-	}
-		
-	
+	User user;
+	user = User.getUser();
 	String headerMenu = user.buildHeaderMenu("");
 	out.println(headerMenu);
 %>
@@ -72,14 +61,11 @@
 				<td><img src='img/password.png'/> Password</td>
 			</tr>
 			<tr>
-				<td><h:inputText value="#{user.accessId}" style='' id="accessId"></h:inputText></td>
-				<td><h:inputSecret value="#{user.password}" id="password"></h:inputSecret></td>
+				<td><h:inputText value="#{user.accessId}" style=''></h:inputText></td>
+				<td><h:inputSecret value="#{user.password}"></h:inputSecret></td>
 			</tr>
 			<tr>
 				<td colspan='2' style='font-size: 10px;'>Not a WSU Student? <a href='Register.jsp'>Click here</a> to register an account to use <br/>the CSC Appointment Scheduler.</td>
-				
-			</tr>
-				<td colspan='1' style='font-size: 10px;'>Forgot your password? <a href='ForgotPassword.jsp'>Click here</a></td>
 			</tr>
 			<tr>
 				<td></td>
