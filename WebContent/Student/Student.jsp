@@ -18,7 +18,7 @@
 	user = user.getUser();
 	String headerMenu = user.buildHeaderMenu("student");
 	out.println(headerMenu);
-	
+	out.println("'<div align = 'right' style = 'font-size: 13px; '><b>Welcome, " + user.getName() + "</b>&nbsp&nbsp;</div>");
 %>
 
 <div id='content'>

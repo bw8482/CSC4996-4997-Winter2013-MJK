@@ -18,6 +18,7 @@
     user = user.getUser();
 	String headerMenu = user.buildHeaderMenu("student");
 	out.println(headerMenu);
+	out.println("'<div align = 'right' style = 'font-size: 13px; '><b>Welcome, " + user.getName() + "</b>&nbsp&nbsp;</div>");
 %>
 
 <center><h1>WSU Computer Science - Forms and Overrides</h1></center>
@@ -25,14 +26,63 @@
 <div style='font-size: 12px; border-bottom: 1px solid #000; margin-bottom: 5px;'></div>
 	
 		<table>
+		<th>
+		Error Description
+		</th>
+		<tr style='background-color: transparent;'>
+				<td>Pre-requisite and Test Score error</td>
+				<td>Level Restriction<td>
+				<td>Written Consent needed<td>
+			    <td>TIME CONFLICT WITH "_____ "<td>
+			    <td>Repeat count exceeds 0<td>
+			    <td>CLOSED SECTION-X <td>
+			    <td>Co-requisite and Test error<td>
+					
+				</td>
+		</tr>
+		<th>
+		Error Description
+		</th>
+		<tr style='background-color: transparent;'>
+				<td>
+					Error Reason
+				</td>
+		</tr>
+		<th>
+		Error Description
+		</th>
+		<tr style='background-color: transparent;'>
+				<td>
+					Error Solution
+				</td>
+		</tr>
+		<th>
+		Error Description
+		</th>
+		<tr style='background-color: transparent;'>
+				<td>
+					Forms to Complete
+				</td>
+		</tr>
+		<tr style='background-color: transparent;'>
+				<td>
+					
+				</td>
+		</tr>
+		<tr style='background-color: transparent;'>
+				<td>
+					
+				</td>
+		</tr>
 			<tr style='background-color: transparent;'>
 				<td>
-					Select the error that you received...	
+					
+	
 				</td>
 			</tr>
 			<tr style='background-color: transparent;'>
 				<td>
-				   
+				   Something	
 				</td>
 			</tr>
 			

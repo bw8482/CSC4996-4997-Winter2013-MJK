@@ -4,6 +4,7 @@
 <%@ page import="CSAppointmentSchedulerFaces.Database" %>
 <%@ page import="java.sql.ResultSet" %>
 <%
+
 	try {
 		String date = request.getParameter("date");
 		String advisor = request.getParameter("advisor");

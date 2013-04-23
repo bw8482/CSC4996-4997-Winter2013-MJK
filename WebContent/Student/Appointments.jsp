@@ -31,8 +31,10 @@
 		} catch(Exception ex) {
 			
 		}
+		out.println("'<div align = 'right' style = 'font-size: 13px; '><b>Welcome, " + user.getName() + "</b>&nbsp&nbsp;</div>");
 		
 	%>
+	
 	<div id='content'>
 	<div style='font-size: 12px; border-bottom: 1px solid #000; margin-bottom: 5px;'>Your Appointments</div>
 	

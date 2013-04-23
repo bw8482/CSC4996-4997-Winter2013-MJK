@@ -17,6 +17,7 @@
 <%
 	String accessId = "ef2558";	
 	out.println(User.getUser().buildHeaderMenu("advisor"));
+	out.println("'<div align = 'right' style = 'font-size: 13px; '><b>Welcome, " + User.getUser().getName() + "</b>&nbsp&nbsp;</div>");
 %>
 </f:view>
 </body>
