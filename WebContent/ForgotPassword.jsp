@@ -54,7 +54,7 @@ out.println(headerMenu);
 			<td colspan='2' >
 				Email Address<br/>
 				<span style='font-size: 12px;'>
-					Please enter your email address to request your password.
+					Please enter your email address to request your password. <br> If you are a Wayne State Student, please <a href="https://webmail.wayne.edu/am/cgi/pw_reset">click here</a> to change your password.
 				</span>
 			</td>
 		</tr>

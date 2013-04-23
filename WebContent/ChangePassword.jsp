@@ -45,9 +45,7 @@
 <f:view>
 <%
 User user = new User();
-
-user.setEmail(request.getParameter("email"));
-
+String email = user.getUser().getEmail();
 String headerMenu = user.buildHeaderMenu("");
 out.println(headerMenu);
 %>

@@ -49,7 +49,7 @@
 	try {
 		if(request.getParameter("logout").equals("true")) {
 			user.logout();
-			out.println("<meta http-equiv='refresh' content='2;url=Login.jsp'>");
+			out.println("<meta http-equiv='refresh' content='0;url=Login.jsp'>");
 		}
 	} catch(Exception ex) {
 		
