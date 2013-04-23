@@ -26,8 +26,6 @@ String headerMenu = user.buildHeaderMenu("");
 out.println(headerMenu);
 
 String email = user.getEmail();
-out.println("'<div align = 'right' style = 'font-size: 13px; '><b>Welcome, " + user.getName() + "</b>&nbsp&nbsp;</div>");
-
 
 	
 	Database.connect();

@@ -18,75 +18,98 @@
     user = user.getUser();
 	String headerMenu = user.buildHeaderMenu("student");
 	out.println(headerMenu);
-	out.println("'<div align = 'right' style = 'font-size: 13px; '><b>Welcome, " + user.getName() + "</b>&nbsp&nbsp;</div>");
-%>
+	%>
 
-<center><h1>WSU Computer Science - Forms and Overrides</h1></center>
+<center><h1>Registration Errors, Forms and Overrides</h1></center>
 
-<div style='font-size: 12px; border-bottom: 1px solid #000; margin-bottom: 5px;'></div>
 	
-		<table>
-		<th>
+		<table class= 'tbl';>
+		
+		<th style= font-size:18px  bgcolor="#FF0000" height = "50" width = "20%"><div>
 		Error Description
-		</th>
-		<tr style='background-color: transparent;'>
+		</div></th>
+		<th style= font-size:18px bgcolor="#FF0000" height = "50" width = "20%"><div>
+		Error Reason
+		</div></th>
+		<th style= font-size:18px bgcolor="#FF0000" height = "50" width = "20%"><div>
+		Error Solution
+		</div></th>
+		<th style= font-size:18px bgcolor="#FF0000" height = "50" width = "20%"><div>
+		Forms to Complete
+	
+		
+		<tr height = "30" style='background-color: #85FF85;'>
 				<td>Pre-requisite and Test Score error</td>
-				<td>Level Restriction<td>
-				<td>Written Consent needed<td>
-			    <td>TIME CONFLICT WITH "_____ "<td>
-			    <td>Repeat count exceeds 0<td>
-			    <td>CLOSED SECTION-X <td>
-			    <td>Co-requisite and Test error<td>
+				<td>You have not met the pre-requisites.</td>
+				<td>REQUEST AN OVERRIDE: Override/Petition Form, Signed by instructor -</td>
+				<td><a href="https://engineering.wayne.edu/pdf/cofeappeal.pdf">College of Engineering Appeal Form</a></td>
+				
+		</tr>
+		
+		<tr height = "30" style='background-color: #85FF85;'>
+				<td>Level Restriction</td>
+				<td>You currently do not meet the required class standing/number of credits for this course.</td>
+				<td>Obtain instructor approval</td>
+				<td><a href="http://reg.wayne.edu/pdf-forms/add.pdf">WSU Student Add Form</a></td>
+				
+		</tr>
+		
+		<tr height = "30" style='background-color: #85FF85;'>
+					<td>Written Consent needed</td>
+					<td>Requires Department/ Instructor Approval.</td>
+					<td>Complete Add form</td>
+					<td><a href="http://reg.wayne.edu/pdf-forms/add.pdf">WSU Student Add Form</a></td>
 					
-				</td>
 		</tr>
-		<th>
-		Error Description
-		</th>
-		<tr style='background-color: transparent;'>
-				<td>
-					Error Reason
-				</td>
-		</tr>
-		<th>
-		Error Description
-		</th>
-		<tr style='background-color: transparent;'>
-				<td>
-					Error Solution
-				</td>
-		</tr>
-		<th>
-		Error Description
-		</th>
-		<tr style='background-color: transparent;'>
-				<td>
-					Forms to Complete
-				</td>
-		</tr>
-		<tr style='background-color: transparent;'>
-				<td>
-					
-				</td>
-		</tr>
-		<tr style='background-color: transparent;'>
-				<td>
-					
-				</td>
-		</tr>
-			<tr style='background-color: transparent;'>
-				<td>
-					
 	
-				</td>
-			</tr>
-			<tr style='background-color: transparent;'>
-				<td>
-				   Something	
-				</td>
-			</tr>
+		<tr height = "30" style='background-color: #85FF85;'>
+				<td>TIME CONFLICT WITH "_____ "</td>
+				<td>Students may not register for courses with overlapping times.</td>
+				<td>NO OVERRIDES GRANTED. Pick a new section.</td>
+				<td>No Form Required</td>
+				
+		</tr>
+		<tr height = "30" style='background-color: #85FF85;'>
+				<td>Repeat count exceeds 0</td>
+				<td>You have already attempted this course once</td>
+				<td>If it is your 2nd attempt: REQUEST AN OVERRIDE 3rd attempt: See advisor.</td>
+				<td>No Form Required</td>
+				
+		</tr>
+		<tr height = "30" style='background-color: #85FF85;'>
+				   <td>CLOSED SECTION-X </td>
+				   <td>No seats are available in the course</td>
+				   <td>NO OVERRIDES GRANTED. Contact instructor.</td>
+				   <td><a href="http://reg.wayne.edu/pdf-forms/add.pdf">WSU Student Add Form</a></td>
+				  
+		</tr>
+		<tr height = "30" style='background-color: #85FF85;'>
+				<td>Co-requisite and Test error</td>
+				<td>You are not signed up for all components of the course (i.e. lab and lecture).</td>
+				<td>NO OVERRIDES GRANTED. Register for both components.</td>
+				<td>No Form Required</td>
+				
+			    
+		</tr>
 			
 	</table>
+<p><h3>Click here to send override information to your advisor</h3></p>
+   
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
 
 
 
