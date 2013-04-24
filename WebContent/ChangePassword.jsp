@@ -3,6 +3,7 @@
 <%@ taglib prefix="h"  uri="http://java.sun.com/jsf/html"%>
 <%@ page import="CSAppointmentSchedulerFaces.User" %>
 <%@ page import="CSAppointmentSchedulerFaces.Student" %>
+<%@ page import="CSAppointmentSchedulerFaces.Password" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,7 +15,33 @@
 <script type="text/javascript" src="../js/general.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script type='text/javascript'>
+function validateRegistration() {
+var div = document.getElementById("validate");
+var error = "";
 
+var password = document.getElementById("password").value;
+var confirmPassword = document.getElementById("confirmPassword").value;
+
+
+if(password == "") {
+error += "Enter a password.<br/>"
+}
+
+
+if(password != confirmPassword) {
+error += "Your passwords do not match.<br/>"
+}
+
+if(error != "") {
+error = "<div class='error' style=''>" + error + "</div>";
+div.innerHTML = error;
+return false;
+}
+
+return true;
+}
+</script>
 <title>CSC Appointment Scheduler</title>
 </head>
 <body>
@@ -28,15 +55,16 @@
 <%
 	try {
 		if(request.getParameter("submit").equals("Change")) {
-			boolean success = user.changePassword(request.getParameter("password"));		
+			
+			
+			user.setPassword(request.getParameter("password"));
+			boolean success = user.changePassword();	
 			if(success) {
 				
-				String error = "<div class=''>You have succesfully changed your password for the WSU CSC Appointment Scheduler using email address " + request.getParameter("email") + "<br/><a href='Login.jsp'>Click here</a> to login with your new password.</div>";
+				out.println("<div class=''>You have succesfully changed your password. <a href='Student.jsp'>Click here</a> to continue to your account.</div>");
 
-				user.setError(error);
-				out.println("<div class=''>You have succesfully changed your password for the WSU CSC Appointment Scheduler using email address " + request.getParameter("email") + "<br/><a href='Login.jsp'>Click here</a> to login with your new password.</div>");
 			} else {
-				out.println("<div class='error'>Unable to register an account.</div>");	
+				out.println("<div class='error'>Unable to change password.</div>");	
 			}
 		}
 	} catch (Exception e) {

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13637121504520" configfile="/CSC4996-4997-Winter2013-MJK/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="Login" x="122" y="946" id="pf13637160004551" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" outlinks="pf13638386560970 pf13656852921371 pf13656852921372 pf13667432426280" inlinks="pf13638386560970" path="/Login.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="Login" x="122" y="946" id="pf13637160004551" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" outlinks="pf13638386560970 pf13656852921371 pf13656852921372 pf13667624588830" inlinks="pf13638386560970" path="/Login.jsp"/>
   <nodes xsi:type="pageflow:PFPage" name="success" x="122" y="178" id="pf13637160004554" path="/success.jsp"/>
   <nodes xsi:type="pageflow:PFPage" name="Student/Student" x="338" y="754" id="pf13656852921370" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf13656852921371" path="/Student/Student.jsp"/>
   <nodes xsi:type="pageflow:PFPage" name="Advisor/Advisor" x="338" y="1138" id="pf13656853497063" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf13656852921372" path="/Advisor/Advisor.jsp"/>
   <nodes xsi:type="pageflow:PFPage" name="ForgotPassword" x="122" y="2104" id="pf13665615722351" path="/ForgotPassword.jsp"/>
-  <nodes xsi:type="pageflow:PFPage" name="ChangePassword" x="414" y="962" id="pf13667432426281" inlinks="pf13667432426280" path="/ChangePassword.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="ChangePassword" x="372" y="924" id="pf13667624588831" inlinks="pf13667624588830" path="/ChangePassword.jsp"/>
   <links id="pf13656852921371" target="pf13656852921370" source="pf13637160004551" outcome="Student Authorized" redirect="true"/>
   <links id="pf13656852921372" target="pf13656853497063" source="pf13637160004551" outcome="Advisor Authorized" redirect="true"/>
   <links id="pf13638386560970" target="pf13637160004551" source="pf13637160004551" outcome="Error">
@@ -13,5 +13,5 @@
     <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
     <bendPoints d1Width="-64" d2Width="-64"/>
   </links>
-  <links id="pf13667432426280" target="pf13667432426281" source="pf13637160004551" outcome="Change Password"/>
+  <links id="pf13667624588830" target="pf13667624588831" source="pf13637160004551" outcome="Change Password"/>
 </pageflow:Pageflow>

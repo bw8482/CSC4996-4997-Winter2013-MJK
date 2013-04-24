@@ -647,12 +647,11 @@ public class User {
 	}
 	
 	
-	public boolean changePassword(String password)
+	public boolean changePassword()
 	{
 		System.out.println("Changing password...");
 		if (Password.change(email, password))
 		{
-			setPassword(password);
 			System.out.println("Successfully changed.");
 			return true;
 		}
