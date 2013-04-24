@@ -75,7 +75,7 @@ private static String convertToHex(byte[] data) {
 		    				String password = generate();
 
 		    		
-		    				String message = "Dear, " + user.getFirstName() +  " " + user.getLastName() + "\n\n\n" +
+		    				String message = "Dear, " + email + "\n\n\n" +
 		    				" You indicated your forgot your password to the CSC Scheduler, and requested that it be changed.\n\n" +
 		    				
 		    				"Your user id is: "+ email + "\n" +
