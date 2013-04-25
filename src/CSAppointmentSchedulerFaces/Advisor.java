@@ -41,13 +41,15 @@ public class Advisor {
 		
 		String title = "Appointments " + dateNiceFormat;
 		
-		tbl += ("<div style='text-align: right;'>");
+		tbl += ("<div style='text-align: right; width: 100%;'>");
+		tbl += ("<button onclick='showCancelled(); return false;'>Show Cancelled</button>");
+		tbl += ("<button onclick='hideCancelled(); return false;'>Hide Cancelled</button>");
 		tbl += ("<button onclick='checkAll(); return false;'>Check All</button>");
 		tbl += ("<button onclick='unCheckAll(); return false;'>Un-Check All</button>");
 		tbl += ("</div>");
 		tbl += ("<form name='appointments' style='position: relative'>");
 
-		tbl += ("<div style='margin-top: 10px; border-bottom: 1px solid #000; font-weight: normal; margin-bottom: 5px; position: relative;'>");
+		tbl += ("<div style='margin-top: 10px; border-bottom: 0px solid #000; font-weight: normal; margin-bottom: 5px; position: relative; width: 100%;'>");
 		
 		if(showTitle) { tbl += title; } else { tbl += "&nbsp;";}
 		
@@ -60,24 +62,24 @@ public class Advisor {
 		
 		tbl += ("</div>");
 		
-		tbl += ("<table class='tbl'>");
-		tbl += ("<th style='width: 30px;'><div>&nbsp;</div></th>");
-		tbl += ("<th style='width: 130px;'><div>Email</div></th>");
-		tbl += ("<th style='width: 130px;'><div>Name</div></th>");
-		tbl += ("<th style='width: 120px;'><div>Major</div></th>");
-		tbl += ("<th style='width: 60px;'><div>Standing</div></th>");
-		tbl += ("<th style='width: 120px;'><div>Date</div></th>");
-		tbl += ("<th style='width: 60px;'><div>Time</div></th>");
-		tbl += ("<th style='width: 100px;'><div>Reason</div></th>");
-		tbl += ("<th style='width: 120px;'><div>System Comments</div></th>");
+		tbl += ("<table class='tbl' id='tbl' style='width: 100%;'>");
+		tbl += ("<th style='width: 15px;'><div>&nbsp;</div></th>");
+		//tbl += ("<th style='width: 80px;'><div>Email</div></th>");
+		tbl += ("<th style='width: 250px;'><div>Student</div></th>");
+		tbl += ("<th style='width: 80px;'><div>Major</div></th>");
+		tbl += ("<th style='width: 70px;'><div>Standing</div></th>");
+		tbl += ("<th style='width: 100px;'><div>Date</div></th>");
+		tbl += ("<th style='width: 80px;'><div>Time</div></th>");
+		tbl += ("<th style='width: 150px;'><div>Reason</div></th>");
+		tbl += ("<th style='width: 70px; font-size: 10px;'><div>Info</div></th>");
 		//tbl += ("<th style='width: 30px;'><div style='width: 150px;'>Additional Comments</div></th>");
 		
 		
-		String sql = "";
-		sql  = "SELECT";
+		String sql = "SELECT";
 		sql += " APPT_ID,";
 		sql += " STUDENT_EMAIL,";
 		sql += " REASON_TEXT,";
+		//sql += " COMMENTS,";
 		sql += " APPT_DATE,";
 		sql += " APPT_TIME,";
 		sql += " MAJOR_TEXT,";
@@ -103,11 +105,24 @@ public class Advisor {
 				rowClass = "odd";
 			}
 			
-			tbl += ("<tr class='" + rowClass + "'>");
-			tbl += ("<td style='text-align: center;'>" + "<input type='checkbox' name='appointments' value='" + rs.getString("APPT_ID") + "'/>" + "</td>");
-			tbl += ("<td>" + FormatterFactory.format(rs.getString("STUDENT_EMAIL")) + "</td>");
-			tbl += ("<td>" + FormatterFactory.format(rs.getString("FIRST_NAME")) + " " + FormatterFactory.format(rs.getString("LAST_NAME")) + "</td>");
-			tbl += ("<td>" + FormatterFactory.format(rs.getString("MAJOR_TEXT")) + "</td>");
+			String comments = "<span style='font-size: 10px;'>";
+			String cancelled = "";
+			String strikethrough = "";
+			if(rs.getInt("CANCELLED") == 1) {
+				comments += "<span style='color: red;'>Cancelled<br/></span>";
+				cancelled = "Cancelled";
+				strikethrough = "style='text-decoration:  line-through;'";
+			}
+			if(rs.getInt("ATTENDANCE") == 0) {
+				comments += "<span style='color: red;'>No Show<br/></span>";
+			}
+			comments += "</span>";
+			
+			tbl += ("<tr class='" + rowClass + "' title='" + cancelled + "' " + strikethrough + ">");
+			tbl += ("<td style='text-align: center; width: 15px;'>" + "<input type='checkbox' name='appointments' value='" + rs.getString("APPT_ID") + "'/>" + "</td>");
+			//tbl += ("<td style='width: 80px;'>" + FormatterFactory.format(rs.getString("STUDENT_EMAIL")) + "</td>");
+			tbl += ("<td style='width: 80px;'>" + FormatterFactory.format(rs.getString("FIRST_NAME")) + " " + FormatterFactory.format(rs.getString("LAST_NAME")) + " <span style='font-size: 10px;'>(" + FormatterFactory.format(rs.getString("STUDENT_EMAIL"))  + ")</span></td>");
+			tbl += ("<td style='width: 80px;'>" + FormatterFactory.format(rs.getString("MAJOR_TEXT")) + "</td>");
 			String currentStanding = "";
 			if(rs.getInt("CURRENT_STANDING") == 1) {
 				currentStanding = "Freshmen";
@@ -119,32 +134,18 @@ public class Advisor {
 				currentStanding = "Senior";
 			} 
 			
-			tbl += ("<td>" + currentStanding + "</td>");
+			tbl += ("<td style='width: 70px;'>" + currentStanding + "</td>");
 			
-			tbl += ("<td>" + FormatterFactory.dateFormat(rs.getString("APPT_DATE")) + "</td>");
-			tbl += ("<td>" + FormatterFactory.timeFormat(rs.getString("APPT_TIME")) + "</td>");
-			tbl += ("<td>" + FormatterFactory.format(rs.getString("REASON_TEXT")) + "</td>");
+			tbl += ("<td style='width: 60px;'>" + FormatterFactory.dateFormat(rs.getString("APPT_DATE")) + "</td>");
+			tbl += ("<td style='width: 50px;'>" + FormatterFactory.timeFormat(rs.getString("APPT_TIME")) + "</td>");
+			tbl += ("<td style='width: 50px;'>" + FormatterFactory.format(rs.getString("REASON_TEXT")) + "</td>");
 			
-			String comments = "<span style='font-size: 10px;'>";
-			
-			/*if(rs.getInt("FIRST_APPT") == 1) {
-				comments += "<span>First Appointment<br/></span>";
-			}
-			*/
-			if(rs.getInt("CANCELLED") == 1) {
-				comments += "<span style='color: red;'>Cancelled<br/></span>";
-			}
-			if(rs.getInt("ATTENDANCE") == 0) {
-				comments += "<span style='color: red;'>No Show<br/></span>";
-			}
-			comments += "</span>";
-			
-			tbl  += ("<td>" + comments + "</td>");
+			tbl  += ("<td style='width: 50px;'>" + comments + "</td>");
 			tbl += ("</tr>");
 		}
 		
 		if(x == 0) {
-			tbl += ("<tr><td colspan='9'>There are no appointments to display.</td></tr>");
+			tbl += ("<tr><td colspan='9' style='padding-bottom: 5px; padding-top: 5px;'>There are no appointments to display.</td></tr>");
 		}
 		tbl += ("</table>");
 		tbl += ("<input type='hidden' name='date' value='" + hiddenDate + "'/>");
