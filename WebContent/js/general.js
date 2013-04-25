@@ -106,7 +106,7 @@ function showCancelled() {
 	var table = document.getElementById("tbl");
 	for (var i = 1, row; row = table.rows[i]; i++) {
 	   //iterate through rows
-	   var contents = row.cells[8].childNodes[0].childNodes[0].childNodes[0];
+	   var contents = row.cells[7].childNodes[0].childNodes[0].childNodes[0];
 	   
 	   if(contents.wholeText.indexOf("Cancelled") != -1) {
 		   row.style.display = '';
@@ -116,12 +116,11 @@ function showCancelled() {
 
 function hideCancelled() {
 	var table = document.getElementById("tbl");
-	for (var i = 1, row; row = table.rows[i]; i++) {
 
+	for (var i = 1, row; row = table.rows[i]; i++) {
 	   //iterate through rows
-	   var contents = row.cells[8].childNodes[0].childNodes[0].childNodes[0];
-		alert(contents);
-		
+	   var contents = row.cells[7].childNodes[0].childNodes[0].childNodes[0];
+
 	   if(contents.wholeText.indexOf("Cancelled") != -1) {
 		   row.style.display = 'none';
 	   }
