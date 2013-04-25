@@ -20,8 +20,7 @@
 	String headerMenu = user.buildHeaderMenu("student");
 	out.println(headerMenu);
 %>
-<div id='content'>	
-</div>
+
 </f:view>
 </body>
 </html>

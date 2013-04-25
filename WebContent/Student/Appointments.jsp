@@ -10,6 +10,8 @@
 
 <LINK href="../css/Table.css" rel="stylesheet" type="text/css">
 <LINK href="../css/General.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../js/general.js"></script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>CSC Appointment Scheduler</title>
 </head>

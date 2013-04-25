@@ -60,8 +60,8 @@ private static String convertToHex(byte[] data) {
 		    
 		    {
 		    	
-					User user;
-					user = User.getUser();
+					User user = null;
+					user = user.getUser();
 		    		int index=email.indexOf("@");
 		    		if (email.substring(index+1, email.length())=="wayne.edu")
 		    		{
@@ -75,7 +75,7 @@ private static String convertToHex(byte[] data) {
 		    				String password = generate();
 
 		    		
-		    				String message = "Dear, " + email + "\n\n\n" +
+		    				String message = "Dear, " + user.getFirstName() +  " " + user.getLastName() + "\n\n\n" +
 		    				" You indicated your forgot your password to the CSC Scheduler, and requested that it be changed.\n\n" +
 		    				
 		    				"Your user id is: "+ email + "\n" +
@@ -162,7 +162,6 @@ private static String convertToHex(byte[] data) {
 					
 	    			try {
 						Database.execute(sql);
-						Database.execute(sql2);
 					} catch (ClassNotFoundException e) {
 						// TODO Auto-generated catch block
 						return false;

@@ -45,19 +45,20 @@
 <body>
 <f:view>
 <%
-	User user = new User();
+
 	try {
 		 if(request.getParameter("logout").equals("true")) {
-			user.logout();
-			out.println("<meta http-equiv='refresh' content='1;url=Login.jsp;'>");
+			User.getUser().logout();
+			out.println("<meta http-equiv='refresh' content='0;url=Login.jsp'>");
 		}
 	} catch(Exception ex) {
 		
 	}
 		
-	
+	User user = new User();
 	String headerMenu = user.buildHeaderMenu("");
 	out.println(headerMenu);
+
 	
 %>
 <div id='loginBox'>	
@@ -80,7 +81,7 @@
 				<td colspan='2' style='font-size: 10px;'>Not a WSU Student? <a href='Register.jsp'>Click here</a> to register an account to use <br/>the CSC Appointment Scheduler.</td>
 				
 			</tr>
-				<td colspan='1' style='font-size: 10px;'>Forgot your password? <a href='ForgotPassword.jsp'>Click here</a></td>
+				<td colspan='2' style='font-size: 10px;'>Forgot your password? <a href='ForgotPassword.jsp'>Click here</a></td>
 			</tr>
 			<tr>
 				<td></td>
@@ -89,8 +90,6 @@
 		</table>
 	</h:form>
 </div>
-
-
 </f:view>
 </body>
 </html>

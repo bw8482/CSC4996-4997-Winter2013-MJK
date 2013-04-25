@@ -2,6 +2,7 @@
 <%@ taglib prefix="f"  uri="http://java.sun.com/jsf/core"%>
 <%@ taglib prefix="h"  uri="http://java.sun.com/jsf/html"%>
 <%@ page import="CSAppointmentSchedulerFaces.Database" %>
+<%@ page import="CSAppointmentSchedulerFaces.FormatterFactory" %>
 <%@ page import="java.sql.ResultSet" %>
 <%
 
@@ -20,7 +21,7 @@
 		sql += "	            FROM    APPOINTMENT A";
 		sql += "	            WHERE   A.ADVISOR_ACCESS_ID = AV.ADVISOR_ACCESS_ID";
 		sql += "	                    AND A.APPT_TIME = AV.TIME";
-		sql += "	                    AND A.APPT_DATE = '" + date + "'";
+		sql += "	                    AND A.APPT_DATE = '" + FormatterFactory.dateFormat2(date) + "'";
 		sql += "                 	AND CANCELLED = 0";
 		sql += "       	)";
 		sql += "       	AND NOT EXISTS (";
@@ -28,9 +29,11 @@
 		sql += "            FROM    ADVISOR_AVAILABILITY AV2";
 		sql += "            WHERE   AV2.ADVISOR_ACCESS_ID = AV.ADVISOR_ACCESS_ID";
 		sql += "                    AND AV2.TIME = AV.TIME";
-		sql += "	                   AND AV2.DATE = '" + date + "'";
+		sql += "	                   AND AV2.DATE = '" + FormatterFactory.dateFormat2(date)  + "'";
 		sql += "                    AND AVAILABLE = 0";
-		sql += "   		)";
+		sql += "   		) AND TIME IS NOT NULL ORDER BY TIME";
+		
+		//out.println(sql);
 		
 		Database.connect();
 		ResultSet rs = Database.fetch(sql);
@@ -38,7 +41,7 @@
 		String select = "<select name='time' id='time' style='width:200px;'>";
 		int x = 0;
 		while(rs.next()) {
-			select += "<option value='" + rs.getString("TIME") + "'>" + rs.getString("TIME") + "</option>";
+			select += "<option value='" + rs.getString("TIME") + "'>" + FormatterFactory.timeFormat(rs.getString("TIME")) + "</option>";
 			x++;
 		}
 		

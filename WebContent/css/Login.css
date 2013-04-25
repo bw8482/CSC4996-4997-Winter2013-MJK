@@ -7,6 +7,7 @@ div#loginBox, div#registerBox {
 	width:				450px;	
 	padding:	5px;
 	background-color:	#ebf1f0;
+	padding-top: 1px;
 }
 
 div#loginBox td {

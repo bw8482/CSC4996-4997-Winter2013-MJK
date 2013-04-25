@@ -4,7 +4,9 @@
 <%@ page import ="CSAppointmentSchedulerFaces.User" %>
 <%@ page import ="CSAppointmentSchedulerFaces.Student" %>
 <%@ page import ="CSAppointmentSchedulerFaces.Database" %>
+
 <%@ page import ="java.sql.ResultSet" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -26,17 +28,8 @@
 	String email = User.getUser().getEmail();	
 	out.println(User.getUser().buildHeaderMenu("student"));
 
-
-User user = new User();
-user.getUser();
-String headerMenu = user.buildHeaderMenu("");
-out.println(headerMenu);
-
-
-
-	
 	Database.connect();
-	
+
 	String sql = "SELECT * FROM ADVISOR";
 	ResultSet rs = Database.fetch(sql);
 	
@@ -71,7 +64,7 @@ out.println(headerMenu);
 	<form method ="post" action ="Confirmation.jsp" onsubmit='return validateAppt();'>
 		<table >
 			<tr style='background-color: transparent;'>
-				<td style='font-size: 13px;'>
+				<td style='font-size: 12px;'>
 					Which advisor would you like to schedule an appointment with?	
 				</td>
 			</tr>
@@ -83,8 +76,8 @@ out.println(headerMenu);
 				</td>
 			</tr>
 			<tr style='background-color: transparent;'>
-				<td style='font-size: 13px;'>
-					Pick a Date	
+				<td style='font-size: 12px;'>
+					Pick a Date (mm/dd/yyyy)
 				</td>
 			</tr>
 			<tr style='background-color: transparent;'>
@@ -94,8 +87,8 @@ out.println(headerMenu);
 				</td>
 			</tr>
 			<tr style='background-color: transparent;'>
-				<td style='font-size: 13px;'>
-					Pick a Time	
+				<td style='font-size: 12px;'>
+					Pick a Time
 				</td>
 			</tr>
 			<tr style='background-color: transparent;'>
@@ -108,7 +101,7 @@ out.println(headerMenu);
 				</td>
 			</tr>
 			<tr style='background-color: transparent;'>
-				<td style='font-size: 13px;'>
+				<td style='font-size: 12px;'>
 					What do you want to schedule an appointment for?
 				</td>
 			</tr>
@@ -120,7 +113,7 @@ out.println(headerMenu);
 				</td>
 			</tr>
 			<tr style='background-color: transparent;'>
-				<td style='font-size: 13px;'>
+				<td style='font-size: 12px;'>
 					What is your current class standing?
 				</td>
 			</tr>
@@ -138,7 +131,7 @@ out.println(headerMenu);
 				</td>
 			</tr>
 			<tr style='background-color: transparent;'>
-				<td style='font-size: 13px;'>
+				<td style='font-size: 12px;'>
 					What is your current major?
 				</td>
 			</tr>
@@ -158,7 +151,7 @@ out.println(headerMenu);
 			-->
 			<tr style='background-color: transparent;'>
 				<td>
-					<input type='submit' name='submit' value='Submit' />
+					<input type='submit' name='submit' value='Submit' style='margin-left: 0px;'/>
 					<input type='reset' name='reset' value='Reset' />
 				</td>
 			</tr>

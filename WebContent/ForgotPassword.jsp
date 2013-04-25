@@ -12,50 +12,56 @@
 <LINK href="css/Header.css" rel="stylesheet" type="text/css">
 <LINK href="css/General.css" rel="stylesheet" type="text/css">
 <LINK href="css/Login.css" rel="stylesheet" type="text/css">
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<script type='text/javascript'>
-	function validateRegistration() {
-		
-		var div = document.getElementById("validate");
-		
-		var error = "";
-		var email = document.getElementById("email").value;
-		
-		if(email == "") {
-			error += "Enter an Email address.<br/>"
-		}
-		if(error != "") {
-			error = "<div class='error' style=''>" + error + "</div>";
-			div.innerHTML = error;
-			return false;
-		}
-		
-		return true;
-	}
-</script>
 
+<script type="text/javascript" src="../js/general.js"></script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>CSC Appointment Scheduler</title>
 </head>
 <body>
 <f:view>
 <%
-User user = new User();
-String headerMenu = user.buildHeaderMenu("");
-out.println(headerMenu);
+	User user = User.getUser();
+	String headerMenu = user.buildHeaderMenu("");
+	out.println(headerMenu);
 %>
-
+<div id='validate' style='padding: 5px; padding-bottom: 2px; font-size: 11px;'>
+<%
+	try {
+		if(request.getParameter("submit").equals("Submit")) {
+			user.setEmail(request.getParameter("email"));
+			boolean success=user.forgotPassword();
+			if(success) {
+				out.println("<div class='success' style='width: 500px;'>You have succesfully changed your password for account " + request.getParameter("email") + "<br/>Your new temporary password has been emailedd to you. <a href='Login.jsp'>Click here</a> to login and start using your account.</div>");
+			} else {
+				out.println("<div class='error'>There seems to be an error - we were unable to change your password.</div>");	
+			}
+		}
+	} catch (Exception e) {
+		try {
+			if(e.getMessage().startsWith("Duplicate")) {
+				out.println("<div class='error'>There seems to be an error - we were unable to change your password.</div>");
+			}
+		} catch(Exception e2) {
+			
+		}		
+	}
+%>
+</div>
 <div id='registerBox'>
-	<form method='POST' onsubmit='return validateRegistration();'>
+	<form method='POST' onsubmit='return validateForgotPassword();'>
 	<table>
 		<tr>
 			<td colspan='2' style='font-weight: bold; border-bottom: 1px solid #000; font-size: 11px;'>Forgot your Password?</td>
 		</tr>
 		<tr>
 			<td colspan='2' >
-				Email Address<br/>
-				<span style='font-size: 12px;'>
-					Please enter your email address to request your password. <br> If you are a Wayne State Student, please <a href="https://webmail.wayne.edu/am/cgi/pw_reset">click here</a> to change your password.
+				<span style='font-size: 11px;'>
+					Please enter your email address to request your password. <br> If you are a <b>Wayne State Student</b>, please <a href="https://webmail.wayne.edu/am/cgi/pw_reset">click here</a> to change your password.
+					<br/>
+					<br/>
 				</span>
+				Email Address
 			</td>
 		</tr>
 		<tr>
@@ -64,8 +70,8 @@ out.println(headerMenu);
 			</td>
 		</tr>
 		<tr>
-			<td colspan='2' >
-				<input type='submit' name='submit' value='Submit'/> 			
+			<td colspan='2' style='''>
+				<input type='submit' name='submit' value='Submit' style='margin-left: 0px;'/> 			
 				<input type='submit' name='submit' value='Cancel' onclick='window.location="Login.jsp"; return false;'/>
 			</td>
 		</tr>
@@ -73,30 +79,6 @@ out.println(headerMenu);
 	</table>
 	</form>
 </div>
-
-<div id='validate' style='padding: 5px; font-size: 11px;'>
-<%
-	try {
-		if(request.getParameter("submit").equals("Submit")) {
-			user.setEmail(request.getParameter("email"));
-			boolean success=user.forgotPassword();
-			if(success) {
-				out.println("<div class=''>You have succesfully changed your password." + request.getParameter("email") + "<br/><a href='Login.jsp'>Click here</a> to login and start using your account.</div>");
-			} else {
-				out.println("<div class='error'>Unable to register an account.</div>");	
-			}
-		}
-	} catch (Exception e) {
-		try {
-			if(e.getMessage().startsWith("Duplicate")) {
-				out.println("<div class='error'>Error - an account with the email address provided already exists.</div>");
-			}
-		} catch(Exception e2) {
-			
-		}		
-	}
-%>
-
 </f:view>
 </body>
 </html>

@@ -79,26 +79,14 @@ public class User {
 
 	/** Get current user using session */
 	public static User getUser() {
-		
-		System.out.print("Getting user information....");
-		
 		try {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		User user =(User) fc.getExternalContext().getSessionMap().get("user");
-		
-		
-		System.out.print("done..... user" + user.toString());
-		return user;
-		
-		
+			FacesContext fc = FacesContext.getCurrentInstance();
+			User user = (User) fc.getExternalContext().getSessionMap().get("user");
+			return user;
 		}
-		catch (NullPointerException e)
-		{
-			System.out.println("I can't find a user!");
-			return null;
+		catch (NullPointerException e) {
+			return new User();
 		}
-		
-	
 	}
 
 	/** Set accessId of user */
@@ -186,6 +174,7 @@ public class User {
 		      "<li><a href='#menu'>Skip to Navigation</a></li>" +
 		    "</ul>" +
 		    "<h1><a href='http://wayne.edu/'><img src='//wayne.edu/global/images/wsu-wayne-state-university.gif' alt='Wayne State University' width='344' height='33' /></a></h1>" +
+		    "" + 
 		    "<h2><a href='http://wayne.edu/aimhigher/'><img src='//wayne.edu/global/images/wsu-aim-higher.gif' alt='Aim Higher' width='85' height='13' /></a></h2>" +
 		    "<div id='tab'>" +
 		      "<ul>" +
@@ -198,7 +187,10 @@ public class User {
 		      "</ul>" +
 		    "</div>" +
 		  "</div>" +
+		 "<div id='title'>Computer Science Department Scheduler</div>" +   
 		"</div>";
+		
+		//header += "<div id='title' alt='WSU Computer Science Scheduler'><div class='inner'>WSU Computer Science Scheduler</div></div>";
 		/*
 		header += "" +
 		"<div id='wsu-footer' style='position: absolute; bottom: 0px; width: 100%;'>" +
@@ -225,7 +217,7 @@ public class User {
 				menu += "<a title ='Update your personal information (ie. phone, location, number of cancels allowed, number of no show allowed).' href='PersonalInfo.jsp'>Update Personal Information</a>";
 				menu += "<a title ='Update reasons available for students to select and descriptions/feedback for each reason.' href='UpdateReasons.jsp'>Update Reasons</a>";
 				menu += "<hr/>";
-				menu += "<a href='#' onclick='window.open(\"../img/advisorHelp.png\", \"\", \"location=0,menubar=0\");'>Help</a>";
+				menu += "<a href='#' onclick='window.open(\"Help.pdf\", \"\", \"location=0,menubar=0\");'>Help</a>";
 				menu += "<a href='../Login.jsp?logout=true'>Logout</a>";
 			} else if(role.equals("student")){
 				menu += "<span>Welcome, " + getFirstName() + " " + getLastName() +"</span>";
@@ -234,7 +226,7 @@ public class User {
 				menu += "<a title='View all your appointments.' href='Appointments.jsp'>View Your Appointments</a>";
 				menu += "<a title='Schedule an appointment.' href='ScheduleAppoinment.jsp'>Schedule an Appointment</a>";	
 				menu += "<hr/>";
-				menu += "<a href='#' onclick='window.open(\"../img/studentHelp.png\", \"\", \"location=0,menubar=0\");'>Help</a>";
+				//menu += "<a href='#' onclick='window.open(\"Help.pdf\", \"\", \"location=0,menubar=0\");'>Help</a>";
 				menu += "<a href='../Login.jsp?logout=true'>Logout</a>";
 			}
 			
@@ -254,6 +246,7 @@ public class User {
 		// Check for valid access ID
 		if(accessId.isEmpty() || password.isEmpty()) {
 			displayError = true;
+			
 			if(accessId.isEmpty() && password.isEmpty()) {
 				setError("Please input an Access ID and Password.");
 			} else if(accessId.isEmpty()) {
@@ -261,9 +254,9 @@ public class User {
 			} else if(password.isEmpty()) {
 				setError("Please input a Password.");
 			} 
-			System.out.println("Error.");
+			
 			return "Error";
-			}
+		}
 
 
 
@@ -271,58 +264,35 @@ public class User {
 	
 		int index = accessId.indexOf("@");
 
-		if (index>0 && accessId.substring(index+1).compareToIgnoreCase("wayne.edu")!=0)
-			{
+		if (index > 0 && accessId.substring(index + 1).compareToIgnoreCase("wayne.edu") != 0) {
+			if (NonWSULogin()) {
+				if (changed.equals("1")){
+					setEmail(accessId);
+					setError("Change Password");
+					setUser();
+					
+					return "Change Password";
 				
-					 System.out.println("NonWSU");
-					if (NonWSULogin())
-					 {
-						 
-						 System.out.println("Student");
-						 
-					
-						 	if (changed.charAt(0)=='1')
-						 	{
-						 		setEmail(accessId);
-						 		setUser();
-						 		return "Change Password";
-							
-						 	}
-						 
-						 	else 
-							 {
-							 	return "Student Authorized";
-							 }
-					 }
-			}
-		else 
-			{
-					
-				accessId= accessId.substring(0, 6);
-					
-					if (WSULogin())
-					{
-						if (isAdvisor())
-						{
-							System.out.println("Advisor");
-							return "Advisor Authorized";
-						}
-						
-						else // Must be student
-						{
-							System.out.println("Student");
-							return "Student Authorized";
-						}
-					}
-					
-					setError("Invalid AccessId and/or Password");
-					return "Error";
-			}
-		
-		System.out.println("Error.");
-		return "Error";
-					
+			 	} else  {
+				 	return "Student Authorized";
 				}
+			}
+		} else {
+						
+			accessId = accessId.substring(0, 6);
+			if (WSULogin()) {
+				if (isAdvisor()) {
+					return "Advisor Authorized";
+				} else {
+					return "Student Authorized";
+				}
+			}
+			
+			setError("Invalid AccessId and/or Password");
+			return "Error";
+		}
+		return "Error";			
+	}
 
 	
 	/** Return true if user in is Advisor Table */
@@ -528,110 +498,52 @@ public class User {
 					} // End WSU login
 	
 	/** Returns true if login for NON-WSU student is successful, false otherwise **/
-	private boolean NonWSULogin() throws NoSuchAlgorithmException, UnsupportedEncodingException, SQLException, ClassNotFoundException
-	{
+	private boolean NonWSULogin() throws NoSuchAlgorithmException, UnsupportedEncodingException, SQLException, ClassNotFoundException {
 
-		System.out.println("Your access ID... " + accessId);
-		String sql = "SELECT * FROM STUDENT WHERE EMAIL= '" + accessId + "'";
+		String sql = "SELECT * FROM STUDENT WHERE EMAIL = '" + accessId + "'";
+		Database.connect();
 				
-				System.out.println("Connecting to Database");
-		
-				Database.connect();
-				
-				System.out.println("Connected");
-				
-				System.out.println(sql);
-				
-				ResultSet rs = Database.fetch(sql);
-				
-		System.out.println("Successful...connection");		
-				
-				
-				while (rs.next())
-				{
-				
-					String encryptpassword = rs.getString("PASSWORD");
-					
-					
-					String comparepassword = Password.MD5(password);
-					
-					
-					System.out.println("Password: " + encryptpassword);
-					
-					
-					changed = rs.getString("CHANGEPASSWORD");
-					System.out.println("Changed... "+ changed) ;
-					
-					
-					if (comparepassword.equals(encryptpassword))
-						
-				
-				{
-									
-					// Grab user information from database
-									
-					try {
-						email = rs.getString("EMAIL");
-					} catch (SQLException e1) {
-						
-						System.out.println("Canot retrieve email");
-						return false;
-					}
-					try {
-						firstName =rs.getString("FIRST_NAME");
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						System.out.print("Cannot retrieve user first name");
-						return false;
-					}
-					try {
-						lastName =rs.getString("LAST_NAME");
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						System.out.print("Cannot retrieve user last name");
-						return false;
-					}
-					setUser();	
-					return true;
-				}
-				} // End while
-				setError("Invalid Access ID or password");
-				return false;
-				
-			}
+		ResultSet rs = Database.fetch(sql);
+
+		while (rs.next()){
+			String encryptpassword = rs.getString("PASSWORD");
+			String comparepassword = Password.MD5(password);
+			changed = rs.getString("CHANGEPASSWORD");
+			System.out.println("Changed... "+ changed) ;
 			
-	/** Returns user attendance **/
-	public int getAttendance(String email) throws ClassNotFoundException, SQLException
-	
-	{
+			
+			if (comparepassword.equals(encryptpassword)){
+								
+				// Grab user information from database		
+				try {
+					email = rs.getString("EMAIL");
+				} catch (SQLException e1) {
+					return false;
+				}
+				try {
+					firstName = rs.getString("FIRST_NAME");
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					return false;
+				}
+				try {
+					lastName = rs.getString("LAST_NAME");
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					return false;
+				}
+				setUser();	
+				return true;
+			} else if(changed.equals("1")) {
+				setError("Change Password");
+				return false;
+			}
+		} // End while
 		
-		String sql = "SELECT COUNT(*) AS count  FROM APPOINTMENT WHERE STUDENT_EMAIL= '" +email + "' AND ATTENDANCE = 0";
-		Database.connect();
-		ResultSet rs= Database.fetch(sql);
-		
-		
-		rs.next();
-		int  attendance = rs.getInt("count");
-		rs.close();
-		
-		return attendance;
-		
+		setError("Invalid Email Adress and/or password");
+		return false;		
 	}
-	
-	/** Retrieves how many times student has cancelled an appointment */
-	public int getCancellation(String email) throws ClassNotFoundException, SQLException 
-	{
-		String sql = "SELECT COUNT(*) AS count FROM APPOINTMENT WHERE STUDENT_EMAIL= '" +email + "' AND CANCELLED = 1 ";
-		Database.connect();
-		ResultSet rs= Database.fetch(sql);
-		
-		rs.next();
-		int  cancelled = rs.getInt("count");
-		rs.close();
-		
-		return cancelled;
-	}
-
+			
 	
 	/** Reset user password **/
 	public boolean forgotPassword()
@@ -647,11 +559,12 @@ public class User {
 	}
 	
 	
-	public boolean changePassword()
+	public boolean changePassword(String password)
 	{
 		System.out.println("Changing password...");
 		if (Password.change(email, password))
 		{
+			setPassword(password);
 			System.out.println("Successfully changed.");
 			return true;
 		}

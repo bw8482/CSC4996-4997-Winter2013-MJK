@@ -52,6 +52,7 @@
 		<navigation-case>
 			<from-outcome>Change Password</from-outcome>
 			<to-view-id>/ChangePassword.jsp</to-view-id>
+			<redirect />
 		</navigation-case>
 	</navigation-rule>
 

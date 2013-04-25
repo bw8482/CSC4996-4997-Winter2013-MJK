@@ -53,7 +53,10 @@ public class Student extends User {
 				sql += " PHONE,";
 				sql += " APPT_ID,";
 				sql += " CANCELLED,";
-				sql += " CANCEL_WINDOW";
+				sql += " CANCEL_WINDOW,";
+				sql += "CASE WHEN STR_TO_DATE(CONCAT(DATE_FORMAT(APPT_DATE, '%m/%d/%Y')   , ' ', APPT_TIME), '%m/%d/%Y %H:%i:%s') >";
+						sql += "DATE_ADD(SYSDATE(), INTERVAL CANCEL_WINDOW HOUR)";
+								sql += "THEN 'TRUE' ELSE 'FALSE' END AS CANCEL_ALLOWED";
 			sql += " FROM APPOINTMENT A ";
 			sql += " LEFT JOIN REASON R ON R.REASON_ID = A.REASON";
 			sql += " LEFT JOIN ADVISOR AD ON AD.ACCESS_ID = A.ADVISOR_ACCESS_ID";
@@ -85,7 +88,12 @@ public class Student extends User {
 				tbl += ("<td style='text-align: center;'>");
 				tbl += ("<form>");
 				tbl += ("<input type='hidden' name='appointment' value='" + rs.getString("APPT_ID") + "'>");
-				tbl += ("<input type='submit' name='submit' value='Cancel'/>");
+				
+				String disabled = "";
+				if(rs.getString("CANCEL_ALLOWED").equals("FALSE")){
+					disabled = "disabled='disabled'";
+				}
+				tbl += ("<input type='submit' name='submit' " + disabled + " value='Cancel'/>");
 				tbl += ("</form>");
 				tbl += ("</td>");
 			}
@@ -99,12 +107,13 @@ public class Student extends User {
 		return tbl;
 	}
 
-	public static boolean scheduleAppointment(String email, String advisor, String date, String time, String reason, String standing, String major, String firstTime) throws ClassNotFoundException, SQLException{
+	public static boolean scheduleAppointment(String email, String advisor, String date, String time, String reason, String standing, String major, String firstTime) throws ClassNotFoundException, SQLException, ParseException{
 		Database.connect();
 		
 		String sql = "";
-		sql  = "INSERT INTO APPOINTMENT (STUDENT_EMAIL, ADVISOR_ACCESS_ID, APPT_DATE, APPT_TIME, REASON, CURRENT_STANDING, MAJOR, FIRST_APPT)";
-		sql += "VALUES('" + email +"', '" + advisor + "', '" + date + "', '" + time + "', " + reason + ", " + standing + ", " + major + ", " + firstTime + ")";
+		sql  = "INSERT INTO APPOINTMENT (STUDENT_EMAIL, ADVISOR_ACCESS_ID, APPT_DATE, APPT_TIME, REASON, CURRENT_STANDING, MAJOR)";
+		sql += "VALUES('" + email +"', '" + advisor + "', '" + FormatterFactory.dateFormat2(date) + "', '" + time + "', " + reason + ", " + standing + ", " + major + ")";
+		
 		System.out.println(sql);
 		if(Database.execute(sql)){
 			return true;
@@ -116,14 +125,12 @@ public class Student extends User {
 		Database.connect();
 		
 		String sql = "";
-		sql  = "UPDATE APPOINTMENT SET CANCELLED = 1 WHERE APPT_ID = " + apptId;
+		sql  = "UPDATE APPOINTMENT SET CANCELLED = 1, CANCELLED_BY_STUDENT = 1 WHERE APPT_ID = " + apptId;
 		System.out.println(sql);
 		if(Database.execute(sql)){
-			System.out.println("Success");
 			return true;
 		}
-		
-		System.out.println("false");
+	
 		return false;
 		
 	}
@@ -137,15 +144,12 @@ public class Student extends User {
 			String sql = "";
 			sql  = "INSERT INTO STUDENT (EMAIL, FIRST_NAME, LAST_NAME, PASSWORD, CHANGEPASSWORD)";
 			sql += "VALUES('" + email.replace("'", "''") + "', '" + firstName.replace("'", "''")  + "', '" + lastName.replace("'", "''")  + "', '" + encryptedPassword  + "',"+ false + ")";
-					
-			System.out.println(sql);
-		 
+
 			if(Database.execute(sql)){
 				return true;
 			}
 			
 		 } catch (NoSuchAlgorithmException e) {
-			System.out.println("Can't find the algorithm");
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
@@ -156,44 +160,6 @@ public class Student extends User {
 		return false;
 	}
 
-/* Retrieves how many times user has not attended an appointment
- * @author Jacqueline D. Brown, aw4025
- * @param email = USer's email address
- * @return An integer representing the number of times a student has not attended an appoinment.
- * 
- * 
- */
-	public int getAttendance(String email) throws ClassNotFoundException, SQLException
-	
-	{
-		
-		String sql = "SELECT COUNT(*) AS count  FROM APPOINTMENT WHERE STUDENT_EMAIL= '" +super.getEmail() + "' AND ATTENDANCE = 0";
-		Database.connect();
-		ResultSet rs= Database.fetch(sql);
-		
-		
-		rs.next();
-		int  attendance = rs.getInt("count");
-		rs.close();
-		
-		return attendance;
-		
-	}
-	
-	/*Retrieves how many times user has cancelled an appointment */
-	public int getCancellation(String email) throws ClassNotFoundException, SQLException 
-	{
-		String sql = "SELECT COUNT(*) AS count FROM APPOINTMENT WHERE STUDENT_EMAIL= '" + super.getEmail() + "' AND CANCELLED = 1 ";
-		Database.connect();
-		ResultSet rs= Database.fetch(sql);
-		
-		rs.next();
-		int  cancelled = rs.getInt("count");
-		rs.close();
-		
-		return cancelled;
-	}
-
 	/** Add student account 
 	 * @return 
 	 * @throws SQLException 
@@ -201,25 +167,18 @@ public class Student extends User {
 	public static boolean add(String accessId, String email, String firstName,
 			String lastName) throws ClassNotFoundException, SQLException {
 			
-			Database.connect();
+		Database.connect();
 		
-		 String sql = "";
+		String sql = "";
 		sql  = "INSERT INTO STUDENT (ACCESS_ID, EMAIL, FIRST_NAME, LAST_NAME)";
 		sql += "VALUES('" + accessId.replace("'", "''") + "', '" + email.replace("'","'") + "','"+ firstName.replace("'", "''")  + "', '" + lastName.replace("'", "''")  + "')";
-				
-		System.out.println(sql);
- 
-		
-		if(Database.execute(sql)){
-			
+		if(Database.execute(sql)){	
 			return true;
 		}
-		
-		
 		return false;
 	}
 		
-	}
+}
 	
 
 

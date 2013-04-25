@@ -11,51 +11,11 @@
 
 <LINK href="//wayne.edu/global/css/global-v2.css" rel="stylesheet" type="text/css" media="all" />
 <LINK href="css/Login.css" rel="stylesheet" type="text/css">
+
 <script type="text/javascript" src="../js/general.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<script type='text/javascript'>
-function validateRegistration() {
-var div = document.getElementById("validate");
-var error = "";
-var email = document.getElementById("email").value;
 
-if(email == "") {
-error += "Enter an Email address.<br/>"
-}
-
-var firstName = document.getElementById("firstName").value;
-var lastName = document.getElementById("lastName").value;
-
-if(firstName == "") {
-error += "Enter your First Name.<br/>"
-}
-if(lastName == "") {
-error += "Enter your Last Name.<br/>"
-}
-
-var password = document.getElementById("password").value;
-var confirmPassword = document.getElementById("confirmPassword").value;
-
-
-if(password == "") {
-error += "Enter a password.<br/>"
-}
-
-
-if(password != confirmPassword) {
-error += "Your passwords do not match.<br/>"
-}
-
-if(error != "") {
-error = "<div class='error' style=''>" + error + "</div>";
-div.innerHTML = error;
-return false;
-}
-
-return true;
-}
-</script>
 <title>CSC Appointment Scheduler</title>
 </head>
 <body>
@@ -64,22 +24,21 @@ return true;
 	out.println(User.getUser().buildHeaderMenu(""));
 %>
 
-<div id='validate' style='padding: 5px; font-size: 11px;'>
+<div id='validate' style='padding: 8px; padding-bottom: 2px; font-size: 11px; color: red;'>
 <%
-
 	try {
 		if(request.getParameter("submit").equals("Register")) {
 			boolean success = Student.register(request.getParameter("email"), request.getParameter("firstName"), request.getParameter("lastName"), request.getParameter("password"));
 			if(success) {
-				out.println("<div class=''>You have succesfully registered an account for the WSU CSC Appointment Scheduler using email address " + request.getParameter("email") + "<br/><a href='Login.jsp'>Click here</a> to login and start using your account.</div>");
+				out.println("<div class='success' style='width: 400px;'>You have succesfully registered an account for the WSU CSC Appointment Scheduler using email address " + request.getParameter("email") + "<br/><a href='Login.jsp'>Click here</a> to login and start using your account.</div>");
 			} else {
-				out.println("<div class='error'>Unable to register an account.</div>");	
+				out.println("<div class='error' style='width: 300px;'>There seems to be an error - we were unable to register an account.</div>");	
 			}
 		}
 	} catch (Exception e) {
 		try {
 			if(e.getMessage().startsWith("Duplicate")) {
-				out.println("<div class='error'>Error - an account with the email address provided already exists.</div>");
+				out.println("<div class='error' style='width: 300px;'>Error - an account with the email address provided already exists.</div>");
 			}
 		} catch(Exception e2) {
 			
@@ -145,7 +104,7 @@ return true;
 		</tr>
 		<tr>
 			<td colspan='2' >
-				<input type='submit' name='submit' value='Register'/> 			
+				<input type='submit' name='submit' value='Register' style='margin-left: 0px;'/> 			
 				<input type='submit' name='submit' value='Cancel' onclick='window.location="Login.jsp"; return false;'/>
 			</td>
 		</tr>

@@ -29,7 +29,7 @@ function getAvailableTimes() {
 	var date = document.getElementById("date").value;
 	var advisor = document.getElementById("advisor").value;
 	
-	if(date == "" || advisor == "") {
+	if(date == "" || advisor == "" || advisor == "--" || date == "--") {
 		return;
 	}
 	
@@ -61,34 +61,40 @@ function validateRegistration() {
 	var email = document.getElementById("email").value;
 	
 	if(email == "") {
-		error += "Enter an Email address.<br/>";
+		error += "Enter an Email address<br/>";
+	} else if(email.indexOf("@") == -1){
+		error += "Enter a valid Email Address<br/>";
 	}
 	
 	var firstName = document.getElementById("firstName").value;
 	var lastName = document.getElementById("lastName").value;
 	
 	if(firstName == "") {
-		error += "Enter your First Name.<br/>";
+		error += "Enter your First Name<br/>";
 	}
 	if(lastName == "") {
-		error += "Enter your Last Name.<br/>";
+		error += "Enter your Last Name<br/>";
 	}
 	
 	var password = document.getElementById("password").value;
 	var confirmPassword = document.getElementById("confirmPassword").value;
 	
-
 	if(password == "") {
-		error += "Enter a password.<br/>";
+		error += "Enter a Password<br/>";
 	}
-	
 
 	if(password != confirmPassword) {
-		error += "Your passwords do not match.<br/>";
+		error += "Your passwords do not match<br/>";
+	}
+	
+	var index = email.indexOf("wayne.edu");
+	if(index != -1) {
+		error = "You can use your Access ID or WSU email (AccessID@wayne.edu) to login and use this scheduling application<br/>";
+		error += "<a href='Login.jsp'>Click here</a> to go back to the login page";
 	}
 	
 	if(error != "") {
-		error = "<div class='error' style=''>" + error + "</div>";
+		error = "<div style=''>" + error + "</div>";
 		div.innerHTML = error;
 		return false;
 	}
@@ -111,9 +117,11 @@ function showCancelled() {
 function hideCancelled() {
 	var table = document.getElementById("tbl");
 	for (var i = 1, row; row = table.rows[i]; i++) {
+
 	   //iterate through rows
 	   var contents = row.cells[8].childNodes[0].childNodes[0].childNodes[0];
-	  
+		alert(contents);
+		
 	   if(contents.wholeText.indexOf("Cancelled") != -1) {
 		   row.style.display = 'none';
 	   }
@@ -150,6 +158,7 @@ function validateAppt() {
 	if(date == "") {
 		error += "Enter a date.<br/>";
 	}
+	
 	if(time == "" || time == "--") {
 		error += "Select a time.<br/>";
 	}
@@ -167,6 +176,27 @@ function validateAppt() {
 	}
 	if(standing == "" || standing == "--") {
 		error += "Select a class standing.<br/>";
+	}
+	
+	var today = new Date();
+	var mm = today.getMonth() + 1;
+	var dd = today.getDate();
+	var yyyy = today.getFullYear();
+	
+	var todayStr = mm + "/" + dd + "/" + yyyy;
+	
+	if(mm < 10) {
+		mm = "0" + mm;
+	}
+	
+	if(dd < 10) {
+		dd = "0" + dd;
+	}
+	
+	var todayStr2 = mm + "/" + dd + "/" + yyyy;
+
+	if(date == todayStr || date == todayStr2) {
+		error = "You cannot schedule an appointment for today. You must schedule at least 1 day prior to the appointment.";
 	}
 	
 	if(error != "") {
@@ -194,6 +224,49 @@ window.onload = function() {
 	}
 };
 
+
+function validateForgotPassword() {
+	
+	var div = document.getElementById("validate");
+	
+	var error = "";
+	var email = document.getElementById("email").value;
+	
+	if(email == "") {
+		error += "Enter an Email address.<br/>"
+	}
+	if(error != "") {
+		error = "<div class='' style=''>" + error + "</div>";
+		div.innerHTML = error;
+		return false;
+	}
+	
+	return true;
+}
+
+function validateChangePassword() {
+	var div = document.getElementById("validate");
+	var error = "";
+	
+	var password = document.getElementById("password").value;
+	var confirmPassword = document.getElementById("confirmPassword").value;
+	
+	if(password == "") {
+		error += "Enter a Password<br/>";
+	}
+
+	if(password != confirmPassword) {
+		error += "Your passwords do not match<br/>";
+	}
+	
+	if(error != "") {
+		error = "<div style=''>" + error + "</div>";
+		div.innerHTML = error;
+		return false;
+	}
+	
+	return true;
+}
 
 
 

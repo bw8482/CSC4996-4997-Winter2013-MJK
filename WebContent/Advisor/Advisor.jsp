@@ -14,13 +14,10 @@
 </head>
 <body>
 <f:view>
-	<%
-		String accessId = User.getUser().getAccessId();
-		out.println(User.getUser().buildHeaderMenu("advisor"));
-	%>
-	<div id='content'>
-		
-	</div>
+<%
+	String accessId = User.getUser().getAccessId();
+	out.println(User.getUser().buildHeaderMenu("advisor"));
+%>
 </f:view>
 </body>
 </html>

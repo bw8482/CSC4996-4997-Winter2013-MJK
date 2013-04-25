@@ -13,7 +13,7 @@ import javax.naming.NamingException;
 
 public class Advisor {
 	
-	public static int timesArrayMilitary[] = {8, 9, 10, 11, 12, 13, 14, 15};
+	public static String timesArrayMilitary[] = {"08", "09", "10", "11", "12", "13", "14", "15"};
 	public static int timesArray[] = {8, 9, 10, 11, 12, 1, 2, 3};
 	
 	public static String getAppointments(String date, String accessId) throws ClassNotFoundException, SQLException, ParseException {
@@ -81,7 +81,7 @@ public class Advisor {
 		sql += " APPT_DATE,";
 		sql += " APPT_TIME,";
 		sql += " MAJOR_TEXT,";
-		sql += " FIRST_NAME,";
+		//sql += " FIRST_NAME,";
 		sql += " LAST_NAME,";
 		sql += " CURRENT_STANDING,";
 		sql += " FIRST_APPT,";
@@ -213,7 +213,7 @@ public class Advisor {
 			select += "<option value='0' " + selected + ">Not Available</option>";	
 			select += "</select>";
 			
-			form += ("<td style='width: 50px; border: none; padding-top: 5px;'>" + timesArray[x] + ":00 " + ampm + "</td><td style='padding-top: 5px; border: none; width: 150px;'>" + select + "</td>");
+			form += ("<td style='width: 50px; border: none; padding-top: 5px;'>" + timesArray[x] + ":00 " + ampm + "</td><td style='padding-top: 5px; border: none; width: 150px;'><div class='styled-select'>" + select + "</div></td>");
 			
 			timestamp = timesArrayMilitary[x + max]  + ":00:00";
 			selected  = "";
@@ -228,7 +228,7 @@ public class Advisor {
 			select += "<option value='0' " + selected + ">Not Available</option>";	
 			select += "</select>";
 			
-			form += ("<td style='width: 50px; border: none; padding-top: 5px; padding-left: 5px;'>" + timesArray[x + (max)] + ":00 PM</td><td style='padding-top: 5px; border: none; width: 150px;'>" + select + "</td>");
+			form += ("<td style='width: 50px; border: none; padding-top: 5px; padding-left: 5px;'>" + timesArray[x + (max)] + ":00 PM</td><td style='padding-top: 5px; border: none; width: 150px;'><div class='styled-select'>" + select + "</div></td>");
 			form += ("</tr>");
 			
 			form += ("<tr style='background-color: transparent;'>");
@@ -246,7 +246,7 @@ public class Advisor {
 			select += "<option value='0' " + selected + ">Not Available</option>";	
 			select += "</select>";
 			
-			form += ("<td style='width: 50px; border: none; padding-top: 5px;'>" + timesArray[x] + ":30 " + ampm + "</td><td style='padding-top: 5px; border: none; width: 150px;'>" + select + "</td>");
+			form += ("<td style='width: 50px; border: none; padding-top: 5px;'>" + timesArray[x] + ":30 " + ampm + "</td><td style='padding-top: 5px; border: none; width: 150px;'><div class='styled-select'>" + select + "</div></td>");
 			
 			timestamp = timesArrayMilitary[x + max]  + ":30:00";
 			selected  = "";
@@ -261,7 +261,7 @@ public class Advisor {
 			select += "<option value='0' " + selected + ">Not Available</option>";	
 			select += "</select>";
 			
-			form += ("<td style='width: 50px; border: none; padding-top: 5px; padding-left: 5px;'>" + timesArray[x + (max)] + ":30 PM</td><td style='padding-top: 5px; border: none; width: 150px;'>" + select + "</td>");
+			form += ("<td style='width: 50px; border: none; padding-top: 5px; padding-left: 5px;'>" + timesArray[x + (max)] + ":30 PM</td><td style='padding-top: 5px; border: none; width: 150px;'><div class='styled-select'>" + select + "</div></td>");
 			form += ("</tr>");
 		}
 		

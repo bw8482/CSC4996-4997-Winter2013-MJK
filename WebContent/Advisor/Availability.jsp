@@ -21,7 +21,8 @@
 <body>
 <f:view>
 <%
-	String accessId = User.getUser().getAccessId();
+	//String accessId = User.getUser().getAccessId();
+	String accessId = "ef2558";
 	out.println(User.getUser().buildHeaderMenu("advisor"));
 %>
 <div id='content'>
@@ -41,7 +42,7 @@
 			}
 
 			if((Advisor.updateAvailability(null, availability, accessId))) {
-				out.println("<div class='success'>Successfully updated your availabilty.</div>");
+				out.println("<div class='success' style='margin-left: 0px;'>Successfully updated your availabilty.</div>");
 			} else {
 				out.println("<div class='error'>An error occured while updating your availabilty.</div>");
 			}
