@@ -77,14 +77,12 @@ public class Advisor {
 		sql += " APPT_ID,";
 		sql += " STUDENT_EMAIL,";
 		sql += " REASON_TEXT,";
-		//sql += " COMMENTS,";
 		sql += " APPT_DATE,";
 		sql += " APPT_TIME,";
 		sql += " MAJOR_TEXT,";
-		//sql += " FIRST_NAME,";
+		sql += " FIRST_NAME,";
 		sql += " LAST_NAME,";
 		sql += " CURRENT_STANDING,";
-		sql += " FIRST_APPT,";
 		sql += " CANCELLED,";
 		sql += " ATTENDANCE";
 		sql += " FROM APPOINTMENT A";
