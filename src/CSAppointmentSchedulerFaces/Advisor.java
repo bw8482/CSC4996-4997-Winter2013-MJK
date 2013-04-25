@@ -73,7 +73,8 @@ public class Advisor {
 		//tbl += ("<th style='width: 30px;'><div style='width: 150px;'>Additional Comments</div></th>");
 		
 		
-		String sql = "SELECT";
+		String sql = "";
+		sql  = "SELECT";
 		sql += " APPT_ID,";
 		sql += " STUDENT_EMAIL,";
 		sql += " REASON_TEXT,";
