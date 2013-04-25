@@ -32,7 +32,7 @@
 			user.setEmail(request.getParameter("email"));
 			boolean success=user.forgotPassword();
 			if(success) {
-				out.println("<div class='success' style='width: 500px;'>You have succesfully changed your password for account " + request.getParameter("email") + "<br/>Your new temporary password has been emailedd to you. <a href='Login.jsp'>Click here</a> to login and start using your account.</div>");
+				out.println("<div class='success' style='width: 500px;'>You have succesfully changed your password for account " + request.getParameter("email") + "<br/>Your new temporary password has been emailed to you. <a href='Login.jsp'>Click here</a> to login and start using your account.</div>");
 			} else {
 				out.println("<div class='error'>There seems to be an error - we were unable to change your password.</div>");	
 			}
