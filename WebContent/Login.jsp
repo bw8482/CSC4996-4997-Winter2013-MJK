@@ -63,7 +63,13 @@
 %>
 <div id='loginBox'>	
 	<h:form>
+		
 		<table>
+			<tr>
+				<td colspan='2' style='font-weight: bold; text-align: center;'>
+					Computer Science Deparment Scheduler
+				</td>
+			</tr>
 			<tr>
 				<td colspan='2'>
 					<h:outputLabel style='font-weight: bold; font-size: 12px; color: red;' rendered="#{user.displayError == true}" value="#{user.error}"></h:outputLabel>

@@ -51,6 +51,12 @@
 <div id='registerBox'>
 	<form method='POST' onsubmit='return validateForgotPassword();'>
 	<table>
+	
+		<tr>
+		<td colspan='2' style='font-weight: bold; text-align: left;'>
+				Computer Science Department Scheduler
+		</td>
+		</tr>
 		<tr>
 			<td colspan='2' style='font-weight: bold; border-bottom: 1px solid #000; font-size: 11px;'>Forgot your Password?</td>
 		</tr>
