@@ -432,9 +432,8 @@ public class Advisor {
 								FormatterFactory.dateFormat(rs.getString("APPT_DATE")) + " at " + 
 								FormatterFactory.timeFormat(rs.getString("APPT_TIME")) + " has been cancelled.";
 						String to = rs.getString("EMAIL");
-						to = "ef2558@wayne.edu";
-			
-						if(sendEmailGmail(to, message)) {
+
+						if(EmailTemplate.sendEmail(to, "Appointment Cancelled", message)) {
 							
 						}
 					} else {
@@ -444,55 +443,6 @@ public class Advisor {
 				} 
 			}
 		}
-		return true;
-	}
-	
-	
-	public static boolean sendEmailGmail(String to, String messageStr) {
-		System.out.println("Got here");
-		 Properties props = new Properties();  
-	        props.put("mail.smtp.host", "smtp.gmail.com");  
-	        props.put("mail.smtp.socketFactory.port", "465");  
-	        props.put("mail.smtp.socketFactory.class",  
-	                "javax.net.ssl.SSLSocketFactory");  
-	        props.put("mail.smtp.auth", "true");  
-	        props.put("mail.smtp.port", "465");  
-	        System.out.println("Got here 2");
-	        Session session = null;
-	        try {
-	        	session = Session.getDefaultInstance(props,  
-	    	            new javax.mail.Authenticator() {  
-	                protected PasswordAuthentication getPasswordAuthentication() {  
-	                    return new PasswordAuthentication("cscappointmentscheduler","cscappointmentsadmin");  
-	                }  
-	            });  
-	        
-	        } catch(Exception ex){
-	        	System.out.println("Error " + ex.getMessage());
-	        }
-	        System.out.println("Got here 3");
-	        try {  
-	
-	            Message message = new MimeMessage(session);  
-	            message.setFrom(new InternetAddress("cscappointmentscheduler@gmail.com"));  
-	            System.out.println("Got here 4");
-	            message.setRecipients(Message.RecipientType.TO,  
-	                    InternetAddress.parse(to));  
-	            message.setSubject("CSC Appointment Scheduler");  
-	            message.setText(messageStr);  
-	            System.out.println("Got here 5");
-	            System.out.println(messageStr);
-				System.out.println(to);
-				
-	            Transport.send(message);  
-	   
-	            System.out.println("Email Sent!");  
-	   
-	        } catch (MessagingException e) {  
-	        	System.out.println("Error");
-	            throw new RuntimeException(e);  
-	        } 
-	      
 		return true;
 	}
 	
@@ -536,9 +486,8 @@ public class Advisor {
 								FormatterFactory.dateFormat(rs.getString("APPT_DATE")) + " at " + 
 								FormatterFactory.timeFormat(rs.getString("APPT_TIME")) + ".";
 						String to = rs.getString("EMAIL");
-						to = "ef2558@wayne.edu";
-	
-						if(sendEmailGmail(to, message)) {
+
+						if(EmailTemplate.sendEmail(to, "Appointment Reminder", message)) {
 							totalSent++;
 						}
 					} else {

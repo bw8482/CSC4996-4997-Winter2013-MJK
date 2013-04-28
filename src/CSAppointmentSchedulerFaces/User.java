@@ -226,6 +226,7 @@ public class User {
 				menu += "<hr/>";
 				menu += "<a title='View all your appointments.' href='Appointments.jsp'>View Your Appointments</a>";
 				menu += "<a title='Schedule an appointment.' href='ScheduleAppoinment.jsp'>Schedule an Appointment</a>";	
+				menu += "<a title='Overrides Help' href='Overrides.jsp'>Overrides</a>";
 				menu += "<hr/>";
 				//menu += "<a href='#' onclick='window.open(\"Help.pdf\", \"\", \"location=0,menubar=0\");'>Help</a>";
 				menu += "<a href='../Login.jsp?logout=true'>Logout</a>";
