@@ -44,7 +44,7 @@
 				sql += "(SELECT CANCEL_ALLOWED, NO_SHOW_ALLOWED FROM ADVISOR WHERE ACCESS_ID = '" + advisor + "') NO_SHOW";
 
 			ResultSet rs = Database.fetch(sql);
-			if(rs.next() && (rs.getInt("CANCELLED_CT") == rs.getInt("CANCEL_ALLOWED") || rs.getInt("NO_SHOW_CT") == rs.getInt("NO_SHOW_ALLOWED"))) {
+			if(rs.next() && (rs.getInt("CANCELLED_CT") >= rs.getInt("CANCEL_ALLOWED") || rs.getInt("NO_SHOW_CT") >= rs.getInt("NO_SHOW_ALLOWED"))) {
 				out.println("<div class='error' style='width: 500px;'>We were unable to schedule an appointment. You have exceeded the allowed amount of cancellations or no shows for appointments per this advisor's policy. Please call the advisor to schedule an appointment.</div>");
 			} else if(request.getParameter("time").equals("null")){
 				out.println("<div class='error' style='width: 500px;'>We were unable to schedule an appointment. An invalid time was found.</div>");
