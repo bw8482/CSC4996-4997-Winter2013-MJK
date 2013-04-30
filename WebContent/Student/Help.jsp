@@ -11,7 +11,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>CSC Appointment Scheduler</title>
 </head>
-<body>
+<body>  
 <f:view>
 <%
 	User user;

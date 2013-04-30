@@ -187,6 +187,7 @@ public class User {
 		      "</ul>" +
 		    "</div>" +
 		  "</div>" +
+		 "<div id='title'>Computer Science Department Scheduler</div>" +   
 		"</div>";
 		
 		//header += "<div id='title' alt='WSU Computer Science Scheduler'><div class='inner'>WSU Computer Science Scheduler</div></div>";
@@ -204,11 +205,8 @@ public class User {
 			menu += "<div class='dividor' style='border-bottom: 1px solid #000; height: 0px;'></div>";
 			menu += "<div id='menu'>";
 			menu += "<div id='menu_inner'>";
-			menu += "<span style='font-weight: bold;'>CS Scheduler</span>";
-			menu += "<span>Welcome, " + getFirstName() + " " + getLastName() +"</span>";
-			menu += "<hr/>";
 			if(role.equals("advisor")) {
-			
+				menu += "<span>Welcome," + getFirstName() + " " + getLastName() +"</span>";
 				menu += "<a href='Advisor.jsp'>Home</a>";
 				menu += "<hr/>";
 				menu += "<a title='Quick look at appointments for today.' href='Appointments.jsp?date=today'>View Today's Appointments</a>";
@@ -222,12 +220,14 @@ public class User {
 				menu += "<a href='#' onclick='window.open(\"Help.pdf\", \"\", \"location=0,menubar=0\");'>Help</a>";
 				menu += "<a href='../Login.jsp?logout=true'>Logout</a>";
 			} else if(role.equals("student")){
+				menu += "<span>Welcome, " + getFirstName() + " " + getLastName() +"</span>";
 				menu += "<a href='Student.jsp'>Home</a>";
 				menu += "<hr/>";
 				menu += "<a title='View all your appointments.' href='Appointments.jsp'>View Your Appointments</a>";
 				menu += "<a title='Schedule an appointment.' href='ScheduleAppoinment.jsp'>Schedule an Appointment</a>";	
+				menu += "<a title='Overrides and Forms.' href='Overrides.jsp'>Overrides and Forms</a>";
 				menu += "<hr/>";
-				//menu += "<a href='#' onclick='window.open(\"Help.pdf\", \"\", \"location=0,menubar=0\");'>Help</a>";
+				menu += "<a href='#' onclick='window.open(\"Help.pdf\", \"\", \"location=0,menubar=0\");'>Help</a>";
 				menu += "<a href='../Login.jsp?logout=true'>Logout</a>";
 			}
 			
@@ -268,6 +268,7 @@ public class User {
 		if (index > 0 && accessId.substring(index + 1).compareToIgnoreCase("wayne.edu") != 0) {
 			if (NonWSULogin()) {
 				if (changed.equals("1")){
+					
 					setEmail(accessId);
 					setError("Change Password");
 					setUser();
