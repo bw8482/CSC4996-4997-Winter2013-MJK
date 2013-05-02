@@ -204,8 +204,8 @@ public class User {
 			menu += "<div class='dividor' style='border-bottom: 1px solid #000; height: 0px;'></div>";
 			menu += "<div id='menu'>";
 			menu += "<div id='menu_inner'>";
-			menu += "<span style='font-weight: bold;'>CS Scheduler</span>";
-			menu += "<span>Welcome, " + getFirstName() + " " + getLastName() +"</span>";
+			menu += "<span style='font-weight: bold;font-size:25px;'>WSU CS Scheduler</span>";
+			menu += "<span style='font-weight: bold;font-style:italic;' >Welcome, " + getFirstName() + " " + getLastName() +"</span>";
 			menu += "<hr/>";
 			if(role.equals("advisor")) {
 			

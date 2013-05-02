@@ -66,7 +66,7 @@
 		
 		<table>
 			<tr>
-				<td colspan='2' style='font-weight: bold; text-align: center; font-size: 12px;'>
+				<td colspan='2' style='font-weight: bold; text-align: center; font-size: 22px;'>
 					Computer Science Department Scheduler
 				</td>
 			</tr>
